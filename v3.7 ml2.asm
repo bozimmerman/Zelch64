@@ -152,7 +152,7 @@ SETIRQ
         RTS
 SETPT
         LDY #$00
-        LOP1 LDA $002B,Y
+LOP1    LDA $002B,Y
         STA $02D1,Y
         INY
         CPY #$0A
@@ -162,7 +162,7 @@ SETP1
         LDA $02DC
         BEQ SETP2
         LDY #$00
-        LOP2 LDA $02D1,Y
+LOP2    LDA $02D1,Y
         STA $002B,Y
         INY
         CPY #$0A
@@ -171,4 +171,3 @@ SETP2
         LDA #$00
         STA $02DC
         RTS
-        READY.
