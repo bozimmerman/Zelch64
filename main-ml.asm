@@ -3,7 +3,7 @@
 * = $C000
         ; .O
         ; .S
-        ; .D \V2.0 ML1
+        ; .D \V2.2 ML1
         JMP GETIT; REM 49152
         JMP SEND; REM 49155
         JMP INPT; REM 49158
@@ -18,6 +18,8 @@
         JMP GETINFO; REM 49185
         JMP TERM; REM 49188
         JMP ESTLOG; REM 49191
+        JMP COUNTFILE; REM 49194
+        JMP BLKSFRE; REM 49197
 REST
         LDA $7A; *********
         STA $02A7
@@ -84,15 +86,15 @@ STSEN
         CMP #$13
         BNE STSEN1
         JMP CLRGON
-STSEN1 
+STSEN1
         JSR $FFD2
 STSEN2
+        LDX #$05
+        JSR $FFC9
         LDA $02A9
         BEQ FIN2
 FIN3
-        LDX #$05
-        JSR $FFC9
-        LDA $FE
+        JSR STAR
         JSR $FFD2
         JMP TWO
 FIN2
@@ -100,7 +102,7 @@ FIN2
         LDA $CF00,X
         STA $FE
         JMP FIN3
-TWO 
+TWO
         LDA $FE
         CMP #$0D
         BEQ THREE
@@ -111,6 +113,14 @@ THREE
         LDA #$0A
         JSR $FFD2
         JMP HALF
+STAR
+        LDA $02C6
+        BEQ GOSTAR
+        LDA #$2A
+        RTS
+GOSTAR
+        LDA $FE
+        RTS
 RTINE
         JSR SAVE
         JSR $FFE4
@@ -133,7 +143,7 @@ SYSTORE
         CMP #$85
         BNE COC
         JSR CHAP
-COC 
+COC
         CMP #$89
         BNE EXOUT
         LDA #$01
@@ -209,7 +219,7 @@ CARON
         CMP #$27
         BNE LOOP
         JMP CREEP
-END 
+END
         LDA #$22
         LDY #$00
         STA ($FB),Y
@@ -265,7 +275,7 @@ NODEL
         CMP #$FF
         BEQ DEL
         JMP LOOP
-DEL 
+DEL
         LDA #$14
         STA $FE
         JSR SEND
@@ -326,10 +336,10 @@ TIMU
         LDA #$41
         STA $CD09
         JMP TIMEOUT
-TIME1 
+TIME1
         LDA #$50
         STA $CD09
-TIMEOUT 
+TIMEOUT
         LDY #$00
         TYA
         STA ($FB),Y
@@ -369,7 +379,7 @@ FILESEND
         LDA #$00
         STA $FD
         STA $FC
-FILES 
+FILES
         LDX #$00
         JSR $FFC6
         JSR RTINE
@@ -383,7 +393,7 @@ PISS
         LDX #$08
         JSR $FFC6
         LDX #$00
-LOPISS 
+LOPISS
         STX $CDFF
         JSR $FFE4
         LDX $CDFF
@@ -391,7 +401,7 @@ LOPISS
         CMP #$8E
         BNE CMPA
         JSR UPPER
-CMPA 
+CMPA
         CMP #$0D
         BEQ CSEND
         CMP #$01
@@ -426,7 +436,7 @@ CSEOU
         BEQ COW
         INX
         JMP CSEOU
-COW 
+COW
         LDA #$0D
         STA $FE
         JSR SEND
@@ -504,6 +514,11 @@ LOAD
         LDY $02CE
         LDX $02CF
         RTS
+SAVEE
+        STA $02CD
+        STY $02CE
+        STX $02CF
+        RTS
 CLEAR
         LDY #$00
         LDA #$00
@@ -517,7 +532,7 @@ PAUSE
         LDA $033E
         BEQ CPN
         RTS
-CPN 
+CPN
         JSR RTINE
         LDA $FE
         BEQ PAUSE
@@ -570,7 +585,7 @@ KOTE
         CMP #$20
         BEQ GOGONE
         JMP BEHE
-CONGO 
+CONGO
         LDX #$00
         JSR $FFC6
         LDA #$0D
@@ -608,7 +623,7 @@ HEADER
         STA $CD03
         LDA #$04
         STA $FB
-HELOOP 
+HELOOP
         JSR $FFE4
         STA $FE
         LDA $90
@@ -620,7 +635,7 @@ HELOOP
         STA ($FB),Y
         INC $FB
         JMP HELOOP
-OUTHE 
+OUTHE
         LDA #$22
         STA ($FB),Y
         INC $FB
@@ -757,7 +772,7 @@ N2TERM
         CMP #$89
         BNE N3TERM
         RTS
-N3TERM 
+N3TERM
         LDA $02A9
         BNE N4TERM
         LDX $FE
@@ -796,7 +811,7 @@ CONTERM
         JMP TERM
 CLRHOM
         LDX #$03
-CLRST 
+CLRST
         JSR $E9FF
         CPX #$19
         BEQ CLRCONT
@@ -854,7 +869,7 @@ WRA1
         CMP #$20
         BNE WRA2
         RTS
-WRA2 
+WRA2
         DEC $FD
         INC $02C2
         LDA $02C2
@@ -866,14 +881,14 @@ WRA3
         CMP #$20
         BNE WRA2
         INC $02C2
-WRA4 
+WRA4
         INY
         CPY $02C2
         BEQ WRA5
         LDA ($FD),Y
         STA $0276,Y
         JMP WRA4
-WRA5 
+WRA5
         LDA $02C2
         STA $C6
         LDA $FD
@@ -884,4 +899,49 @@ LIOP
         JSR SEND
         DEY
         BNE LIOP
+        RTS
+COUNTFILE
+        LDA #$00
+        STA $02C2
+        LDX #$08
+        JSR $FFC6
+        JSR $FFE4
+        JSR $FFE4
+FGLAA
+        JSR $FFE4
+        JSR $FFE4
+        JSR $FFE4
+        JSR $FFE4
+COUNTLP
+        JSR $FFE4
+        LDX $90
+        BNE GOCOUNT
+        CMP #$00
+        BNE COUNTLP
+        INC $02C2
+        JMP FGLAA
+GOCOUNT
+        DEC $02C2
+        DEC $02C2
+        LDX #$00
+        JSR $FFC6
+        RTS
+BLKSFRE
+        LDX #$08
+        JSR $FFC6
+        LDY #$01
+BLKSLOP
+        JSR SAVEE
+        JSR $FFE4
+        LDY $02CE
+        CPY #$23
+        BEQ KEPBLK
+        INY
+        JMP BLKSLOP
+KEPBLK
+        STA $02C3
+        JSR $FFE4
+        STA $02C4
+        LDX #$00
+        JSR $FFC6
         RTS

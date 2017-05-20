@@ -1,9 +1,7 @@
-        
-        
 * = $CB00
         ; .O
         ; .S
-        ; .D V2.0 ML2
+        ; .D V2.2 ML2
         JMP CLOC1
         JMP RELOAD
 CLOC1

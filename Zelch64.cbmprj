@@ -56,10 +56,10 @@
         <FileName>q1.bas</FileName>
         <FileName>v1.bas</FileName>
         <FileName>window.ml.asm</FileName>
-        <FileName>@1.bas</FileName>
+        <FileName>bbs.bas</FileName>
         <FileName>config.bas</FileName>
         <FileName>zelch.bas</FileName>
-        <FileName>@1.bas</FileName>
+        <FileName>bbs.bas</FileName>
         <FileName>config.bas</FileName>
         <FileName>editor.bas</FileName>
         <FileName>zelch.bas</FileName>
@@ -67,17 +67,6 @@
     <DetermineBuildOrder>0</DetermineBuildOrder>
     <PaddingByte>234</PaddingByte>
     <SourceFiles>
-        <SourceFile>
-            <Name>@1.bas</Name>
-            <PrgName />
-            <FileType>1</FileType>
-            <IncludeInBuild>True</IncludeInBuild>
-            <Regions />
-            <Breakpoints />
-            <Bookmarks />
-            <Topmost>False</Topmost>
-            <FileOpen>False</FileOpen>
-        </SourceFile>
         <SourceFile>
             <Name>ascii table.asm</Name>
             <PrgName />
@@ -88,6 +77,17 @@
             <Bookmarks />
             <Topmost>False</Topmost>
             <FileOpen>True</FileOpen>
+        </SourceFile>
+        <SourceFile>
+            <Name>bbs.bas</Name>
+            <PrgName />
+            <FileType>1</FileType>
+            <IncludeInBuild>True</IncludeInBuild>
+            <Regions />
+            <Breakpoints />
+            <Bookmarks />
+            <Topmost>False</Topmost>
+            <FileOpen>False</FileOpen>
         </SourceFile>
         <SourceFile>
             <Name>config.bas</Name>

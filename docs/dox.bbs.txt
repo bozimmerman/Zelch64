@@ -96,6 +96,11 @@ change. Remember to set it back to its
 original value before the person logs   
 off or it will be saved in the persons  
 user record.                            
+    Answering YES to the BURST time     
+question adds 2 hours to the current    
+time to create a new logoff time for    
+the current user. This new time is not  
+updated on your window.                 
                                         
   NOW!                                  
                                         
@@ -136,6 +141,7 @@ All disk dos commands PLUS
 (8-11)(RETURN) change device            
 (at sign):filename- seq file reader     
 $:option- directory                     
+%:option- count files                   
 (at sign)- disk status                  
 e:filename- seq file editor. This       
 should only be used on files with less  
@@ -160,6 +166,8 @@ Delete msg- completely delete a msg
 Response delete- deletes responses of a 
 msg only.                               
 Sigs- up to 50!                         
+A)ll new- read new msgs in all sigs     
+                                        
               T)ransfer                 
                                         
    Upload/Download.. up to 50 UD        
@@ -167,7 +175,9 @@ sections! Filename is guarded against
 error causing characters. Pound signs   
 are only allowed in filename if you     
 have access 7 or higher.                
-                                        
+   Download descriptions are also       
+available and are (up arrow)filename in 
+your directory.                         
                 V)ote                   
    This section is for anonymous        
 voting. The voting section keeps track  
@@ -178,9 +188,7 @@ vote box also resets this feature.
               L)ibrary                  
    Seq file reader.. and little more.   
 "txt 0" is the menu and "txt X" is the  
-filename of all text files. All files   
-will be stored with the mail on the     
-mail device.                            
+filename of all text files.             
                                         
           The Message Maker             
                                         
@@ -191,5 +199,32 @@ as I could ever do here.Remember, the
 "*" must precede all commands. 50 lines 
 of 160 chars each is the limit of the   
 msg maker!                              
+           Q)Sysop Section              
+                                        
+   This section alows you to do various 
+chores of the sysop including edit      
+user, list users, reset and edit vote,  
+and the disk channel. In the edit user  
+function, you can edit most main        
+characteristics including most          
+variables (up to 10 can be used). They  
+are now used as follows:                
+0 - LSB of highest msg # read           
+1 - MSB of highest msg # read           
+2 - Default Baud Rate (below)           
+3 - uploads                             
+4 - downloads                           
+                                        
+         Personal Variables             
+High msg- this alows the user to lower  
+or raise their highest msg # read       
+pointer back so that they can read new  
+msgs from a few days ago.               
+Buad- (for 300 bauders only) This is    
+the baud rate that the computer will    
+prompt you when a user logs on.         
+Changing this pointer does not effect   
+the current baud rate.                  
+Password change- change password        
                                         
           Enjoy the board!              

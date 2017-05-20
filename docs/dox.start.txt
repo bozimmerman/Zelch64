@@ -40,9 +40,9 @@ program to set up some example files
 for your MAIN and data disks. These     
 files can be edited as needed.          
                                         
-LOAD "CONFIG 2.0" ,8                    
+LOAD "CONFIG 2.2" ,8                    
                                         
-SEARCHING FOR CONFIG 2.0                
+SEARCHING FOR CONFIG 2.2                
 LOADING                                 
 READY.                                  
 RUN                                     
@@ -61,7 +61,7 @@ formatted or unformatted disk inside.
   When this is done, press return and   
 answer the questions very carefully.    
 Your handle is up to 17 characters,     
-name: 17 chars, fone: 8 chars, pass: 8  
+name: 17 chars, phone: 8 chars, pass: 8 
 chars. The password will be any         
 combination of upper or lowercase       
 letters that should be known to YOU     
@@ -77,9 +77,9 @@ system files.
                                         
           Off-line editor!              
                                         
-LOAD "EDITOR 2.0" ,8                    
+LOAD "EDITOR 2.2" ,8                    
                                         
-SEARCHING FOR EDITOR 2.0                
+SEARCHING FOR EDITOR 2.2                
 LOADING                                 
 READY.                                  
 RUN                                     
@@ -306,6 +306,9 @@ votes, along with the id# of the person
 that voted for it.                      
     v2.0 ml1 - main system ml file      
     p.protocol - punter ml              
+    newqs - list of questions for the   
+new user asked AFTER the newuser file   
+is displayed.                           
                                         
                                         
   Files that will pop up later:         
@@ -319,6 +322,12 @@ of the day as well as a general look at
 what they did. This file can fill up    
 your data disk and should be erased     
 periodically.                           
+    newinfo - answers to the questions  
+from the newqs file. All users answers  
+are in this file.                       
+                                        
                                         
     Now your ready to look at the BBS   
      program itself!                    
+                                        
+                                        

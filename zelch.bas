@@ -1,9 +1,10 @@
 !--------------------------------------------------
-!- Saturday, May 20, 2017 2:39:30 AM
+!- Saturday, May 20, 2017 3:11:43 AM
 !- Import of : 
 !- c:\src\zelch64\zelch.prg
 !- Commodore 64
 !--------------------------------------------------
+5 POKE53280,0:POKE53281,0:PRINT"{clear}"
 10 CLR
 15 IFPEEK(716)<>16THENPOKE716,16:LOAD"window.ml",8,1
 17 IFPEEK(715)<>16THENPOKE715,16:SYS49152:POKE59639,2:POKE59671,3:POKE57722,96
@@ -14,7 +15,7 @@
 60 POKE53280,0
 70 POKE53281,0
 80 IFPEEK(57043)=169THENSYS57043
-90 GOTO680
+90 GOTO690
 100 MN=PEEK(703)
 110 INPUT"{clear}{reverse on}{pink}Enter the MONTH";MN
 120 IFMN>12THEN100
@@ -62,27 +63,45 @@
 580 IFA$="n"THENPOKE709,0:GOTO600
 590 GOTO550
 600 PRINT"{clear}Loading program...{black}"
-610 PRINT"{home}{down*2}load"+CHR$(34)+"{pound}@1"+CHR$(34)+",8"
+610 PRINT"{home}{down*2}load"+CHR$(34)+"c/bbs"+CHR$(34)+",8"
 615 PRINT"{home}{down*7}run":FORI=631TO633:POKEI,13:NEXTI:POKE198,2:PRINT"{home}";:END
-680 PRINT"{clear}{down*3}                {light blue}Z{cyan}e{white}l{yellow}c{pink}h"
-690 PRINT"{down}                 {light green}BBS"
-700 PRINT"{down*2}             {yellow}Version 2.0"
-720 PRINT"{down*8}{green}            RETURN{sh space}for BBS"
-730 PRINT"{light green}            (E) for Editor{black}"
+680 A$="{black} h{pink}c{yellow}l{white}e{cyan}Z{light blue}    ":FORA=15TO3STEP-2:B$=B$+MID$(A$,A,1):NEXT:B$=B$+B$+B$+B$
+683 FORA=12TO1STEP-1:C$=C$+MID$(A$,A,1):NEXT
+685 PRINTCHR$(17)B$B$:GOSUB740:FORJ=1TO30:PRINTCHR$(19)TAB(J)C$;:GOSUB740:FORK=1TO4
+687 PRINTCHR$(20):NEXT:PRINTTAB(J-1)CHR$(145)" ":FORL=1TO100:NEXT:NEXT:GOSUB740
+689 GOTO685
+690 PRINT"{clear}               {light blue}Z{cyan}e{white}l{yellow}c{pink}h"
+691 PRINT"{down*2}                {light green}BBS"
+700 PRINT"{down*2}            {yellow}Version 2.2"
+710 PRINT"{down}{white}    Copyright (C)1987 Bo Zimmerman"
+715 GOSUB1100
+720 PRINT"{down*6}{green}            RETURN{sh space}for BBS"
+730 PRINT"{light green}            (E) for Editor{black}":GOTO680
 740 GETA$
 750 IFA$=CHR$(13)THEN100
-760 IFA$<>"e"THEN740
-770 LOAD"editor 2.0",8
+760 IFA$<>"e"THENRETURN
+770 LOAD"editor 2.2",8
 780 END
-1000 PRINTCHR$(14)+"Window installed"
+1000 PRINTCHR$(14)+"{clear}Window installed"
 1001 LOAD"cursor",8,1
-1005 PRINT"Cursor loaded"
+1005 PRINT"{red}Cursor loaded"
 1010 LOAD"ascii table",8,1
-1015 PRINT"Ascii tables loaded"
-1020 LOAD"{pound}v2.0 ml1",8,1
-1025 PRINT"System ML loaded"
-1030 LOAD"v2.0 ml2",8,1
-1035 PRINT"Interupts loaded"
+1015 PRINT"{purple}Ascii tables loaded"
+1020 LOAD"{pound}v2.2 ml1",8,1
+1025 PRINT"{green}System ML loaded"
+1030 LOAD"v2.2 ml2",8,1
+1035 PRINT"{pink}Interupts loaded"
 1040 POKE1,55:POKE57722,165
-1050 OPEN15,8,15:CMD15,;:PRINT#15,"m-w{ct g}{red}{ct a}{ct o}
-1060 CLOSE15:GOTO50
+1060 GOTO50
+1100 FORX=1TO8:READFH(X),FL(X):NEXT
+1110 WF=64:A=3:D=0:SU=15:R=10:AD=A*16+D:SR=SU*16+R
+1120 S=54272:FORI=STOS+24:POKEI,0:NEXT
+1130 POKES+24,15:POKES+5,AD:POKES+6,SR
+1140 READN:IFN=0THENRETURN
+1150 IFN=9THENFORI=1TO125:NEXT:GOTO1140
+1160 POKES+1,FH(N):POKES,FL(N):IFWF=64THENPOKES+3,7:POKES+2,150
+1170 POKES+4,WF+1:FORT=1TO200:NEXT:POKES+4,WF:GOTO1140
+1180 DATA28,49,31,165,33,135,37,162
+1190 DATA42,62,44,193,50,60,25,30
+1200 DATA8,3,5,7,9,7,5,9,5,3,5,3,8,9,9,9
+1210 DATA8,3,5,7,9,7,5,9,5,3,9,3,8,9,8,3,9,9,0
