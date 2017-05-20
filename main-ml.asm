@@ -2,7 +2,7 @@
         
 * = $9538
         ; .O
-        ; .D V2.5 ML1
+        ; .D V3.0 ML1
         JMP GETIT; REM 38200
         JMP SEND; REM 38203
         JMP INPT; REM 38206
@@ -19,6 +19,8 @@
         JMP CLOPLEZ; REM 38239
         JMP COUNTFILE; REM 38242
         JMP BLKSFRE; REM 38245
+        JMP PRNTNM; REM 38248
+        JMP COPYFI; REM 38251
 REST
         LDA $7A; *********
         STA $02A7
@@ -93,9 +95,7 @@ NNNSSO
         JMP CLRHOM
 STSEN
         CMP #$13
-        BNE STSEN1
-        JMP CLRGON
-STSEN1
+        BEQ HALF
         CMP #$85
         BNE STSEN3
         JSR COLOR
@@ -272,17 +272,14 @@ LOOP
 CREEP
         JSR WRAP
         INC $FB
-        LDA #$0D
-        STA $FE
-        JSR SEND
-        JMP END
+        JMP TEND
 CARON
         LDA $FE
         INC $FB
         CMP #$0D
         BEQ TEND
         LDA $FB
-        CMP #$3C
+        CMP #$64
         BEQ CREEPE
         LDA $FE
         CMP #$14
@@ -290,7 +287,7 @@ CARON
         STA ($FB),Y
         JSR SEND
         LDA $02DE
-        CMP #$27
+        CMP $02FA
         BNE LOOP
         JMP CREEP
 END
@@ -320,7 +317,7 @@ DELETE
         DEC $FB
         DEX
         CPX #$04
-        BCC LOOP
+        BCC JPLOOP
         LDA ($FB),Y
         DEC $FB
         CMP #$91
@@ -335,6 +332,7 @@ NXT6
         LDA #$91
         STA $FE
         JSR SEND
+JPLOOP
         JMP LOOP
 NXT7
         CMP #$9D
@@ -566,8 +564,7 @@ FILET
         BEQ OVER
         JMP FILET
 OVER
-        LDX #$00
-        JSR $FFC6
+        JSR $FFCC
         RTS
 CHAP
         LDY #$00
@@ -612,10 +609,7 @@ SAVE
         STY $02CE
         STX $02CF
 LOAD
-        LDX #$00
-        JSR $FFC6
-        LDX #$00
-        JSR $FFC9
+        JSR $FFCC
         LDA $02CD
         LDY $02CE
         LDX $02CF
@@ -702,8 +696,7 @@ CONGO
         JSR SEND
         JMP FGLA
 GOGONE
-        LDX #$00
-        JSR $FFC6
+        JSR $FFCC
         RTS
 QUOTE
         LDY $FD
@@ -750,8 +743,7 @@ OUTHE
         INC $FB
         LDA #$00
         STA ($FB),Y
-        LDX #$00
-        JSR $FFC6
+        JSR $FFCC
         JMP FIN1
 ERR1
         LDA #$01
@@ -792,8 +784,7 @@ OUTGE
         INC $FB
         LDA #$00
         STA ($FB),Y
-        LDX #$00
-        JSR $FFC6
+        JSR $FFCC
         JMP FIN1
 ERR2
         LDA #$01
@@ -857,14 +848,10 @@ OUTIN
         INC $FB
         LDA #$00
         STA ($FB),Y
-        LDX #$00
-        JSR $FFC6
+        JSR $FFCC
         JMP FIN1
 TERM
-        LDX #$00
-        JSR $FFC6
-        LDX #$00
-        JSR $FFC9
+        JSR $FFCC
         JSR $FFE4
         CMP #$00
         BEQ NXTERM
@@ -905,10 +892,7 @@ NXTERM
         CMP #$03
         BEQ TERM
         STA $FE
-        LDX #$00
-        JSR $FFC6
-        LDX #$00
-        JSR $FFC9
+        JSR $FFCC
         LDA $02A9
         BNE CONTERM
         LDX $FE
@@ -1054,6 +1038,39 @@ KEPBLK
         STA $02C3
         JSR $FFE4
         STA $02C4
-        LDX #$00
+        JSR $FFCC
+        RTS
+PRNTNM
+        LDX #$01
+        JSR $FFC9
+        LDA #$50
+        JSR $FFD2
+        LDA #$63
+        JSR $FFD2
+        LDA $FB
+        JSR $FFD2
+        LDA $FC
+        JSR $FFD2
+        LDA $FD
+        JSR $FFD2
+        LDA #$0D
+        JSR $FFD2
+        JSR $FFCC
+        RTS
+COPYFI
+        LDX #$08
         JSR $FFC6
+        JSR $FFCF
+        STA $FE
+        LDY $90
+        STY $FD
+        JSR $FFCC
+        LDX #$09
+        JSR $FFC9
+        LDA $FE
+        JSR $FFD2
+        JSR $FFCC
+        LDY $FD
+        BEQ COPYFI
+ENDCOPY
         RTS

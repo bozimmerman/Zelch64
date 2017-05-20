@@ -1,7 +1,7 @@
 !--------------------------------------------------
-!- Saturday, May 20, 2017 2:43:10 PM
+!- Saturday, May 20, 2017 4:11:18 PM
 !- Import of : 
-!- c:\src\zelch64\editor.prg
+!- c:\src\zelch64\editor 3.0.prg
 !- Commodore 64
 !--------------------------------------------------
 10 CLR:DIMSG$(50),SG(50),SD(50),SF(50),UD$(20),UA(20),UV(20),FL(50),FL$(16)
@@ -162,8 +162,8 @@
 1525 IFA$="@"THEN3400
 1530 GOTO1400
 1540 PRINT"{clear}Q)uit Editing"
-1550 IFLEN(CD$)<15THENCD$=CD$+"l":GOTO1550
-1560 IFLEN(CC$)<15THENCC$=CC$+"0":GOTO1560
+1550 IFLEN(CD$)<16THENCD$=CD$+"l":GOTO1550
+1560 IFLEN(CC$)<16THENCC$=CC$+"0":GOTO1560
 1570 PRINT"{white}#{light green}/Function{dark gray}/Letter{light blue}/Access"
 1580 PRINT"{white}1{light green}/Feedback{dark gray}/"+MID$(CD$,1,1)+"{light blue}/"+MID$(CC$,1,1)
 1590 PRINT"{white}2{light green}/Off{dark gray}/"+MID$(CD$,2,1)+"{light blue}/"+MID$(CC$,2,1)
@@ -180,10 +180,11 @@
 1700 PRINT"{white}13{light green}/Library{dark gray}/"+MID$(CD$,13,1)+"{light blue}/"+MID$(CC$,13,1)
 1710 PRINT"{white}14{light green}/Editor{dark gray}/"+MID$(CD$,14,1)+"{light blue}/"+MID$(CC$,14,1)
 1720 PRINT"{white}15{light green}/Sub-Section{dark gray}/"+MID$(CD$,15,1)+"{light blue}/"+MID$(CC$,15,1)
+1725 PRINT"{white}16{light green}/Toggle GFX/ASCII{dark gray}/"+MID$(CD$,16,1)+"{light blue}/"+MID$(CC$,16,1)
 1730 INPUT"Choice";A$:IFA$="q"THEN1250
-1740 IFVAL(A$)>15ORVAL(A$)<=0THEN1540
-1750 A=VAL(A$):I1$=LEFT$(CD$,A-1):I2$=RIGHT$(CD$,15-A):I3$=LEFT$(CC$,A-1)
-1760 I4$=RIGHT$(CC$,15-A):PRINT"{cyan}New Letter:":POKE198,0
+1740 IFVAL(A$)>16ORVAL(A$)<=0THEN1540
+1750 A=VAL(A$):I1$=LEFT$(CD$,A-1):I2$=RIGHT$(CD$,16-A):I3$=LEFT$(CC$,A-1)
+1760 I4$=RIGHT$(CC$,16-A):PRINT"{cyan}New Letter:":POKE198,0
 1770 GETA$:IFA$=""THEN1770
 1780 CD$=I1$+A$+I2$:PRINT"New Access:":POKE198,0
 1790 GETA$:IFA$=""THEN1790
@@ -214,7 +215,7 @@
 2060 IFVAL(A$)=0THEN2040
 2070 CG$=I3$+A$+I4$:GOTO1840
 2080 PRINT"{clear}Q)uit editing"
-2085 IFLEN(CE$)<12THENCE$=CE$+"l":GOTO2085
+2085 IFLEN(CE$)<13THENCE$=CE$+"l":GOTO2085
 2090 PRINT"{white}#{cyan}/Function{light green}/Letter"
 2100 PRINT"{white}1{cyan}/Save{light green}/"+MID$(CE$,2,1)
 2110 PRINT"{white}2{cyan}/Edit{light green}/"+MID$(CE$,3,1)
@@ -227,10 +228,11 @@
 2171 PRINT"{white}9{cyan}/GFX{light green}/"+MID$(CE$,10,1)
 2172 PRINT"{white}10{cyan}/Word Wrap{light green}/"+MID$(CE$,11,1)
 2173 PRINT"{white}11{cyan}/Center Text{light green}/"+MID$(CE$,12,1)
+2174 PRINT"{white}12{cyan}/Line Numbers{light green}/"+MID$(CE$,13,1)
 2180 PRINT"{purple}Choose:";:INPUTA$
 2190 IFA$="q"THEN1250
-2200 IFVAL(A$)=0ORVAL(A$)>11THEN2190
-2210 A=VAL(A$)+1:I1$=LEFT$(CE$,A-1):I2$=RIGHT$(CE$,12-A)
+2200 IFVAL(A$)=0ORVAL(A$)>12THEN2190
+2210 A=VAL(A$)+1:I1$=LEFT$(CE$,A-1):I2$=RIGHT$(CE$,13-A)
 2220 PRINT"New Letter:":POKE198,0
 2230 GETA$:IFA$=""THEN2230
 2240 CE$=I1$+A$+I2$:GOTO2080
@@ -298,8 +300,8 @@
 2860 TM(A)=G:GOTO2750
 2870 REM
 2880 PRINT"{clear}Q)uit Editing"
-2890 IFLEN(CH$)<7THENCH$=CH$+"l":GOTO2890
-2900 IFLEN(CI$)<7THENCI$=CI$+"0":GOTO2900
+2890 IFLEN(CH$)<8THENCH$=CH$+"l":GOTO2890
+2900 IFLEN(CI$)<8THENCI$=CI$+"0":GOTO2900
 2910 PRINT"{white}#{light green}/Function{dark gray}/Letter{light blue}/Access"
 2920 PRINT"{white}1{light green}/Directory{dark gray}/"+MID$(CH$,1,1)+"{light blue}/"+MID$(CI$,1,1)
 2930 PRINT"{white}2{light green}/Quit{dark gray}/"+MID$(CH$,2,1)+"{light blue}/"+MID$(CI$,2,1)
@@ -308,10 +310,11 @@
 2960 PRINT"{white}5{light green}/List UDs{dark gray}/"+MID$(CH$,5,1)+"{light blue}/"+MID$(CI$,5,1)
 2970 PRINT"{white}6{light green}/Change UDs{dark gray}/"+MID$(CH$,6,1)+"{light blue}/"+MID$(CI$,6,1)
 2980 PRINT"{white}7{light green}/About File{dark gray}/"+MID$(CH$,7,1)+"{light blue}/"+MID$(CI$,7,1)
+2985 PRINT"{white}8{light green}/Multi {dark gray}/"+MID$(CH$,8,1)+"{light blue}/"+MID$(CI$,8,1)
 2990 A$="":INPUT"Choice";A$:IFA$="q"THEN1250
-3000 IFVAL(A$)>7ORVAL(A$)<=0THEN2880
-3010 A=VAL(A$):I1$=LEFT$(CH$,A-1):I2$=RIGHT$(CH$,7-A):I3$=LEFT$(CI$,A-1)
-3020 I4$=RIGHT$(CI$,7-A):PRINT"{cyan}New Letter:":POKE198,0
+3000 IFVAL(A$)>8ORVAL(A$)<=0THEN2880
+3010 A=VAL(A$):I1$=LEFT$(CH$,A-1):I2$=RIGHT$(CH$,8-A):I3$=LEFT$(CI$,A-1)
+3020 I4$=RIGHT$(CI$,8-A):PRINT"{cyan}New Letter:":POKE198,0
 3030 GETA$:IFA$=""THEN3030
 3040 CH$=I1$+A$+I2$:PRINT"New Access:":POKE198,0
 3050 GETA$:IFA$=""THEN3050

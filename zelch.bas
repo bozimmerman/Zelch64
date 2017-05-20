@@ -1,5 +1,5 @@
 !--------------------------------------------------
-!- Saturday, May 20, 2017 2:46:15 PM
+!- Saturday, May 20, 2017 4:13:38 PM
 !- Import of : 
 !- c:\src\zelch64\zelch.prg
 !- Commodore 64
@@ -16,33 +16,35 @@
 70 POKE53281,0
 80 IFPEEK(57043)=169THENSYS57043
 90 GOTO690
-100 MN=PEEK(703)
+100 MN=0
 110 INPUT"{clear}{reverse on}{pink}Enter the MONTH";MN
-120 IFMN>12THEN100
+120 IFMN>12ORMN=0THEN100
 130 POKE703,MN
-140 DA=PEEK(704)
-150 INPUT"{reverse on}{yellow}Enter the DAY";DA
-160 IFDA>31THENPRINT"{home}":GOTO130
+140 DA=0
+150 INPUT"{home}{down}{reverse on}{yellow}Enter the DAY";DA
+160 IFDA>31ORDA=0THEN140
 170 POKE704,DA
 250 PRINT
-260 PRINT"{reverse on}{light blue}Correct?"
+260 PRINT"{home}{down*2}{reverse on}{light blue}Correct?{reverse on} {reverse off}{left}";
 270 GETA$
-280 IFA$="n"THEN100
+280 IFA$="n"THENPRINT"n":GOTO100
 290 IFA$<>"y"THEN270
-300 INPUT"{reverse on}{light green}What is the Hour";HR$
+295 PRINT"y"
+300 INPUT"{home}{down*3}{reverse on}{light green}What is the Hour";HR$:HR=VAL(HR$):IFHR=0ORHR>13THEN300
 310 HR=0:HH=0
 320 IFLEN(HR$)>1THENHR=16
 330 HH=VAL(RIGHT$(HR$,1))
 340 HR=(HR+HH)
 350 POKE56587,HR
-360 PRINT"{reverse on}{yellow}{cyan}Am or Pm?"
+360 PRINT"{home}{down*4}{reverse on}{yellow}{cyan}Am or Pm?{reverse on} {reverse off}{left}";
 370 GETA$
 371 IFA$="p"ANDHR$="12"THENA$="a":GOTO390
 372 IFA$="a"ANDHR$="12"THENA$="p"
-380 IFA$="p"THENPOKE56587,HROR128:GOTO400
+380 IFA$="p"THENPOKE56587,HROR128:PRINT"p":GOTO400
 390 IFA$<>"a"THEN370
+391 PRINT"a"
 395 POKE56587,HRAND127
-400 INPUT"{reverse on}{white}What is the Minute";H$
+400 INPUT"{home}{down*5}{reverse on}{white}What is the Minute";H$:H=VAL(H$):IFH=0ORH>59THEN400
 410 IFH$=""THEN490
 420 H=0
 430 IFLEN(H$)>1THENH=16*VAL(LEFT$(H$,1))
@@ -51,44 +53,42 @@
 460 POKE56586,H
 470 POKE56585,0
 480 POKE56584,0
-490 PRINT"{reverse on}{light blue}Correct?"
+490 PRINT"{home}{down*6}{reverse on}{light blue}Correct?{reverse on} {reverse off}{left}";
 500 GETA$
-510 IFA$="n"THEN300
+510 IFA$="n"THENPRINT"n":GOTO300
 520 IFA$<>"y"THEN500
-530 PRINT"{reverse on}{blue}Printer {reverse on}on{reverse off}?"
+530 PRINT"y":PRINT"{reverse on}{blue}Printer {reverse on}on{reverse off}?{reverse on} {reverse off}{left}";
 540 O=0
 550 GETA$
-560 IFA$="y"THENO=1:POKE709,1:GOTO600
-570 IFA$=CHR$(13)THENPOKE709,0:GOTO600
-580 IFA$="n"THENPOKE709,0:GOTO600
+560 IFA$="y"THENO=1:POKE709,1:PRINT"y":GOTO600
+570 IFA$=CHR$(13)THENPOKE709,0:PRINT:GOTO600
+580 IFA$="n"THENPOKE709,0:PRINT"n":GOTO600
 590 GOTO550
 600 PRINT"{clear}Loading program...{black}"
 610 PRINT"{home}{down*2}load"+CHR$(34)+"bbs"+CHR$(34)+",8"
-615 PRINT"{home}{down*7}run":FORI=631TO633:POKEI,13:NEXTI:POKE198,2:PRINT"{home}";:END
+612 PRINT"{home}{down*7}fori=631to635:pokei,0:next:run"
+615 FORI=631TO633:POKEI,13:NEXTI:POKE198,2:PRINT"{home}";:END
 680 A$=" {pink}Z{yellow}e{white}l{cyan}c{light blue}h{black} ":X=1:Y=27
 683 PRINT"{home}";TAB(X);A$;"{home}";TAB(Y);A$
 685 X=X+1:Y=Y-1:IFX>YTHEN680
-687 GOSUB740:GOTO683
+687 GETB$:IFB$<>CHR$(13)THEN683
+688 GOTO 100
 690 PRINT"{clear}               {light blue}Z{cyan}e{white}l{yellow}c{pink}h"
 691 PRINT"{down}                {light green}BBS"
-700 PRINT"{down*3}            {yellow}Version 2.5"
+700 PRINT"{down*3}            {yellow}Version 3.0"
 710 PRINT"{down}{white}    Copyright (C)1988 Bo Zimmerman"
+712 PRINT"{down*2}{light green}   Another product of {reverse on}{blue}o{light blue}o{cyan}o{white}Planet>>"
+713 PRINT"{up}{down}{white}                      {white*2} {white} {white} {white} {reverse on}Inc.{black}
 715 GOSUB1100
-720 PRINT"{down*6}{green}            RETURN{sh space}for BBS"
-730 PRINT"{light green}            (E) for Editor{black}":GOTO680
-740 GETB$
-750 IFB$=CHR$(13)THEN100
-760 IFB$<>"e"THENRETURN
-770 LOAD"editor 2.5",8
-780 END
+720 PRINT"{down*6}{green}            RETURN{sh space}for BBS":GOTO680
 1000 PRINTCHR$(14)+"{clear}{pink}Window installed"
 1001 LOAD"cursor",8,1
 1005 PRINT"{yellow}Cursor loaded"
 1010 LOAD"ascii table",8,1
 1015 PRINT"{white}Ascii tables loaded"
-1020 LOAD"v2.5 ml1",8,1
+1020 LOAD"v3.0 ml1",8,1
 1025 PRINT"{cyan}System ML loaded"
-1030 LOAD"v2.5 ml2",8,1
+1030 LOAD"v3.0 ml2",8,1
 1035 PRINT"{light blue}Interupts loaded"
 1040 LOAD"p.protocol",8,1
 1050 POKE1,55:POKE57722,165:POKE644,149:POKE56,149:POKE643,56:POKE55,56:CLR

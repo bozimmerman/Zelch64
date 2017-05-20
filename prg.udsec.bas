@@ -1,5 +1,5 @@
 !--------------------------------------------------
-!- Saturday, May 20, 2017 2:45:20 PM
+!- Saturday, May 20, 2017 4:12:51 PM
 !- Import of : 
 !- c:\src\zelch64\prg.udsec.prg
 !- Commodore 64
@@ -15,6 +15,6 @@
 8320 CU=I-1:GOTO5166
 8400 GOSUB6391:IFER=0THENFI$="^"+CHR$(64+CU)+I$:VD=UV(CU):GOSUB1200
 8410 GOTO5170
-8500 TX$="{white}File Description":GOSUB210:S1=1
+8500 A$=CHR$(13):TX$=A$+A$+"{white}File Description":GOSUB210:S1=1
 8510 FF$="^"+CHR$(64+CU)+MID$(FI$,2,LEN(FI$)-4)
 8520 S0=1:V1=UV(CU):GOSUB2480:RETURN

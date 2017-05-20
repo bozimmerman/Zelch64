@@ -12,49 +12,57 @@ The Zelch 64 v1.5 distribution package consists of a System disk and a Sample Da
 The System disk is a 1541 (.D64) disk consisting of the following files:
 
 zelch,p
-editor 2.5,p
-v2.5 ml1,p
-v2.5 ml2,p
-window.ml,p
-cursor,p
-ascii table,p
-p.protocol,p
 bbs,p
-{pound}prg.email,p
-{pound}prg.medit,p
-{pound}prg.menu,p
-{pound}prg.monster,p
-{pound}prg.mtedit,p
+editor 3.0,p
+cursor,p
+p.protocol,p
+window.ml,p
+ascii table,p
+v3.0 ml1,p
+v3.0 ml2,p
+{pound}prg.multi,p
 {pound}prg.new1,p
+{pound}prg.medit,p
 {pound}prg.new2,p
-{pound}prg.open,p
+{pound}prg.menu,p
 {pound}prg.read,p
-{pound}prg.term,p
-{pound}prg.udsec,p
 {pound}prg.user,p
-{pound}prg.var,p
-{pound}prg.vedit,p
+{pound}prg.udsec,p
 {pound}prg.vote,p
-{pound}prg.bagels,p
-{pound}prg.timewheel,p
+{pound}prg.email,p
+{pound}prg.term,p
+{pound}prg.open,p
+{pound}prg.var,p
+{pound}prg.monster,p
+{pound}prg.vedit,p
+{pound}prg.mtedit,p
+{pound}pgm.bagels,p
+{pound}pgm.timewheel,p
+{pound}pgm.userdel,p
+{pound}pgm.filecopy,p
 
 The Sample Data disk is a 1541 (.D64) disk consisting of the following files:
 
-{pound}prg.email,p
-{pound}prg.medit,p
-{pound}prg.menu,p
-{pound}prg.monster,p
-{pound}prg.mtedit,p
+{pound}prg.multi,p
 {pound}prg.new1,p
+{pound}prg.medit,p
 {pound}prg.new2,p
-{pound}prg.open,p
+{pound}prg.menu,p
 {pound}prg.read,p
-{pound}prg.term,p
-{pound}prg.udsec,p
 {pound}prg.user,p
-{pound}prg.var,p
-{pound}prg.vedit,p
+{pound}prg.udsec,p
 {pound}prg.vote,p
+{pound}prg.email,p
+{pound}prg.term,p
+{pound}prg.open,p
+{pound}prg.var,p
+{pound}prg.monster,p
+{pound}prg.vedit,p
+{pound}prg.mtedit,p
+{pound}pgm.bagels,p
+{pound}pgm.timewheel,p
+{pound}pgm.userdel,p
+{pound}pgm.filecopy,p
 {pound}variables,s
 {pound}opening msg,s
 {pound}closing msg,s
@@ -82,7 +90,7 @@ To build the files for these disks, you'll need three programs.  One, obviously,
 
 The first step is to setup the System disk.  To do this, load CBM prg studio.  Starting with the BASIC files, open up each file so you can see the code.  Then Click the little PRG button to "Generate .prg (current file)"  or select Build->Program->To File from the menu.  After all the BASIC files are built, and the prg files saved, then do the Assembly files the same way.  If the Assembly files give you an extra window "Assembly Dump", but you can just hit the X to close this and ignore it.
 
-The next step is to copy the files for the System disk into a .D64 image, in the order shown above.  Please note that MOST of the files will need to be renamed after they are copied into the image.  Many of the files are prefixed with the PETSCII character for the english Pound sign, represented above by "{pound}".  You will need to add this character to those files when creating the .D64 disk image. It can be typed in DirMaster using Show PETSCII Tool menu option.  The file "main-ml" should be renamed to "v2.5 ml1", and "interrupts.ml" should be renamed to "v2.5 ml2", for example. Any SEQ (,s) file mentioned above will be found in the project "data" directory.
+The next step is to copy the files for the System disk into a .D64 image, in the order shown above.  Please note that MOST of the files will need to be renamed after they are copied into the image.  Many of the files are prefixed with the PETSCII character for the english Pound sign, represented above by "{pound}".  You will need to add this character to those files when creating the .D64 disk image. It can be typed in DirMaster using Show PETSCII Tool menu option.  The file "main-ml" should be renamed to "v3.0 ml1", and "interrupts.ml" should be renamed to "v3.0 ml2", for example. Any SEQ (,s) file mentioned above will be found in the project "data" directory.
 
 The next step is to copy the files for the Sample Data disk into a .D64 image, in the order shown above.  Some you built for the System disk in step 1, but most are in the data directory.  Please note that ALL of the files will need to be renamed after they are copied into the image.  The data files are prefixed with the PETSCII character for the english Pound sign, represented above by "{pound}".  You will need to add this character to those files when creating the .D64 disk image.
 

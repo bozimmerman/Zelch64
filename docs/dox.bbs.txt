@@ -1,641 +1,1 @@
-Welcome to the world of COMMODORE 
-BBS's with the Zelch BBS program
-by Bo Zimmerman.
-
-  This system operates on a COMMODORE
-64 or any compatible, a serial
-printer, up to four disk drives
-(numbered 8-11), and a auto answer
-modem (1650 or compat,1660 or compat,
-1670 or compat.)
-  The BBS will operate at any hours
-although a 24 hour system is preferred.
-
-    SETTING UP!
----------------
-Your BBS will consist of at least
-two disks. The SYSTEM DISK, and
-the MAIN DATA DISK. The System
-disk holds all the programs that
-you load to set up your bbs. The
-main data disk holds all files 
-necessary during its operation. 
-You will find that you already have
-a copy of both disks. The system
-disk should remain unnotched and
-unchanged while the main data disk
-stays notched and contains some         
-example files which may be changed
-as needed.Below is a list of all
-files that are found on your
-main data disk and other data disks
-as well. Some files appear at once and
-some accumulate during the operation
-of the BBS.
-
-"\userlog" - this is a REL file
- holding the major information
- about all users. This file will
- grow in size as your number of
- users grow.
-"\calls" - this is another REL file
- holding a record of the # of calls
- made by each user that day. This file
- grows also but at a much slower rate.
-"\opening msg" - this file is viewed
- as soon as a user connects to the BBS
- Just before he enters his ID#.
-"\closing msg" - viewed when a user
- logs off your bbs.
-"\variables" - a SEQ file holding
- necessary info about your BBS.
-"\info" - a small file viewed within
- your BBS after a user has logged on.
- It tells some small information about
- your BBS, hardware used.. etc..
-"newuser" - this is read just after
- a user answers the preliminary new
- user questions and just before they
- answer the sysop defined questions.
-"\newqs" - this holds a list of sysop
- defined questions in the form of:
- ^question:
- ^question:
- the ^ arrow must be in the first
- column of the first row holding
- each question. The question will
- follow thereafter and a RETURN
- shall be typed after each question.
-"\vote" - SEQ file holding some vital
- information about your voting booth.
-"\mainmenu X" - Where X is an access
- level from 0 - 9. This is a menu of
- the options obtainable from the
- MAIN COMMAND LEVEL.
-"\msg X Y" - X = Sig number minus 1. Y=
- the msg number. This is a file holding
- a msg and its replys. All of which
- are posted from your msg base.
-"\sigmsg X" - X=Sig number .This
- is a file viewed apon entering each
- individual msg section or SIG.
-"@txt 0" - a menu of text files
-"@txt X" - X=any #, A text file viewed
- from the Library section of your BBS.
-"\question" - a detailed explaination
- of your current voting question. The
- info herein is usually about 1 or 2
- paragraphs.
-"\vote box" - file holding the votes
- made.
-"\sysopmenu" - a menu of options
- obtainable from the SYSOP section
- of your BBS.
-"\msgmkr help" - a file viewed within
- the message writer which lists the
- various commands of the message writer
- or message maker (msg mkr)
-"\msgmenu" - a menu of options
- obtainable from the message base.
-"\udmenu" - a menu of options
- obtainable from the Upload/Download
- section (also called UD or TRANSFER)
-"\emailmenu" - menu of options
- obtainable from the Electronic User
- to User main section of your BBS.
-"\Sig X" - X=Sig number. This
- is a REL file holding information
- necessary to the operation of the
- SIG it represents.It holds an entry
- for each postable msg (# of entrys =
- # chosen in editor... see below). This
- file should only be tampered with when
- changing the number of msgs possible
- in one SIG. In that case,the file will
- be rewritten and all previous msgs
- in that sig no longer apply.
-"\members" - a SEQ file holding
- a list of all your users. This file
- is updated from the SYSOP section
- and should be updated by you at
- least every 24 hrs.
-"\Log!" - a list of callers and
- options by that caller. Readable
- from the BBS. It holds the time
- a call was made. The user who
- called, when he/she logged off,
- and any other info about what a
- user did during that call in
- between. To understand the info
- herein, log on to your BBS after
- it is set up. Preform every option
- within the BBS, and see what is
- recorded in the LOG.
-"\last caller" - very important file
- to the welfare of your msg base. This
- file is updated after every call
- is made. 
-"\newinfo" - a list of answers to
- the sysop defined questions by every
- user.
-"\pgm X Y" - X=SubSection #, Y= Program
- # within that SubSection. An on-line 
- program.
-"\Subs" - this file holds a list of
- all subsection files. It is updated
- within the off-line editor.. see below
-"\pgmenu" - list of options available
- from the SubSection of your BBS.
-"\section X" - X=SubSection #. A list
- of files available within SubSection X
- This file must be updated by you 
- whenever you add an on-line program.
-"\feedback" - private mail left for
- the sysop.
-"\mail X" - X=user #. A file comtaining
- all mail for user #X.
-"Xfilename" - X = "@" or any letter 
- from A-Z signifying a UD file for
- UD X. In the UD section, files
- in UD #1 start with "@", in UD#2, "a"
- etc.. unlike in the msg base where
- "\Sig 1" means a records file for 
- Sig A or 1 and "\Sig 2" for Sig B or 2
-"^Xfilename" - X=same as above. a 
- SEQ file describing "filename". This
- file is written by a user before an
- upload and is read from the UD.
-"\prg.new1" - program (prg) for the
- first stage of the new user process.
-"\prg.new2" - prg for second stage
- of the new user process.
-"\prg.read" - prg for the read command
- in the message base.
-"\prg.user" - prg for the edit user
- command in the SYSOP section.
-"\prg.menu" - prg for the SUBSECTION
-"\prg.vote" - prg for the VOTE section
-"\prg.mtedit" - prg for various
- functions in the SYSOP section
-"\prg.email" - prg for EMAIL section
-"\prg.medit" - prg for SUBOPS
-"\prg.term" - bbs term program
-"\prg.var" - prg for VARIABLE editor.
-"\newsfile" - file viewed after a user
- has logged on.
-"\prg.vedit" - prg for VOTE editor
-
-  OFF - LINE EDITOR
-----------                              
-LOAD "EDITOR 2.5",8
-
-SEARCHING FOR EDITOR 2.5
-LOADING
-READY.
-type RUN and insert your main data
-disk into drive 8.
-now press 1.
-Here is the editor for the information
-held in the "\variables" file.
-N)ame of BBS - name of your BBS
-L)ibrary device - device to hold
-your library or text files.
-MODEM - type of modem using.
-M)ail device - device to hold 
-user to user mail.
-C)ommand - editor for the individual
-functions available from the main
-command section. Each function (which
-you may want to view to learn more
-about before changing) may be changed.
-The letter required to reach that
-option and the access level or higher
-to use that option.
-+)MSG MKR - ABOVE for Message writer
--)UD - ABOVE for UD
-\)Msg Base - ABOVE for Message Base
-
-S)ig System - an editor for the number
-of msg bases you have. And for
-each individual SIG, the name of
-the SIG (usually describing its use),
-the access level required to go
-into that SIG, the device # on which
-msgs for that sig will appear, and
-the max number of Messages (not
-counting responses to msgs) for
-each sig. If more msgs are posted than
-allowable by the last function, then
-the system will recycle the msgs.
-U)D - ABOVE for UD
-P) - ABOVE for ON-LINE PROGRAM section
-or the SUBSECTION. After you have 
-edited this section. Use the "C"
-function to create a seq file
-comtaining the number of programs
-available in each Sub Section.
-This (C) option should be used
-whenever you add an on-line prg.
-T)ime/Calls - the number of calls
-per day and minutes per call allowed
-for each access level.
-@)Modem - type of modem you use.
-^) Color cycle editor. Each line
-outputed in the BBS that has been
-defined to honor the color cycle will
-be a diff. color. The next color a line
-will be depends on the colors you
-choose. Choose a color to edit
-and use the CNTRL-NUMBER and C=
-NUMBER keys to change colors.
-(ex C=3 to change to red.)
-Q)uit - leave this section of the
-editor without saving your changes.
-*)Save and quit - leave this sectin
-of the editor after saving the
-changes made.
-------Now type (Q) or (*) and then
-2. This section edits your user
-log. Your may create a new user
-log, deleteing all old entrys therin.
-Edit,View,Add users or exit.
-It is more preferable to edit users
-from within the BBS. This is a 
-sloppy user editor.
-
-----now type "5"
-The last function is very neccessary.
-Whenever you have decided on how
-many sigs you want and the number
-of msgs in each sig. You will then
-come to this section and create a
-"\Sig" file for each sig. After you
-have created a record file for each
-sig, do NOT use this function again
-unless you have deleted al the msgs
-in the sig and wish to change the Max
-msgs in that sig (first fom the option
-1 editor), or if you have added a new
-sig and wish to create a record file
-for it. Make sure the sig has
-already been created in the option 1
-editor.!!!
-
-  After all this is soaked up, you
-are ready to look at the BBS itself.
-Load "Zelch",8 and run it.
-This is the loader program for
-the BBS. Press RETURN and answer
-all the preliminary questions. Typing
-"y" to the Printer On? option forces
-a list of users who have called and
-when they logged on and off to be
-sent to the printer while a user
-is online.
-After all the questions are answered,
-just sit back and wait for the BBS
-to LOAD.                                
-  When you get the insert data disk
-prompt, insert all data disks into
-their promper drives. Turn on all
-drives and press return.
-WAITING for CALL SCREEN
-The screen you see now means that
-the BBS is waiting for a caller
-to call. The F3 key will let you
-log onto the board as if you had
-just called at 1200 baud. This
-is called LOCAL mode. We will look
-at this later. Right now, press F1.
-1) returns you to the waiting for
-call screen
-2) enters monster mode. This mode
-can be entered from here, in which
-it has no effect on the date, or
-by time default. At 11:00pm, the BBS
-automatically goes into monster mode.
-It first updates the \Calls file (which
-MUST be updated every 24hrs), changes
-the date if needed,and validates
-drive #8.
-3) Zelch (Zap) term - when inside
-the active term, F3 changes
-automatically from graphics term to
-standard ascii. If you are in the wrong
-mode when calling another bbs, the
-letters will be in the wrong case. To
-find out which mode you are in at 
-any time, press F2 and then return
-to the term. The term will also let
-you change baud rates from 300-500
-(if you have chosen 300 baud mode or
-are using a 300 baud modem). To return
-to 300, either use this option again
-or use the RESET Term option. The term
-also allows PUNTER PROTOCOL in upload
-and download,and will return to the
-BBS whenever the RETURN TO BBS option
-is chosen.
-4) views your feedback left by users
-5) views the Log. (\Log!) file.
-Type 1 and F3. Hit return. Typing
-"y" at the graphics prompt will let
-you view the BBS as it is viewed in
-color mode. Of course, no matter which
-mode a caller chooses, everything
-will be in color on the local side.
-After the opening msg is viewed,
-you may type "1" as your ID number
-and "pass" as your password. Your
-password is changable from within
-the BBS.
-  If a user is calling for the first
-time, he will type "new" at the
-ID prompt and will go through the
-new user process. You may want to
-log on as a dummy user and then
-delete him later just to see how
-the new user process works. See the
-files for various files used in
-this process. The "\newinfo" file
-is viewed from the SysOp section
-only..
- Now your window sets up. The window
-never goes away and the information
-therein is true only untill it changes
-during the natural course of the BBS.
-At prompts such as the COMMAND prompt
-you see below, these commands are
-available to the sysop locally 
-only:
-F1 - enter chat mode. This stops the
-BBS exactly where it is and enters a
-mode of free typing. F7 exits chat
-mode and returns to WHEREEVER you were
-previously. If things seem to have
-stopped suddenly, it may be because you
-mave entered chat mode. If you
-have trouble exiting chat, try to
-remember where you entered it from.
-If it was a section where you had to
-type "y" or "n", you may have to type
-F7 to exit and then "y" or "n".
-F2 - autologoff - this kicks any user
-that is on-line off, no matter now
-much time he has left.
-F3 - This lets you temporarily
-raise the access of a user.
-F4 - Time burst gives the current
-user 255 minutes online. Useful if
-a user only has 1 minute left and you
-want him to stay longer.
-F5 - enters local mode while a
-user is online. Inside this, you may
-use the BBS without interference from
-the user online. The user will remain
-online, but is unaware that you
-are doing anything. Entering chat
-mode exits this function. Chat mode
-also exits local mode which is entered
-from the waiting for call screen.
-
-INFO - Typing "I" or whatever letter
-you chose for this function, views
-the "\info" file.
-FEEDBACK - lets a user leave feedback
-to the sysop.
-OFF - lets a user log off your BBS.
-CHAT PAGE - makes a noise that alerts
-the sysop to the fact that the current
-user wishes for the sysop to enter chat
-mode with him.
-STATUS - views the current status of
-the user online.
-BAUD CHANGE - lets a user who has
-called originally at 300-500 baud
-to change his baud rate.
-VOTE - lets the user vote on the
-current subject. This section is
-edited from the SYSOP section
-LIBRARY - lets a user view your
-LIBRARY or TEXT files
-EMAIL - lets a user send mail to
-another user or recieve mail for
-himself. The Userlist function
-herein is the same available from
-the SYSOP section and the COMMAND
-level.
-USERLIST - at the USERLIST prompt,
-you may press RETURN to view
-the entire membership file. Typing
-a number starts the viewing at
-the ID number of the user equal to
-the number given. Typing a series of
-letters here will force the userlist
-function to search the userlist for
-users whose handles begin with those
-letters and, if any are found, those
-users are viewed.
-EDITOR - this lets a user change
-his password and:
-hi msg # - every message posted in
-the message base recieves a 
-consecutively larger number. This
-number currently represents the
-number given to the last message a user
-has read or posted. This way,
-messages will appear NEW to the user
-because they have a number assigned
-to them which is HIGHER then the number
-given to the highest msg he has
-accually read. This number may be 
-lowered though, thus making msgs with
-lower numbers appear new to the user.
-default baud rate - if a user has
-a 300 baud modem but wishes to change
-to 320 baud every time he calls your
-BBS, he may change this number to 320.
-Now, when he calls the BBS, the BBS
-will automatically prompt him to change
-to 320 baud.Then he doesn't have to
-use the BAUD CHANGE command every time
-he calls; it is executed automatically
-and at the baud he himself
-has requested.
- Other functions available from
-the COMMAND prompt are:
-SUB SECTION - this section holds
-your online programs. From here,
-you can Load an online program
-from the current Sub Section. Or
-List Sub Sections, change to a
-different one and load a Prg from
-THAT sub section.In each Sub Section
-is a menu of On-Line programs in
-that current section available
-with the "$" command. This views
-the "\section X" file described
-above.
-After a On-Line program is done,
-it will usualy return to the
-COMMAND section.
-NOTE: Typing "/" and RETURN gives you
-and menu at almost every main part
-of the BBS
-TRANSFER or UD section.
-This part of your BBS also
-has different sections containing
-different files listed with the
-"$" command. These programs though,
-are downloaded and uploaded with
-the NEW PUNTER PROTOCOL instead
-of run. The About file function
-lets you view the file description
-file for a file in the current
-UD section.
-This SEQ file is written whenever
-someone uploads a file to the BBS.
-The description is read by going to
-the UD section containing the file
-in question, typing "a" and the
-exact filename of the file you wish
-information about. The filename
-is discovered by typing "$" and
-viewing the directory.
-All UD files as well as LIBRARY
-file for that matter appear on the
-drive designated for that purpose.
-UD program filenames may be up to
-14 chars long but no longer.
-SYSOP SECTION - from here you can
-preform the following functions:
-D)isk channel - this is a dirrect
-link to your disk drives. All 
-regular dos commands are available
-from here as well as:
-w:filename  - use the msg mkr to
-write the SEQ file "filename"
-e:filename - load the SEQ file
-"filename" and then edit that file
-from within the msg mkr.
-This file may not be more then 50 lines
-long.
-@ - view the status of the current
-drive
-RETURN - on a blank line without
-typing anything else will return
-you to the SYSOP promt.
-$ - views the directory 
-$:argument*  - views all files
-starting with the letters "argument".
-ex: $:\mail* views all mail files (if
-you are on the mail device drive)
-% - counts all files
-%:arg* - counts all files beginning
-with the letters "arg"
-@:filename - views the seq file 
-"filename"
-To change drives, type the device
-number of the drive you wish to
-change to and press return.
-Other functions in the sysop section
-are:
-E)dit user - lets you edit any
-user except the user online. Pressing
-RETURN at an option concerning the
-user makes no change to that option.
-The variables are used as follows:
-Var 0 - Hi Msg #
-Var 1 - Hi Msg #
-Var 2 - Default baud rate
-Var 3 - Uploads done
-Var 4 - Downloads done
-Var 5 - Sig that this user is SigOp
-of (see the msg base). this is
-a number from 1 - # of sigs. If
-a person has SigOp control of ALL
-sigs, this number is 100.
-To Delete a user, change his password
-to some garbage and his handle must be
-"EMPTY" exactly. In Uppercase.
-VOTE EDITOR - lets you change
-aspects of the Vote section. Such
-as : 
-Title : simple title of the voting
-        question.
-Response # : # of possible voting
-             choices
-Option : choice the user is given 
-         while he is voting.
-Result : a look at the results of
-         choosing this option. Only
-         9 options/results may be given
-         ex : Option : yes
-              Result : voted yes.
-Q-quit S-Save
-Other options in the SYSOP Section
-M)embers file creator - lets you
-update the "\members" file. This
-file holds a list of all users.
-Use this function daily.
-T)ime/Date Editor - lets you edit
-the current Time and Date
------MESSAGE BASE
-Here is where msgs are posted in
-organized sections called Sigs.
-RETURN - hitting RETURN lets you
-view the NEXT message in that Sig
-Change Sigs is done by holding
-down the shift key and hitting the
-letter of the Sig you wish to enter.
-ex: shft-a to enter sig A (which is
-also sig 1 in other ways)
-LIST SIGS - lists the sigs available
-SCAN MSGS - scans the msgs posted.
-READ MSGS - views a msg and the replys
-of that msg. If the user reading the
-msg has post access, he can reply
-to the msg he is reading also.
-POST - this lets a user POST a message
-thus starting a new msg which can be
-replyed to. The msg cycling rules
-mentioned above are put into work 
-here.
-NEW MSGS - views the msgs which are
-new to the current user. These msgs
-must be located within the current
-Sig.
-ALL NEW - works its way through each
-Sig, checking for new msgs
-along the way and viewing them if
-they are found.
-EDITOR - this is available to SUBOPS
-only. A SUBOP or SIGOP is defined
-by making the var 5 of a user equal
-to the Sig # (ex var 5 = 1 if the
-user is a SUBOP of Sig 1).
-The SUBOPS can delete msgs and 
-individual responses to msgs as well
-as edit the \sigmsg file for the
-current sig. This makes the Sig a
-user is a SigOp of, his "property"
-because of his powers over the
-appearence and msgs therein.
-
-MESSAGE MAKER - this is the part
-of the program that alows you to
-write SEQ files who's filename is
-determined before this part of the
-program is entered.
-The commands herein are explained
-in the "\msgmkr help" file which
-is read by typing "/h" and hitting
-RETURN on a blank line 
-
-Lastly, files in this BBS can
-be aborted with the space bar
-and paused with the home key (any
-key resumes after home is pressed).
-Enjoy!
-744-6740 (home fone)
-744-6741 (BBS)
+@\ZELCH BULLETIN BOARD SYSTEM SOFTWARE             Version 3.0                                               Written by Planet Inc.      (c) 1988 by Bo Zimmerman   Welcome to the world of Commodore    bulletin board systems (BBS's) with the Zelch BBS program.   This system operates on a Commodore  64 or compatible, a serial printer, up to four serial disk drives     (numbered 8-11), and a auto answer modem (1650, 1660, 1670, or      compatibles).   The BBS will operate at any hours, however, a 24 hour system is preferred.     SETTING UP     ----------   Your BBS will consist of at least two disks. The SYSTEM DISK, and the     MAIN DATA DISK. The System disk holds all the programs that you load to set up your bbs. The main data disk holds all files necessary during its operation.  You will find that you already have a copy of both disks. The system disk should remain unnotched and unchanged while the main data disk stays notched and contains some example files which may be changed as needed.   Below is a list of all files that are found on your main data disk and other data disks as well.  Some files   are already available and some accumulate during the operation of the  BBS. "\userlog" - this is a REL file holding the major information about all users. This file will grow in size as your number of users grow. "\calls" - this is another REL file holding a record of the # of calls      made by each user that day. This file grows also, but at a much slower rate. "\opening msg" - this file is viewed as soon as a user connects to the      BBS and just before he enters his ID number.This is for ascii callers. "\opening msg/g" - same as above except for color/gfx callers. "\closing msg" - viewed when a user logs off your BBS. "\variables" - a SEQ file holding necessary information about your     BBS. "\info" - a small file viewed within your BBS after a user has logged      on.  It tells some small information about  your BBS, hardware used..      etc.. "\newuser" - this is read just after a user answers the preliminary new      user questions and just before they answer the system operator (SysOp)      defined questions. "\newqs" - this holds a list of sysop defined questions in the form of:^question:^question:     The '^' arrow must be in the first column of the first row holding      each question.  The question will follow thereafter on each line that is in the file. "\vote" - SEQ file holding some vital information about your voting booth. "\mainmenu X" - Where X is an access level from 0 - 9. This is a menu of the options obtainable from the MAIN COMMAND LEVEL. "\msg X Y" - [X = Sig number minus 1. Y= the message (msg) number] This is a file holding a msg and its replys, all of which are posted from your msg base. "\sigmsg X" - [X=Sig number]  This is a file viewed upon entering each  individual msg section or Special Interest Group (SIG).    This file goes on the drive along with the messages for this sig. "@txt 0" - a menu of text files. "@txt X" - X=any #, A text file viewed from the Library section of your BBS. "\question" - a detailed explaination of your current voting question.    The info herein is usually about 1 or 2  paragraphs. "\vote box" - file holding the votes made. "\sysopmenu" - a menu of options obtainable from the SYSOP section of    your BBS. "\msgmkr help" - a file viewed within the message writer which lists the various commands of the message writer or message maker (msg mkr). "\msgmenu" - a menu of options obtainable from the message base. "\udmenu" - a menu of options obtainable from the Upload/Download     section (also called UD or TRANSFER). "\emailmenu" - menu of options  obtainable from the Electronic User to  User mail section of your BBS. "\Sig X" - [X=Sig number]  This is a REL file holding information      necessary to the operation of the SIG it represents.  It holds an entry for each postable msg (# of entrys = # chosen in editor... see below).  This file should only be tampered with when changing the number of msgs possible in one SIG. In that case, the file should be rewritten and all previous msgs in that sig will no longer apply. "\members" - a SEQ file holding a list of all your users.  This file is updated from the SYSOP section and should be updated by you at least every 24 hrs. "\Log!" - a list of callers and options by that caller. Readable from  the BBS. It holds the time a call was made, the user who called, when      he/she logged off, and any other info about what that user did during that call. To understand this information, log on to your BBS,(after it is set up) and perform every option within the BBS to see what is recorded in the LOG. "\last caller" - very important file to the welfare of your msg base.       This file is updated after every call is made. "\newinfo" - a list of answers to the sysop defined questions by every user. "\pgm X Y" - [X=SubSection #, Y= Program # within that SubSection]. An   on-line program. "\pgmenu" - list of options available from the SubSection of your BBS. "\section X" - [X=SubSection #]  A list of files available within      SubSection X.  This file must be updated by you whenever you add an      on-line program. "\feedback" - private mail left for the system operator. "\mail X" - [X=user #]  A file containing all mail for user #X. "Xfilename" - [X = "@" or any letter from A-Z signifying a UD file for      UD x]  In the UD section, files in UD #1 start with "@", in UD#2, "a", etc., unlike in the msg base where "\Sig 1" means a records file for Sig A and "\Sig 2" for Sig B. "^Xfilename" - [X=same as above]  A  SEQ file describing "filename".  This file is written by a user before an upload and is read from the UD. "\prg.new1" - Program (prg) for the first stage of the new user process. "\prg.new2" - Prg for second stage of the new user process. "\prg.read" - Prg for the read command in the message base. "\prg.user" - Prg for the edit user command in the SYSOP section. "\prg.menu" - Prg for the SUBSECTION. "\prg.vote" - Prg for the VOTE section. "\prg.mtedit" - Prg for various functions in the SYSOP section. "\prg.email" - Prg for EMAIL section. "\prg.medit" - Prg for SUBOPS. "\prg.term" - BBS termimal program. "\prg.var" - Prg for VARIABLE editor. "\newsfile" - File viewed after a user has logged on. "\prg.vedit" - prg for VOTE editor. "\prg.open" - prg viewed as soon as a user logs on. "\prg.udsec" - prg for the UD section. "\prg.multi" - prg for the multi- file transfers in the UD. "\prg.monster" - the prg for midnight monster mode. "\timeinst" - seq file instructions for "pgm 1 1". "\delete!" - list of all users which have not called in 45 days.     OFF - LINE EDITOR     -----------------          LOAD "EDITOR 3.0",8          SEARCHING FOR EDITOR 3.0     LOADING     READY.          Type RUN and insert your main data disk into drive 8.          Now press '1'.     Here is the editor for the information held in the "\variables" file.          N)ame of BBS - Name of your BBS.     L)ibrary device - Device to hold your library or text files.     MODEM - Type of modem you're using.     M)ail device - Device to hold user to user mail.     C)ommand - Editor for the individual functions available from the main command section.  Each function (which you may want to view to learn    more about before changing) may be changed.  The letter required to      reach that option and the access level or higher to use that option.     +)MSG MKR - ABOVE for Message writer.    -)UD - ABOVE for UD.    \)Msg Base - ABOVE for Message Base.         S)ig System - An editor for the number of msg bases you have, and for   each individual SIG, the name of the SIG (usually describing its use), the access level required to go into that SIG, the device # on which msgs for that sig will appear, and the max number of Posted Messages (not counting responses to msgs) for each sig. If more msgs are posted than allowable by the last function, then the system will recycle the msgs.     U)D - ABOVE for UD (without the cycling system of course.)     P) - ABOVE for ON-LINE PROGRAM section or the SUBSECTION.     T)ime/Calls - The number of calls per day and minutes per call allowed for each access level.     @)Modem - Type of modem you use.     ^) Color cycle editor - Each line output in the BBS that has been defined to honor the color cycle will be a different color.  The next color a line will be depends on the colors you choose.  Choose a new color using the CTRL/NUMBER and C=/NUMBER keys to change. (Example: CTRL/3 to change to red.)     Q)uit - Leave this section of the editor WITHOUT saving your changes.     *)Save and quit - Leave this section of the editor after saving the  changes made.     ------     Now, type (Q) or (*) and then '2'.    This section edits your user log. You may also create a new user log, deleteing all old entries therein.          Edit,View,Add users or Exit.          It is preferable to edit users from within the BBS.  This is a sloppy  user editor.          ----     Now type '5'     The last function is VERY neccessary.  When you have decided on how many SIG's you want and the number of msgs in each SIG, you will then  come to this section and create a "\Sig" file for each SIG. After you     have created a record file for each SIG, do NOT use this function again UNLESS you have deleted all of the msgs in the SIG and wish to change the Max msgs in that sig (first from the "\variables" editor), or if you have added a new SIG and wish to create a record file for it.     Make sure the SIG has already been created in the "\variables" editor.!!!          After all this is soaked up, you are ready to look at the BBS itself.          LOAD "Zelch",8 and RUN it.          This is the loader program for the BBS. Press RETURN and answer all the preliminary questions.  Typing "Y" to the "Printer On?" option forces a list of users who have called and when they logged on and off to be sent to the printer while a user is online.  After all the questions are answered, just sit back and wait for the BBS to LOAD.      When you get the 'insert data disk' prompt, insert all data disks into their proper drives.  Turn on all drives and press RETURN.          WAITING for CALL SCREEN          The screen you see now means that the BBS is waiting for a caller to call. The F3 key will let you log onto the board as if you had just called at 9600 baud.  This is called LOCAL mode.  We will look at this later.  Right now, press F1.     1) Returns you to the waiting for call screen.     2) Enters 'monster mode'.  This mode can be entered from here, in      which it has no effect on the date, or by time default.  At 11:00pm, the BBS automatically goes into monster mode. It first updates the "\Calls" file (which MUST be updated every 24hrs), changes the date if needed, checks for users who havn't called in 45 days, (writing the "\delete!" file if neccessary), and validates the drives.    3) Zelch (Zap) term - when inside the active term, F3 changes automatically from graphics term to standard ascii. If you are in the    wrong mode when calling another BBS, the letters will be in the wrong      case.  To find out which mode you are in at any time, press F2 and then return to the term. The term will also let you change baud rates from 300-500 (if you have chosen 300 baud mode or are using a 300 baud modem).  To return to 300, either use this option again or use the RESET Term option. The term also allows PUNTER PROTOCOL in upload and  download, and will return to the BBS whenever the RETURN TO BBS option  is chosen. The term also has options for sending disk channel commands and alows the sending of a SEQ file to the modem.     4) Views your feedback left by users.     5) Views the Log. (\Log!) file.Type '1' and F3. Hit RETURN.     After the opening msg is viewed, you may type "1" as your ID number and "pass" as your password.  Your password is changable from within the BBS.     If a user is calling for the first time, he will type "new" at the ID prompt and will go through the new user process.  You may want to log on as a new user and then delete it later just to see how the new user process works.     Notice the contents of the various files used in this process. The "\newinfo" file is viewed from the SysOp section only.     Now your window sets up.  The window never goes away and the information therein is true only untill it changes during the natural course of the BBS.  At prompts such as the COMMAND prompt you see below, these commands are available to the sysop from the keyboard.     F1 - enter chat mode.  This stops the BBS exactly where it is and    enters a mode of free typing.  F7 exits chat mode and returns to WHEREEVER you were previously.  If things seem to have stopped suddenly, it may be because you mave entered chat mode.  If you have trouble exiting chat, try to remember where you entered it from.  If it was a section where you had to type "y" or "n", you may have to type F7 to exit and then "y" or "n".     F2 - autologoff - This kicks any user that is on-line off, no matter   how much time he has left.     F3 - This lets you temporarily raise the access of a user.     F4 - Time burst gives the current user 255 minutes online.  Useful if a user only has 1 minute left and you want him to stay longer.     F6 - Enters local mode while a user is online. Inside this, you may    use the BBS without interference from the user online. The user will remain online, but is unaware that you are doing anything.  Entering chat mode exits this function. Chat mode also exits the local mode that is entered from the waiting for call screen.     F5 - SubOp access changer. See the section on SUBOPS for the proper number to enter here.      F8 - Permanent access change.     INFO - Typing "I" or whatever letter you chose for this function, views the "\info" file.     FEEDBACK - Lets a user leave feedback to the sysop.     OFF - Lets a user log off your BBS.     CHAT PAGE - Makes a noise that alerts the sysop to the fact that the  current user wishes for the sysop to enter chat mode with him.     STATUS - Views the current status of the user online.     BAUD CHANGE - Lets a user who has called originally at 300-500 baud to    change his baud rate.     VOTE - Lets the user vote on the current subject.  This section is    edited from the SYSOP section.     LIBRARY - Lets a user view your LIBRARY or TEXT files.     EMAIL - Lets a user send mail to another user or recieve mail for   himself.  The Userlist function herein is the same available from the SYSOP section and the COMMAND level.     USERLIST - At the USERLIST prompt, you may press RETURN to view the  entire membership file.  Typing a number starts the viewing at the ID     number of the user equal to the number given.  Typing a series of letters here will force the userlist function to search the userlist for users whose handles begin with those letters and, if any are found, those users are viewed.     EDITOR - This lets a user change his password and:     hi msg # - every message posted in the message base recieves a consecutively larger number.  This number currently represents the      number given to the last message a user has read or posted.  This way,   messages will appear NEW to the user because they have a number  assigned to them which is HIGHER then the number given to the highest msg he has accually read.  This number may be lowered though, thus making msgs with lower numbers appear new to the user.    default baud rate - If a user has a 300 baud modem but wishes to change to 400 baud every time he calls your BBS, he may change this number to 400.  Now, when he calls the BBS, the BBS will automatically prompt him to change to 400 baud. Then he doesn't have to use the BAUD CHANGE command every time he calls; it is executed automatically and at the baud he himself has requested.          Other functions available from the COMMAND prompt are:     SUB SECTION - This section holds your online programs.  From here, you   can load an online program from the current Sub Section, list Sub Sections, change to a different one and load a Prg from THAT sub section.  In each Sub Section, a menu of online programs in that current section is available with the "$" command.  This views the  "\section X" file described above.     After a On-Line program is done, it will usualy return to the COMMAND    section.     NOTE: Typing "?" gives you and menu at almost every main part of the BBS.    TRANSFER or UD section.    This part of your BBS also has different sections containing different files listed with the "$" command. These programs though, are downloaded and uploaded with the NEW PUNTER PROTOCOL instead of run.    The About file function lets you view the file description file for a    file in the current UD section.    This SEQ file is written whenever someone uploads a file to the BBS.   The description is read by going to the UD section containing the file in question, typing "a" and the exact filename of the file you wish information about. The filename is discovered by typing "$" and viewing the directory.     All UD files as well as LIBRARY files for that matter appear on the     drive designated for their purposes. UD program filenames may be a maxiumum of 14 characters long. The Multi-File UD supports the TOUCHTERM Multi protocol.         SYSOP SECTION - From here you can preform the following functions:     D)isk channel - This is a direct link to your disk drives.  All regular DOS commands are available from here as well as:     w:filename  - Use the msg mkr to write the SEQ file "filename"     e:filename - load the SEQ file "filename" and then edit that file from  within the msg mkr.     This file may not be more then 50 lines long.     @ - view the status of the current drive.     RETURN - on a blank line without typing anything else will return you    to the SYSOP prompt.     $ - views the directory.     $:argument*  - views all files starting with the letters "argument".      Example: $:\mail* views all mail files (if you are on the mail device    drive).     % - counts all files.     %:arg* - counts all files beginning with the letters "arg".     @:filename - views the seq file  "filename".     To change drives, type the device number of the drive you wish to change to and press return.     Other functions in the sysop section are:     E)dit user - lets you edit any user except the user online.  Pressing  RETURN at an option concerning the user makes no change to that option. The variables are used as follows:     Var 0 - Hi Msg #     Var 1 - Hi Msg #     Var 2 - Default baud rate     Var 3 - Uploads done     Var 4 - Downloads done     Var 5 - Sig that this user is SigOp of (see the msg base).  This is a number from 1 - # of sigs.  If a person has SigOp control of ALL sigs, this number is 100. This number can also be changed online with F5.     To Delete a user, change his password to some garbage and his handle must be "EMPTY" exactly, in uppercase letters. Or use the on-line program included.     VOTE EDITOR - lets you change aspects of the Vote section, such as :     Title : simple title of the voting question.     Response # : Number of possible voting choices.     Option : Choice the user is given while he is voting.     Result : A look at the results of choosing this option.  Only 9  options/results may be given (ex : Option : yesResult : voted yes.)             Q-quit S-Save     Other options in the SYSOP Section     M)embers file creator - Lets you update the "\members" file.  This file holds a list of all users.  Use this function daily.     T)ime/Date Editor - Lets you edit the current Time and Date.          MESSAGE BASE     ------------     Here is where msgs are posted in organized sections called Sigs.     RETURN - Hitting RETURN lets you view the NEXT message in that Sig.     Change Sigs is done by holding down the shift key and hitting the    letter of the Sig you wish to enter.     ex: shft-a to enter sig A (which is also sig 1 in filenames).     LIST SIGS - Lists the sigs available.     SCAN MSGS - Scans the msgs posted within the current sig.     READ MSGS - Views a msg and the replys of that msg. If the user reading the msg has post access, he can reply to the msg he is reading also.     POST - This lets a user POST a message thus starting a new msg which   can be replyed to. The msg cycling rules mentioned above are put into    work here.     NEW MSGS - Views the msgs which are new to the current user.  These     msgs must be located within the current Sig.     ALL NEW - Works its way through each Sig, checking for new msgs along the way and viewing them if they are    found.     EDITOR - This is available to SUBOPS only.  A SUBOP or SIGOP is   defined by making the var 5 of a user equal to the Sig # (Example: var 5 = 1 if the user is a SUBOP of Sig 1).  The SUBOPS can delete msgs and individual responses to msgs as well as edit the \sigmsg file for the current sig.  This makes the Sig a SigOp's "property", because of his powers over the appearence and msgs therein.          MESSAGE MAKER - this is the part of the program that alows you to write SEQ files who's filename is determined before this part of the program is entered. The commands in this are explained in the "\msgmkr help" file, which is read by typing "/h" and hitting RETURN on a blank line.          Lastly, files in this BBS can be aborted with the space bar and paused   with the home key (any key resumes after home is pressed). For ascii callers, cntrl-s acts like a home key.     Enjoy!     (602)/744-6740 (home fone)     (602)/744-6741 (BBS)          This program is copyrighted by the author. Anyone found with an illegalcopy of this program will be prosecuted.      

@@ -1,5 +1,5 @@
 !--------------------------------------------------
-!- Saturday, May 20, 2017 2:46:01 PM
+!- Saturday, May 20, 2017 4:13:27 PM
 !- Import of : 
 !- c:\src\zelch64\prg.vote.prg
 !- Commodore 64
@@ -23,8 +23,8 @@
 8180 GOSUB100:IFIN$=""THEN8180
 8190 I=VAL(IN$):IFI=0THEN8180
 8200 IFI>I2+1THEN8180
-8210 I1(I-1)=I1(I-1)+1:TX$="{f1}Saving your vote...":GOSUB210:E$="vote":GOSUB12
-8220 OPEN8,8,8,"0:{pound}vote box,a":PRINT#8,NA:PRINT#8,I-1:SYSZ,8
+8210 I1(I-1)=I1(I-1)+1:TX$="{f1}Saving your vote...":GOSUB210:E$="vote":E$=E$
+8220 GOSUB12:OPEN8,8,8,"0:{pound}vote box,a":PRINT#8,NA:PRINT#8,I-1:SYSZ,8
 8230 TX$="{light blue}{clear}{down*2}{f1}Results!":GOSUB210:O=0:FORI=0TOI2:O=O+I1(I):NEXT
 8240 TX$="{light green}{down}{f1}Out of"+STR$(O)+" votes...":GOSUB210:FORI=0TOI2
 8245 TX$="{f1}"+STR$(I1(I))+"-"+I2$(I)+" ("+STR$(INT((I1(I)/O)*100))+"% )":GOSUB210

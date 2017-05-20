@@ -1,5 +1,5 @@
 !--------------------------------------------------
-!- Saturday, May 20, 2017 2:45:13 PM
+!- Saturday, May 20, 2017 4:12:29 PM
 !- Import of : 
 !- c:\src\zelch64\prg.read.prg
 !- Commodore 64
@@ -10,7 +10,8 @@
 8020 IFCM>NMTHENTX$="End of Messages":GOSUB210:CM=NM:WI=0:GOTO4260
 8025 IFCM<1THENCM=0:WI=0:GOTO4260
 8030 I1=Z1(CM):I2=Z2(CM)
-8035 GOSUB5:OPEN8,SD(CS),8,"0:{pound}msg"+STR$(CS)+STR$(CM):SYS38212
+8035 TX$="{f1}Message #"+RIGHT$(STR$(CM),LEN(STR$(CM))-1):GOSUB210
+8037 GOSUB5:OPEN8,SD(CS),8,"0:{pound}msg"+STR$(CS)+STR$(CM):SYS38212
 8040 SYSZ,8:IFPEEK(252)=1THENTX$=CHR$(13)+"hit return{ct c}":GOSUB210:GOSUB6370
 8048 IFI1=0THEN8190
 8049 TX$=CHR$(14)+"{f1}"+STR$(I1)+" Response(s) Counted.":GOSUB210
@@ -33,9 +34,9 @@
 8170 IFIN$<>CHR$(13)THEN8150
 8180 I9=I9+1:GOTO8125
 8190 IFAC<VAL(MID$(CG$,G,1))THEN4260
-8200 TX$=CHR$(14)+CHR$(13)+"{light green}{f1}{reverse on}Public Reply?{reverse off}{white}{ct c}":GOSUB210
+8200 TX$=CHR$(14)+CHR$(13)+"{light green}{f1}{reverse on}Reply (Y/N/Q)?{reverse off}{white}{ct c}":GOSUB210
 8210 GOSUB100:IFIN$="n"ORIN$=CHR$(13)THENTX$="n":GOSUB210:GOTO4260
-8220 IFIN$="q"THENWI=0:TX$="q":GOSUB210:GOTO4260
+8220 IFIN$="q"THENWI=0:KD=0:TX$="q":GOSUB210:GOTO4260
 8230 IFIN$<>"y"THEN8210
 8235 TX$="y":GOSUB210:QQ$=STR$(HN+1)+CHR$(13)+"{f1}REPLY BY:"
 8240 QQ$=QQ$+NA$+"{reverse off}{f1} ID#"+STR$(NA):SYS38215:QD$="DATE:"+STR$(MN)+"/"

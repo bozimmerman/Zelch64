@@ -1,5 +1,5 @@
 !--------------------------------------------------
-!- Saturday, May 20, 2017 2:45:09 PM
+!- Saturday, May 20, 2017 4:12:22 PM
 !- Import of : 
 !- c:\src\zelch64\prg.open.prg
 !- Commodore 64
@@ -20,13 +20,13 @@
 8080 TX$="{f1}You have"+STR$(TM(AC))+" min. for this call":GOSUB210
 8090 TX$="{f1}Last Caller was "+L1$:GOSUB210:TX$="{f1}Logged Off at "+L2$:GOSUB210
 8105 IFPP>0THENTX$="{f1}There are"+STR$(HN-PP)+" new messages.":GOSUB210
-8110 TX$="{f1}Checking for mail...":GOSUB210:I3=0:OPEN1,8,15,"i0"
+8110 TX$="{f1}Checking for mail...":GOSUB210:I3=0:OPEN1,MD,15,"i0"
 8120 OPEN8,MD,8,"0:{pound}mail"+STR$(NA)+",s,r":SYSZ,8:INPUT#1,E,E$,E1,E1:SYSZ,1
 8130 IFE>0THENTX$="{f1}NO mail.. (SORRY)":GOSUB210:GOTO8150
 8140 TX$="{f1}{ct g}You Have Mail Waiting!{ct g}":GOSUB210
 8150 IFAC<4THEN8190
-8160 GOSUB5:OPEN8,8,8,"0:{pound}newsfile,s,r":GET#8,A$:SYSZ,8
-8170 IFST<>0THENTX$="{f1}No News":GOSUB210:GOTO8190
+8160 OPEN1,8,15,"i0":OPEN8,8,8,"0:{pound}newsfile,s,r":SYSZ,8:INPUT#1,E,E$,E1,E1
+8170 SYSZ,1:SYSZ,8:IFE>20THENTX$="{f1}No News":GOSUB210:GOTO8190
 8180 TX$="{f1}System {f1}News{white}:{ct c}":GOSUB210:GOSUB5
 8185 OPEN8,8,8,"0:{pound}newsfile,s,r":SYS38212:SYSZ,8
 8190 IFVAL(P$(2))<=BATHEN2120

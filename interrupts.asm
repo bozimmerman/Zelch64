@@ -2,14 +2,11 @@
         
 * = $CB00
         ; .O
-        ; .D V2.5 ML2
+        ; .D V3.0 ML2
         JMP CLOC1
         JMP WHERE
 CLOC1
-        JSR CLOCK
-        JSR CRSR
-        JMP $EA31
-CRSR
+        SEI
         LDA #$01
         STA $D015
         LDA #$0D
@@ -38,7 +35,7 @@ NXT4
         STA $D000
         LDA #$00
         STA $D010
-        RTS
+        JMP CLOCK
 NXT5
         SEC
         SBC #$1F
@@ -48,13 +45,14 @@ NXT5
         STA $D000
         LDA #$01
         STA $D010
-        RTS
 CLOCK
         LDA $02CA
         BNE KEEPIT
         LDA $DD01
         AND #$10
         BNE TOOMUCH
+        LDA #$2A
+        STA $0427
 KEEPIT
         LDA $0380
         BEQ OUTA
@@ -68,9 +66,11 @@ INRR
 TOOMUCH
         LDA #$01
         STA $033E
+        LDA #$20
+        STA $0427
 OUTA
         LDA $DD08
-        RTS
+        JMP $EA31
 INRC
         LDA $DD0A
         STA $0382

@@ -41,33 +41,19 @@
         <FileName>ascii table.asm</FileName>
         <FileName>interrupts.asm</FileName>
         <FileName>p.protocol.asm</FileName>
-        <FileName>b1.bas</FileName>
-        <FileName>base.bas</FileName>
-        <FileName>d1.bas</FileName>
-        <FileName>e.fpreps.bas</FileName>
-        <FileName>e.menu.bas</FileName>
-        <FileName>e.mpreps.bas</FileName>
-        <FileName>e.user.bas</FileName>
-        <FileName>e1.bas</FileName>
-        <FileName>f1.bas</FileName>
-        <FileName>j1.bas</FileName>
-        <FileName>m1.bas</FileName>
-        <FileName>n1.bas</FileName>
-        <FileName>q1.bas</FileName>
-        <FileName>v1.bas</FileName>
         <FileName>window.ml.asm</FileName>
-        <FileName>bbs.bas</FileName>
-        <FileName>config.bas</FileName>
-        <FileName>zelch.bas</FileName>
         <FileName>bbs.bas</FileName>
         <FileName>editor.bas</FileName>
         <FileName>pgm.timewheel.bas</FileName>
         <FileName>pgm.bagels.bas</FileName>
+        <FileName>pgm.userdel.bas</FileName>
+        <FileName>pgm.filecopy.bas</FileName>
         <FileName>prg.email.bas</FileName>
         <FileName>prg.medit.bas</FileName>
         <FileName>prg.menu.bas</FileName>
         <FileName>prg.monster.bas</FileName>
         <FileName>prg.mtedit.bas</FileName>
+        <FileName>prg.multi.bas</FileName>
         <FileName>prg.new1.bas</FileName>
         <FileName>prg.new2.bas</FileName>
         <FileName>prg.open.bas</FileName>
@@ -91,7 +77,7 @@
             <Regions />
             <Breakpoints />
             <Bookmarks />
-            <Topmost>False</Topmost>
+            <Topmost>True</Topmost>
             <FileOpen>True</FileOpen>
         </SourceFile>
         <SourceFile>
@@ -172,7 +158,29 @@
             <FileOpen>False</FileOpen>
         </SourceFile>
         <SourceFile>
+            <Name>pgm.filecopy.bas</Name>
+            <PrgName />
+            <FileType>1</FileType>
+            <IncludeInBuild>True</IncludeInBuild>
+            <Regions />
+            <Breakpoints />
+            <Bookmarks />
+            <Topmost>False</Topmost>
+            <FileOpen>False</FileOpen>
+        </SourceFile>
+        <SourceFile>
             <Name>pgm.timewheel.bas</Name>
+            <PrgName />
+            <FileType>1</FileType>
+            <IncludeInBuild>True</IncludeInBuild>
+            <Regions />
+            <Breakpoints />
+            <Bookmarks />
+            <Topmost>False</Topmost>
+            <FileOpen>False</FileOpen>
+        </SourceFile>
+        <SourceFile>
+            <Name>pgm.userdel.bas</Name>
             <PrgName />
             <FileType>1</FileType>
             <IncludeInBuild>True</IncludeInBuild>
@@ -228,6 +236,17 @@
         </SourceFile>
         <SourceFile>
             <Name>prg.mtedit.bas</Name>
+            <PrgName />
+            <FileType>1</FileType>
+            <IncludeInBuild>True</IncludeInBuild>
+            <Regions />
+            <Breakpoints />
+            <Bookmarks />
+            <Topmost>False</Topmost>
+            <FileOpen>False</FileOpen>
+        </SourceFile>
+        <SourceFile>
+            <Name>prg.multi.bas</Name>
             <PrgName />
             <FileType>1</FileType>
             <IncludeInBuild>True</IncludeInBuild>
