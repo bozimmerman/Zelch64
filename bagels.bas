@@ -1,10 +1,10 @@
 !--------------------------------------------------
-!- Saturday, May 20, 2017 4:55:44 PM
+!- Friday, May 12, 2017 11:09:07 PM
 !- Import of : 
-!- c:\src\zelch64\bagels.prg
-!- Commodore 64
+!- c:\src\zelch64\bak\bagels.prg
+!- Commodore 128 BASIC 7/7.1
 !--------------------------------------------------
-8000 FORI=0TO9:POKE43+I,PEEK(721+I):NEXT
+8000 SYS51983
 8010 TX$="{clear}{down*6}{f1}BAGELS!!"+CR$+"{f1}READY TO{sh space}PLAY(Y/N)?{ct c}":GOSUB5
 8020 C$="yn":GOSUB66:IFG=2THEN2000
 8040 TX$="{f1}{down*3}OK, I'VE THOUGHT UP A{sh space}NUMBER!":GOSUB5:CT=1

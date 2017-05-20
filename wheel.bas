@@ -1,7 +1,7 @@
 !--------------------------------------------------
-!- Friday, May 12, 2017 11:21:23 PM
+!- Friday, May 12, 2017 11:17:00 PM
 !- Import of : 
-!- c:\src\zelch64\bak\fortune.prg
+!- c:\src\zelch64\bak\wheel.prg
 !- Commodore 128 BASIC 7/7.1
 !--------------------------------------------------
 8000 SYS51983:A=RND(-TI)

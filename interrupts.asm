@@ -2,12 +2,13 @@
         
 * = $CB00
         ; .O
-        ; .D V3.5 ML2
+        ; .D V3.7 ML2
         JMP CLOCK; LOCK UPS 51968
-        JMP WHERE; WHERE TO LOAD PRG FILES
-        JMP CLOC1; CRSR
-        JMP SETPONT; SOME POKES
-        JMP SETIRQ; SET IRQ
+        JMP WHERE; WHERE TO LOAD PRG FILES 51971
+        JMP CLOC1; CRSR 51974
+        JMP SETPONT; SOME POKES 51977
+        JMP SETIRQ; SET IRQ 51980
+        JMP SETP1; RESET BASIC VECTORS 51983
         ;*****************INTERRUPTS
         ; *******CRSR CONTROL
 CLOC1
@@ -30,7 +31,7 @@ CLOC1
         SEC
         SBC #$28
 NXT4
-        CMP #$1F; = SET IF
+        CMP #$1F; SET IF
         BCS NXT5
         ASL
         ASL
@@ -52,7 +53,8 @@ NXT5
         RTS; **FALLS THRU TO MAIN INTERRUPT
         ;************MAIN INTERRUPT ROUTINE
 CLOCK
-        LDA $02CA; **IGNORE CARRIER IF SYSOP ONLINE
+        SEI; **IGNORE CARRIER IF SYSOP ONLINE
+        LDA $02CA
         BNE KEEPIT
         LDA $DD01
         AND #$10
@@ -84,21 +86,24 @@ INRC
         JMP INRR; BACK TO RECHECK FOR 0 MR
         ;**************WHERE ROUTINE******
 WHERE
+        JSR SETPT
         LDA #$00
         STA $FB
-        LDA #$43
+        LDA $2E ; used to be LDA #$43, in THIS version
+        SEC
+        SBC #$01
         STA $FC
 CLOSEP
         LDX #$00
         LDY #$00
         LDA ($FB),Y
-        CMP #$1A
+        CMP $02B6
         BNE NEXTXT
         JSR WHETI
-        CMP #$18
+        CMP $02B7
         BNE NEXTXT
         JSR WHETI
-        CMP #$03
+        CMP $02B8
         BNE NEXTXT
         LDA $FB
         CLC
@@ -111,6 +116,8 @@ CLOSEP
         LDY $FC
         STX $2B
         STY $2C
+        LDA #$01
+        STA $02DC
         RTS
 NEXTXT
         LDA $FB
@@ -146,4 +153,27 @@ SETIRQ
         LDA #$CB
         STA $0315
         CLI
+        RTS
+SETPT
+        LDY #$00
+LOP1
+        LDA $002B,Y
+        STA $02D1,Y
+        INY
+        CPY #$0A
+        BNE LOP1
+        RTS
+SETP1
+        LDA $02DC
+        BEQ SETP2
+        LDY #$00
+LOP2
+        LDA $02D1,Y
+        STA $002B,Y
+        INY
+        CPY #$0A
+        BNE LOP2
+SETP2
+        LDA #$00
+        STA $02DC
         RTS

@@ -36,67 +36,15 @@
         <PostBuildCommands />
     </BuildEvents>
     <BuildList>
-        <FileName>cursor.asm</FileName>
         <FileName>main-ml.asm</FileName>
-        <FileName>ascii table.asm</FileName>
         <FileName>interrupts.asm</FileName>
-        <FileName>p.protocol.asm</FileName>
+        <FileName>ascii table.asm</FileName>
         <FileName>window.ml.asm</FileName>
-        <FileName>bbs.bas</FileName>
-        <FileName>editor.bas</FileName>
-        <FileName>pgm.timewheel.bas</FileName>
-        <FileName>pgm.bagels.bas</FileName>
-        <FileName>pgm.userdel.bas</FileName>
-        <FileName>pgm.filecopy.bas</FileName>
-        <FileName>prg.email.bas</FileName>
-        <FileName>prg.medit.bas</FileName>
-        <FileName>prg.menu.bas</FileName>
-        <FileName>prg.monster.bas</FileName>
-        <FileName>prg.mtedit.bas</FileName>
-        <FileName>prg.multi.bas</FileName>
-        <FileName>prg.new1.bas</FileName>
-        <FileName>prg.new2.bas</FileName>
-        <FileName>prg.open.bas</FileName>
-        <FileName>prg.read.bas</FileName>
-        <FileName>prg.term.bas</FileName>
-        <FileName>prg.udsec.bas</FileName>
-        <FileName>prg.user.bas</FileName>
-        <FileName>prg.var.bas</FileName>
-        <FileName>prg.vedit.bas</FileName>
-        <FileName>prg.vote.bas</FileName>
-        <FileName>zelch.bas</FileName>
-        <FileName>bagels.bas</FileName>
-        <FileName>bbs.bas</FileName>
-        <FileName>chess.bas</FileName>
-        <FileName>copyprg.bas</FileName>
-        <FileName>down.bas</FileName>
-        <FileName>editor.bas</FileName>
-        <FileName>empire.bas</FileName>
-        <FileName>emprg.i.bas</FileName>
-        <FileName>emprg.p.bas</FileName>
-        <FileName>emprg.w.bas</FileName>
-        <FileName>fortune.bas</FileName>
-        <FileName>prg.email.bas</FileName>
-        <FileName>prg.medit.bas</FileName>
-        <FileName>prg.menu.bas</FileName>
-        <FileName>prg.monster.bas</FileName>
-        <FileName>prg.mtedit.bas</FileName>
-        <FileName>prg.new1.bas</FileName>
-        <FileName>prg.new2.bas</FileName>
-        <FileName>prg.open.bas</FileName>
-        <FileName>prg.read.bas</FileName>
-        <FileName>prg.term.bas</FileName>
-        <FileName>prg.text.bas</FileName>
-        <FileName>prg.udsec.bas</FileName>
-        <FileName>prg.user1.bas</FileName>
-        <FileName>prg.user2.bas</FileName>
-        <FileName>prg.var.bas</FileName>
-        <FileName>prg.vedit.bas</FileName>
-        <FileName>prg.vote.bas</FileName>
-        <FileName>zelch.bas</FileName>
+        <FileName>p.protocol.asm</FileName>
+        <FileName>cursor.asm</FileName>
     </BuildList>
     <DetermineBuildOrder>0</DetermineBuildOrder>
-    <PaddingByte>234</PaddingByte>
+    <PaddingByte>0</PaddingByte>
     <SourceFiles>
         <SourceFile>
             <Name>ascii table.asm</Name>
@@ -154,6 +102,17 @@
             <FileOpen>False</FileOpen>
         </SourceFile>
         <SourceFile>
+            <Name>credit.bas</Name>
+            <PrgName />
+            <FileType>1</FileType>
+            <IncludeInBuild>True</IncludeInBuild>
+            <Regions />
+            <Breakpoints />
+            <Bookmarks />
+            <Topmost>False</Topmost>
+            <FileOpen>False</FileOpen>
+        </SourceFile>
+        <SourceFile>
             <Name>cursor.asm</Name>
             <PrgName />
             <FileType>2</FileType>
@@ -165,7 +124,7 @@
             <FileOpen>True</FileOpen>
         </SourceFile>
         <SourceFile>
-            <Name>down.bas</Name>
+            <Name>delete.bas</Name>
             <PrgName />
             <FileType>1</FileType>
             <IncludeInBuild>True</IncludeInBuild>
@@ -319,29 +278,7 @@
             <FileOpen>False</FileOpen>
         </SourceFile>
         <SourceFile>
-            <Name>prg.mtedit.bas</Name>
-            <PrgName />
-            <FileType>1</FileType>
-            <IncludeInBuild>True</IncludeInBuild>
-            <Regions />
-            <Breakpoints />
-            <Bookmarks />
-            <Topmost>False</Topmost>
-            <FileOpen>False</FileOpen>
-        </SourceFile>
-        <SourceFile>
-            <Name>prg.new1.bas</Name>
-            <PrgName />
-            <FileType>1</FileType>
-            <IncludeInBuild>True</IncludeInBuild>
-            <Regions />
-            <Breakpoints />
-            <Bookmarks />
-            <Topmost>False</Topmost>
-            <FileOpen>False</FileOpen>
-        </SourceFile>
-        <SourceFile>
-            <Name>prg.new2.bas</Name>
+            <Name>prg.new.bas</Name>
             <PrgName />
             <FileType>1</FileType>
             <IncludeInBuild>True</IncludeInBuild>
@@ -364,6 +301,17 @@
         </SourceFile>
         <SourceFile>
             <Name>prg.read.bas</Name>
+            <PrgName />
+            <FileType>1</FileType>
+            <IncludeInBuild>True</IncludeInBuild>
+            <Regions />
+            <Breakpoints />
+            <Bookmarks />
+            <Topmost>False</Topmost>
+            <FileOpen>False</FileOpen>
+        </SourceFile>
+        <SourceFile>
+            <Name>prg.sysop.bas</Name>
             <PrgName />
             <FileType>1</FileType>
             <IncludeInBuild>True</IncludeInBuild>
@@ -407,18 +355,7 @@
             <FileOpen>False</FileOpen>
         </SourceFile>
         <SourceFile>
-            <Name>prg.user1.bas</Name>
-            <PrgName />
-            <FileType>1</FileType>
-            <IncludeInBuild>True</IncludeInBuild>
-            <Regions />
-            <Breakpoints />
-            <Bookmarks />
-            <Topmost>False</Topmost>
-            <FileOpen>False</FileOpen>
-        </SourceFile>
-        <SourceFile>
-            <Name>prg.user2.bas</Name>
+            <Name>prg.user.bas</Name>
             <PrgName />
             <FileType>1</FileType>
             <IncludeInBuild>True</IncludeInBuild>
@@ -440,7 +377,7 @@
             <FileOpen>False</FileOpen>
         </SourceFile>
         <SourceFile>
-            <Name>prg.vedit.bas</Name>
+            <Name>prg.vote.bas</Name>
             <PrgName />
             <FileType>1</FileType>
             <IncludeInBuild>True</IncludeInBuild>
@@ -451,7 +388,18 @@
             <FileOpen>False</FileOpen>
         </SourceFile>
         <SourceFile>
-            <Name>prg.vote.bas</Name>
+            <Name>reload.bas</Name>
+            <PrgName />
+            <FileType>1</FileType>
+            <IncludeInBuild>True</IncludeInBuild>
+            <Regions />
+            <Breakpoints />
+            <Bookmarks />
+            <Topmost>False</Topmost>
+            <FileOpen>False</FileOpen>
+        </SourceFile>
+        <SourceFile>
+            <Name>wheel.bas</Name>
             <PrgName />
             <FileType>1</FileType>
             <IncludeInBuild>True</IncludeInBuild>
@@ -469,7 +417,7 @@
             <Regions />
             <Breakpoints />
             <Bookmarks />
-            <Topmost>True</Topmost>
+            <Topmost>False</Topmost>
             <FileOpen>True</FileOpen>
         </SourceFile>
         <SourceFile>
@@ -481,7 +429,7 @@
             <Breakpoints />
             <Bookmarks />
             <Topmost>False</Topmost>
-            <FileOpen>True</FileOpen>
+            <FileOpen>False</FileOpen>
         </SourceFile>
     </SourceFiles>
 </Project>

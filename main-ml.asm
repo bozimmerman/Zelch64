@@ -2,7 +2,7 @@
         
 * = $9538
         ; .O
-        ; .D V3.5 ML1
+        ; .D V3.7 ML1
         JMP GETIT; 38200,1000,(GET 1 CHARACTER)
         JMP SEND; 38203,2000,(SEND 1 CHARACTER)
         JMP INPT; 38206,3000,(INPUT 1 KEY/MDM LINE)
@@ -12,58 +12,35 @@
         JMP FILEGET; 38218,7000,(SKIP ONE FILE (RESPONSE,ETC))
         JMP CHAP; 38221,8000,(CHAT MODE SUB)
         JMP DIREC; 38224,9000,(SEND DIREC FORMAT OUT)
-        JMP HEADER; 38227,10000,(READ POSTED BULLETIN HEADER)
+        JMP FN; 38227,10000,(READ POSTED BULLETIN FN)
         JMP GETLINE; 38230,11000,(GET 1 SEQ FILE LINE)
-        JMP GETINFO; 38233,12000,(GET 1 REL FILE LINE)
+        JMP GETLINE; 38233,11000,(GET 1 REL FILE LINE)
         JMP TERM; 38236,13000,(TERMINAL PROGRAM)
         JMP BLOCKS; 38239,14000,(HOW MANY BLKS IS A FILE)
         JMP COUNTFILE; 38242,15000,(COUNT # FILES ON A DISK)
-        JMP BLKSFREE; 38245,16000,(HOW MANY BLKS FREE ON A DISK)
+        JMP FILESTART; 38245,16000,(START FILESEND ROUTINE)
         JMP BASIC; 38248,17000,(BASIC PROGRAMMING MODULE)
         JMP COPYFI; 38251,18000,(SEND ONE DRIVE TO ANOTHER)
         ;***********GET ONE CHARACTER ROUTINE*********
 GETIT
-        JSR REST
-        JSR RTINE; **SET UP AND GET A CHARACTER
-        LDA #$49; ** NOW SET UP FOR IN$="
-        STA $CD00
-        LDA #$4E
-        STA $CD01
-        LDA #$24
-        STA $CD02
-        LDA #$B2
-        STA $CD03
-        LDA #$22
-        STA $CD04
-        LDA $FE; **NOTHING IN STRING
-        BEQ YUK
-        JMP FINI; **SET LAST QUOTE
-YUK
-        LDA #$22
-        STA $CD05
+        JSR RTINE; **GET IT
+        LDA #$FF
+        STA $02C7
+        LDA $FE; **SOMETHING HIT!
+        BNE SUMTHN
         LDA #$00
-        STA $CD06
-FIN1
-        JSR $A9A5; ** EXECUTE VARIABLE DEFINE
-        LDA $02A7; **RESET VECTORS
-        STA $7A
-        LDA $02A8
-        STA $7B
-        LDA #$00
-        STA $D015
-        RTS
-FINI
-        STA $CD05; **PUT IN HIT CHARACTER
-        LDA #$22
-        STA $CD06
-        LDA #$00
-        STA $CD07
-        JMP FIN1
+        STA $FB
+        JMP DEFINE
+SUMTHN
+        STA $CDFF
+        LDA #$01
+        STA $FB
+        JMP DEFINE
         ;********SEND 1 CHARACTER************
 SEND
         JSR SAVE
 JERK
-        LDA $02A1; **WAIT TILL CLEAR TO SEND
+        LDA $02A1; **WAIT TILL CLEAR
         AND #$01
         BNE JERK
         LDA #$00
@@ -71,72 +48,73 @@ JERK
         STA $D8
         LDA $FE
         CMP #$07
-        BNE NOSOUND
-        JSR SOUND; **BEEP
+        BNE NOBEEP
+        JSR BEEP; **BEEP
         LDA $FE
-NOSOUND
+NOBEEP
         CMP #$8D; **CONVERT CODE TO QUOTE
         BNE NNNSSO
         JMP NNSSOO
 NNNSSO
-        CMP #$2B; ** NO "+"
-        BEQ TWO
+        CMP #$2B; ** NO PLUS SIGNS
+        BEQ HALF
         CMP #$90; **NO BLACK
-        BEQ TWO
+        BEQ HALF
         CMP #$03; ** NO NOTHING
-        BEQ TWO
-        CMP #$93
-        BNE STSEN
-        JMP CLRHOM; **CLEAR WITHOUT HOME
-STSEN
+        BEQ HALF
         CMP #$13; **NO HOME
         BEQ HALF
         CMP #$85
         BNE STSEN0
-        JSR COLOR; **COLOR CYCLE
+        JSR CYCLE; **COLOR CYCLE
 STSEN0
-        LDX $02A9
-        BNE STSENA
-        LDX $FE
-        LDA $CF00,X
-        TAX
-        LDA $CE00,X
-STSENA
-        JSR $FFD2; **SEND TO SCREEN
-        LDA $02D0; ** LOCAL MODE
-        BNE HALF
-STSEN2
-        LDA $02A9; ** ASCII ON
-        BEQ FIN2
-FIN3
+        LDA $02D0; **CHECK LOCAL - SEND TO MODEM
+        BNE SYSSEND
         JSR STAR
         STA $FE
-        LDX #$05
+        LDA $02A9
+        BNE USERSEND
+        LDX $FE; **ASCII
+        LDA $CF00,X
+        STA $FE
+USERSEND
+        LDX #$05; **USERSEND
         JSR $FFC9
         LDA $FE
         JSR $FFD2
+        LDA $FE
+        CMP #$0D
+        BNE SYSSEND
+        LDA $02AA
+        BEQ SYSSEND
+        LDA #$0A; **LINEFEEDS
+        JSR $FFD2
+SYSSEND
         JSR $FFCC
-        JMP TWO
-FIN2
-        LDX $FE; **TRANSLATE TO ASCII
+        LDA $FE
+        CMP #$93
+        BNE SYSSEND2
+        JMP CLRHOM
+SYSSEND2
+        LDA $02A9
+        BNE STSENA
+        LDA $02D0
+        BEQ SYSASCII
+        LDX $FE
         LDA $CF00,X
         STA $FE
-        JMP FIN3
-TWO
+SYSASCII
+        LDX $FE; **ASCII
+        LDA $CE00,X
+        STA $FE
+STSENA
         LDA $FE
-        CMP #$0D; **RETURN
-        BEQ THREE
+        JSR $FFD2
 HALF
-        LDA #$00; **EXIT
+        LDA #$00
         STA $D015
         JSR LOAD
         RTS
-THREE
-        LDA $02AA; **LINEFEEDS
-        BEQ HALF
-        LDA #$0A
-        JSR $FFD2
-        JMP HALF
 STAR
         LDA $02C6; **HIDDEN LETTERS
         BEQ NOSTAR
@@ -148,7 +126,7 @@ STAR
         CMP #$14
         BEQ NOSTAR
         LDA #$2A; **STAR
-        RTS
+        STA $FE
 NOSTAR
         LDA $FE
         RTS
@@ -156,8 +134,8 @@ NNSSOO
         LDA #$22; **POUND TO QUOTE
         STA $FE
         JMP NNNSSO
-COLOR
-        LDX $02AC
+CYCLE
+        LDX $02AC; **COLOR CYCLE
         INX
         CPX #$08
         BNE NXCOL
@@ -171,54 +149,37 @@ NXCOL
 INPT
         JSR REST
         JSR CLEAR
-        LDY #$03
-        STY $FB
-        LDA #$00
-        STA $02DE; **CURRENT COLUMN
-        JSR STIEQ
-LOOP
+        TAY; **CURRENT COLUMN
+        STA $02DE
+INPTLP
         JSR RTINE
         LDA $033E; **CARRIER DROPPED
-        BNE END
-        LDY #$00
+        BNE TEND
         LDA $FE; **NULL
-        BEQ LOOP
+        BEQ INPTLP
         JSR CKGOOD
-        JMP CARON
-CREEP
-        JSR WRAP
-        INC $FB; **INCREASE COLUMN
-        JMP TEND
-CARON
-        LDA $FE; **CONTINUE
-        INC $FB; **INCREASE COLUMN
-        CMP #$0D; **RETURN
+        LDA $FE; **RETURN
+        CMP #$0D
         BEQ TEND
-        LDA $FB
-        CMP $02BB; **60 SAVES YET
+        CMP #$14; **BACKSPACE
+        BEQ INSTDEL
+        LDA $FB; **60 SAVES YET
+        CMP $02BB
         BEQ CREEPE
+        LDY #$00; **STORE
         LDA $FE
-        CMP #$14; **-PRINT
-        BEQ DELETE
-        STA ($FB),Y; **STORE
-        JSR SEND
-        LDA $02DE
-        CMP $02FA; **WRAP/RETURN YET
-        BNE LOOP
-        JMP CREEP
-END
-        LDA #$22; **STORE + GET
-        LDY #$00
         STA ($FB),Y
         INC $FB
-        LDA #$00
-        STA ($FB),Y
-        JMP FIN1; **IN GETIT ROUTINE
+        JSR SEND
+        LDA $02DE; **WRAP/RETURN YET
+        CMP $02FA
+        BNE INPTLP
+        JSR WRAP
 TEND
         LDA #$0D; **HIT RETURN
         STA $FE
         JSR SEND
-        JMP END
+        JMP DEFINE
 CREEPE
         LDA $FE; **ADD LINK
         STA ($FB),Y
@@ -227,36 +188,34 @@ CREEPE
         STA ($FB),Y
         INC $FB
         JSR SEND
-        JMP END
-DELETE
-        LDX $FB; **DELETE MANAGEMENT
+        JMP DEFINE
+INSTDEL
+        LDA $FB; **BACKSPACE
+        CMP #$00
+        BEQ JPINPTLP
         DEC $FB
-        DEX
-        CPX #$04; **ENUF TO -PRINT
-        BCC JPLOOP
         LDA ($FB),Y
-        DEC $FB
         CMP #$91; **CRSR UP
         BNE NXT6
         LDA #$11
         STA $FE
         JSR SEND
-        JMP LOOP
+        JMP INPTLP
 NXT6
         CMP #$11; ** CRSR OPENWN
         BNE NXT7
         LDA #$91
         STA $FE
         JSR SEND
-JPLOOP
-        JMP LOOP
+JPINPTLP
+        JMP INPTLP
 NXT7
         CMP #$9D; **CRSR LEFT
         BNE NXT0
         LDA #$1D
         STA $FE
         JSR SEND
-        JMP LOOP
+        JMP INPTLP
 NXT0
         CMP #$1D; **CRSR RIGHT
         BEQ DEL
@@ -266,20 +225,20 @@ NXT0
         BCC NODEL
         CMP #$80
         BCC DEL
-        CMP #$A0; ** "   "      "     "
+        CMP #$A0
         BCC NODEL
         CMP #$FF
         BCC DEL
 NODEL
         CMP #$FF
         BEQ DEL
-        JMP LOOP
+        JMP INPTLP
 DEL
         LDA #$14
         STA $FE
         JSR SEND
         DEC $02DE
-        JMP LOOP
+        JMP INPTLP
         ;*************SEND LINE TO SCREEN/MODEM*********
 SENDBIG
         INC $7A
@@ -295,14 +254,14 @@ LALE
         CPY #$03
         BCC LALE
         LDY #$00
-LOOPUP
+LPUP
         LDA ($FC),Y
         STA $FE
         JSR SEND
         INY
         CPY $FB
         BEQ AWOUT
-        JMP LOOPUP
+        JMP LPUP
 AWOUT
         CMP #$03
         BNE RTNPNT
@@ -318,7 +277,7 @@ FILESEND
         STA $FD
         STA $FC
 FILES
-        LDX #$03
+        LDX #$02
         JSR $FFC6
         LDX #$00
 LOPISS
@@ -344,7 +303,9 @@ CMPA
         LDA $90
         BNE CSOUT
         INX
-        JMP LOPISS
+        CPX #$FD
+        BNE LOPISS
+        DEX
 CSEND
         LDA #$01
         STA $FD
@@ -389,7 +350,7 @@ COW
         RTS
 UPPER
         LDY #$01
-        STY $FC
+        STA $FC
         RTS
         ;************CURRENT TIME INTO VARIABLE*************
 TIME
@@ -399,11 +360,10 @@ TIME
         STA $FE
 TIMU
         LDA $DD0B
-        LDA $DD08
-        JSR REST; **SET UP I$="
+        LDA $DD08; **SET UP
+        JSR REST
         JSR CLEAR
-        JSR STIEQ
-        LDA #$0B
+        LDA #$07; **LENGTH
         STA $FB
         LDA $FD
         AND #$10
@@ -412,11 +372,13 @@ TIMU
         LSR
         LSR
         ADC #$30
-        STA $CD04
+        STA $CD00
         LDA $FD
         AND #$0F
         ADC #$30
-        STA $CD05
+        STA $CD01
+        LDA #$3A
+        STA $CD02
         LDA $FE
         AND #$F0
         LSR
@@ -424,35 +386,29 @@ TIMU
         LSR
         LSR
         ADC #$30
-        STA $CD07
+        STA $CD03
         LDA $FE
         AND #$0F
         ADC #$30
-        STA $CD08
-        LDA #$3A
-        STA $CD06
+        STA $CD04
         LDA #$4D
-        STA $CD0A
+        STA $CD06
         LDA $FD
         AND #$80
         CMP #$00
         BNE TIME1
         LDA #$41
-        STA $CD09
-        JMP TIMEOUT
+        STA $CD05
+        JMP DEFINE
 TIME1
         LDA #$50
-        STA $CD09
-TIMEOUT
-        LDY #$00
-        TYA
-        STA ($FB),Y
-        JMP FIN1; **IN GETIT
+        STA $CD05
+        JMP DEFINE
         ;********GET ONE DISK LINK FILE*******
 FILEGET
         LDA #$00
         STA $FD
-        LDX #$03
+        LDX #$02
         JSR $FFC6
 FILET
         JSR $FFE4
@@ -469,9 +425,10 @@ OVER
         ;************CHAT MODE*********
 CHAP
         LDY #$00
-        LDA #$00; **SET BLACK BORDER
-        STA $D020
-        STA $02D0; **LOCAL OFF
+        LDA #$20; **TURN =$ CHAT FLAG
+        STA $045E
+        LDA #$00; **LOCAL OFF
+        STA $02D0
         LDA $033D
         CMP #$01; **ALREADY IN CHAT
         BNE CNCHP
@@ -479,6 +436,8 @@ CHAP
 CNCHP
         LDA #$01
         STA $033D
+        LDA $0381
+        STA $02AB
         LDA #$12
         STA $FE
         JSR SEND
@@ -491,25 +450,28 @@ CHAT
         CMP #$92; **NO NO-RVS
         BEQ CHAT
         JSR SEND
-        LDA #$12; **SEND RVS
+        LDA #$12
         STA $FE
         JSR SEND
         JMP CHAT
 GOTT
-        LDA #$92; **SEND NO-RVS
+        LDA #$92
         STA $FE
         JSR SEND
-        LDA #$00; **GET CHAT
+        LDA $02AB
+        STA $0381
+        LDA #$00
         STA $033D
+        STA $033E
         RTS
         ;************SEND DIRECTORY
 DIREC
-        LDX #$03
+        LDX #$02
         JSR $FFC6
         JSR $FFE4; **GET USELESS
         JSR $FFE4
 FGLA
-        LDX #$03
+        LDX #$02
         JSR $FFC6
         JSR $FFE4; **GET USELESS
         JSR $FFE4
@@ -531,7 +493,7 @@ FGLA
         LDX #$00
         JSR $FFC9
 BEHE
-        LDX #$03
+        LDX #$02
         JSR $FFC6
         JSR $FFE4
         CMP #$00
@@ -570,105 +532,42 @@ YEPP
         LDA #$00
         JMP KOTE
         ;************READ POSTED MESSAGE HEADER**********
-HEADER
-        LDX #$03
-        JSR $FFC6
-        JSR REST
-        JSR CLEAR
-        LDA #$00
-        STA $FD
-        JSR STIEQ
-        LDA #$04
-        STA $FB
-HELOOP
-        JSR $FFE4
-        STA $FE
-        LDA $90
-        BNE ERR1
-        LDA $FE
-        CMP #$02
-        BEQ OUTHE
-        LDY #$00
-        STA ($FB),Y
-        INC $FB
-        JMP HELOOP
-OUTHE
-        LDA #$22
-        STA ($FB),Y
-        INC $FB
-        LDA #$00
-        STA ($FB),Y
-        JSR $FFCC
-        JMP FIN1
-ERR1
-        LDA #$01
-        STA $FD
-        JMP OUTHE
-        ;***********GET ONE LINE FROM DISK******
-GETLINE
-        LDX #$03
-        JSR $FFC6
-        JSR REST
-        JSR CLEAR
-        LDA #$00
-        STA $FD
-        JSR STIEQ
-        LDA #$04
-        STA $FB
-GELOOP
-        JSR $FFE4
-        STA $FE
-        LDA $90
-        BNE ERR2
-        LDA $FE
-        CMP #$0D
-        BEQ OUTGE
-        LDY #$00
-        STA ($FB),Y
-        INC $FB
-        JMP GELOOP
-OUTGE
-        LDA #$22
-        STA ($FB),Y
-        INC $FB
-        LDA #$00
-        STA ($FB),Y
-        JSR $FFCC
-        JMP FIN1
-ERR2
-        LDA #$01
-        STA $FD
-        JMP OUTGE
-        ;**********GET REL FILE LINE********
-GETINFO
+FN
+        LDA #$02
+        STA $02E1
+DISGET
         LDX #$02
         JSR $FFC6
         JSR REST
         JSR CLEAR
-        JSR STIEQ
-        LDA #$04
-        STA $FB
-GEINFO
+        LDA #$00
+        STA $FD
+HELOP
         JSR $FFE4
         STA $FE
+        LDA $90
+        BNE ERR1
         LDA $FB
-        CMP #$15
-        BEQ OUTIN
+        CMP #$FD
+        BEQ ERR1
         LDA $FE
-        CMP #$0D
-        BEQ OUTIN
+        CMP $02E1
+        BEQ OUTHE
         LDY #$00
         STA ($FB),Y
         INC $FB
-        JMP GEINFO
-OUTIN
-        LDA #$22
-        STA ($FB),Y
-        INC $FB
-        LDA #$00
-        STA ($FB),Y
+        JMP HELOP
+ERR1
+        LDA #$01
+        STA $FD
+OUTHE
         JSR $FFCC
-        JMP FIN1
+        JMP DEFINE
+        ;***********GET ONE LINE FROM DISK******
+GETLINE
+        LDA #$0D
+        STA $02E1
+        JMP DISGET
         ;*************TERMINAL PROGRAM
 TERM
         JSR $FFCC
@@ -728,7 +627,7 @@ CONTERM
         JMP TERM
         ;********COUNT BLKS IN FILE
 BLOCKS
-        LDX #03
+        LDX #$02
         JSR $FFC6
         JSR $FFE4
         JSR $FFE4
@@ -743,17 +642,26 @@ BPSEEP
         JSR $FFE4
         JSR $FFE4
         JSR $FFE4
-        STA  $FB
+        STA $FB
         JSR $FFE4
         STA $FC
-        LDX #$00
-        JSR $FFC6
+BPSEEP2
+        JSR $FFE4
+        CMP #$00
+        BNE BPSEEP2
+        JSR $FFE4
+        JSR $FFE4
+        JSR $FFE4
+        STA $02C3
+        JSR $FFE4
+        STA $02C4
+        JSR $FFCC
         RTS
         ;************COUNT FILES ON DISK*******
 COUNTFILE
         LDA #$00
         STA $02C2
-        LDX #$03
+        LDX #$02
         JSR $FFC6
         JSR $FFE4; ***GET USELESS
         JSR $FFE4
@@ -777,27 +685,11 @@ GOCOUNT
         JSR $FFC6
         RTS
         ;********BLOCKS FREE ON DISK
-BLKSFREE
-        LDX #$03
-        JSR $FFC6
-        LDY #$01
-BLKSLOP
-        JSR SAVEE
-        JSR $FFE4
-        LDY $02CE
-        CPY #$23
-        BEQ KEPBLK
-        INY
-        JMP BLKSLOP
-KEPBLK
-        STA $02C3
-        JSR $FFE4
-        STA $02C4
-        JSR $FFCC
+FILESTART
         RTS
         ;********BASIC PROGRAMMING
 BASIC
-        NOP
+        RTS
         ;*********COPY DRIVE TO DRIVE
 COPYFI
         LDA #$78
@@ -807,7 +699,7 @@ COPYFI
         LDA #$00
         STA $FC
 COPLOP
-        LDX #$03
+        LDX #$02
         JSR $FFC6
         JSR $FFCF
         LDY #$00
@@ -840,7 +732,7 @@ COPSND1
         LDA #$04
         STA $FE
         JSR $FFCC
-        LDX #$04
+        LDX #$03
         JSR $FFC9
 COPLOP2
         LDY #$00
@@ -866,24 +758,18 @@ COPLOP2
         ;**************SYSTEM ROUTINES***********************
         ;*****SET UP FOR VARIABLE DEFINITION
 REST
-        LDA $7A
-        STA $02A7
-        LDA $7B
-        STA $02A8
         LDA #$CD
-        STA $7B
         STA $FC
         LDA #$00
-        STA $7A
         STA $FB
+        LDA #$00
+        STA $02C7
         RTS
-        ;************GET A LETTER FROM MODEM//BOARD
+        ;************GET A LETTER FROM MODEM/KEYBOARD
 RTINE
         JSR SAVE
         JSR $FFE4
         CMP #$00
-        BEQ NXT1
-        CMP #$03
         BEQ NXT1
         JMP SYSTORE
 NXT1
@@ -892,6 +778,9 @@ NXT1
         LDX #$05
         JSR $FFC6
         JSR $FFE4
+        STA $FE
+        JSR $FFCC
+        LDA $FE
         CMP #$00
         BEQ GONE
         CMP #$03
@@ -993,9 +882,9 @@ SAVE
         STA $02CD
         STY $02CE
         STX $02CF
+        JSR $CB06
 LOAD
         JSR $FFCC
-        JSR $CB06
         LDA $02CD
         LDY $02CE
         LDX $02CF
@@ -1012,8 +901,10 @@ CLEAR
         STA ($FB),Y
         INC $FB
         LDA $FB
-        CMP #$FE
+        CMP #$FD
         BNE CLEAR
+        LDA #$00
+        STA $FB
         RTS
 PAUSE
         JSR SAVEE
@@ -1030,16 +921,6 @@ CPN
         CMP #$13
         BEQ PAP
         JSR LOAD
-        RTS
-STIEQ
-        LDA #$49
-        STA $CD00
-        LDA #$24
-        STA $CD01
-        LDA #$B2
-        STA $CD02
-        LDA #$22
-        STA $CD03
         RTS
         ;*************CLEAR WITHOUT HOME
 CLRHOM
@@ -1069,9 +950,9 @@ CLRGON
         JSR $FFD2
         LDA #$0D
         JSR $FFD2
-        JMP STSEN2
+        JMP HALF
         ;****************BEEP!
-SOUND
+BEEP
         LDA #$00
         STA $D404
         LDA #$09
@@ -1097,6 +978,7 @@ WRAP
 WRA1
         LDA $FB
         STA $FD
+        DEC $FD
         LDA $FC
         STA $FE
         LDY #$00
@@ -1116,6 +998,7 @@ WRA3
         CMP #$20
         BNE WRA2
         INC $02C2
+        LDY #$00
 WRA4
         INY
         CPY $02C2
@@ -1129,10 +1012,30 @@ WRA5
         STX $C6
         LDA $FD
         STA $FB
+        DEY
 LIOP
         LDA #$14
         STA $FE
         JSR SEND
         DEY
         BNE LIOP
+        RTS
+        ;*********DEFINE VARIABLES*****
+DEFINE
+        LDA $02C7
+        BEQ DEFINPT
+        LDA #$FF
+        STA $690A
+        LDA #$CD
+        STA $690B
+        LDA $FB
+        STA $6909
+        RTS
+DEFINPT
+        LDA #$00
+        STA $6903
+        LDA #$CD
+        STA $6904
+        LDA $FB
+        STA $6902
         RTS
