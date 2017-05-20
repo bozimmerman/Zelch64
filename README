@@ -1,0 +1,28 @@
+Zelch 64 (C)1986-2017 Bo Zimmerman
+Please read the LICENSE file for license information
+Please read the NOTICE file for credits information
+
+The Zelch 64 v0.5 Package is in CBM Prg Studio format.  If you'd like to download the binaries, just visit: http://bbs.zimmers.net and scroll to the bottom.
+
+
+HOW TO ASSEMBLE:
+
+The Zelch 64 v0.5 distribution package consists of one disk.
+
+The 1541 (.D64) disk consists of the following files:
+
+zelch,p
+setup,p
+{pound}m1,p
+{pound}b1,p
+{pound}cursor,p
+{pound}p.protocol,p
+{pound}opening msg,s
+
+To build the files for these disks, you'll need three programs.  One, obviously, is CBM prg studio.  The other is DirMaster, or some other program that lets you copy files into a blank .D64 image.  The last is either an emulator to run the disks on, or a program to copy the images to real floppies.
+
+The first step is to load CBM prg studio.  Starting with the BASIC files, open up each file so you can see the code.  Then Click the little PRG button to "Generate .prg (current file)"  or select Build->Program->To File from the menu.  After all the BASIC files are built, and the prg files saved, then do the Assembly files the same way.  If the Assembly files give you an extra window "Assembly Dump", but you can just hit the X to close this and ignore it.
+
+The next step is to copy the files for the boot disk into a .D64 image, in the order shown above.  Please note that MOST of the files will need to be renamed after they are copied into the image.  All of the files are prefixed with the PETSCII character for the english Pound sign, represented above by "{pound}".  You will need to add this character to those files when creating the .D64 disk image.  Also, the SEQ (,s) files mentioned above can be found in the project "data" directory.
+
+The last step is to either load up your emulator, or copy the images to real floppies, and get to work.  Instructions from here on are covered by the documentation in the projects docs directory.  
