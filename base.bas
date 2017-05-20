@@ -1,5 +1,5 @@
 !--------------------------------------------------
-!- Friday, May 19, 2017 9:53:11 PM
+!- Saturday, May 20, 2017 12:03:56 AM
 !- Import of : 
 !- c:\src\zelch64\base.prg
 !- Commodore 64
@@ -24,4 +24,4 @@
 610 LOAD"{pound}b1",8
 1000 REM BEGIN HERE. ANY Q)UIT FUNCTION
 1010 REM MUST GOTO LINE 600. LINE 500
-1020 REM WILL AUTO LOGOFF WHEN LOAD IS DONE
+1020 WILL AUTO LOGOFF WHEN LOAD IS DONE

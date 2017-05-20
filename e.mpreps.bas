@@ -1,5 +1,5 @@
 !--------------------------------------------------
-!- Friday, May 19, 2017 9:55:07 PM
+!- Saturday, May 20, 2017 12:05:12 AM
 !- Import of : 
 !- c:\src\zelch64\e.mpreps.prg
 !- Commodore 64
@@ -17,8 +17,7 @@
 105 PRINT"--------------------------"
 110 PRINT" # )Filename:Access:Letter"
 115 PRINT"--------------------------"
-120 FORI=0TOMO:PRINTI+4")"M1$(I)TAB(12)":"M2(I)TAB(19)":"M3$(I);
-125 PRINTTAB(26)":"M4(I):NEXT
+120 FORI=0TOMO:PRINTI+4")"M1$(I)TAB(12)":"M2(I)TAB(19)":"M3$(I):NEXT
 130 PRINT"---------------------------------------"
 140 PRINT"#) to edit Q)uit or S)ave"
 150 GETA$:IFA$="q"THEN60000

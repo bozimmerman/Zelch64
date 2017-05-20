@@ -1,5 +1,5 @@
 !--------------------------------------------------
-!- Friday, May 19, 2017 9:56:31 PM
+!- Saturday, May 20, 2017 12:06:02 AM
 !- Import of : 
 !- c:\src\zelch64\n1.prg
 !- Commodore 64
@@ -23,7 +23,7 @@
 230 SYS49164
 240 D5=PEEK(253)
 250 CLOSE1:CLOSE8:RETURN
-260 TX$="Finding a opening. Standby...":GOSUB150
+260 TX$="{cyan}Finding a opening. Standby...{pink}":GOSUB150
 270 CLOSE1:CLOSE2:CLOSE8:OPEN1,8,15:OPEN2,8,2,"{pound}userlog":C1=1:C2=0
 280 PRINT#1,"p"CHR$(98)CHR$(C1)CHR$(C2)CHR$(5):GET#2,A$:INPUT#1,E1
 285 IFE1<>0ORA$=""THEN320
@@ -34,26 +34,26 @@
 310 GOTO280
 320 PRINT#1,"p"CHR$(98)CHR$(C1)CHR$(C2)CHR$(0)
 325 CLOSE1:CLOSE2:ID=C1+256*C2:OU$=CHR$(13):GOSUB60
-330 TX$="Enter your handle (17 chars or less)"+CHR$(13)+":":GOSUB150
+330 TX$="{pink}Enter your handle (17 chars or less)"+CHR$(13)+":":GOSUB150
 340 GOSUB90:NA$=I$:IFLEN(NA$)>17ORNA$=""THEN330
-350 TX$="Enter your phone number (XXX-XXXX)"+CHR$(13)+":":GOSUB150:GOSUB90
+350 TX$="{yellow}Enter your phone number (XXX-XXXX)"+CHR$(13)+":":GOSUB150:GOSUB90
 360 PH$=I$:IFLEN(PH$)>9ORPH$=""THEN350
-370 TX$="Enter your name (17 chars or less)"+CHR$(13)+":":GOSUB150:GOSUB90
+370 TX$="{white}Enter your name (17 chars or less)"+CHR$(13)+":":GOSUB150:GOSUB90
 380 RN$=I$:IFLEN(RN$)>17ORRN$=""THEN370
-390 TX$="Enter a password (7 chars or less)"+CHR$(13)+":":GOSUB150:GOSUB90
+390 TX$="{cyan}Enter a password (7 chars or less)"+CHR$(13)+":":GOSUB150:GOSUB90
 400 PS$=I$:IFLEN(PS$)>7ORPS$=""THEN390
-410 TX$="{clear}Handle:"+NA$:GOSUB150
-422 TX$="Phone:"+PH$:GOSUB150
-423 TX$="Name:"+RN$:GOSUB150
-424 TX$="Password:"+PS$:GOSUB150
-430 TX$="is all this correct?":GOSUB150
+410 TX$="{clear}{pink}Handle:"+NA$:GOSUB150
+422 TX$="{yellow}Phone:"+PH$:GOSUB150
+423 TX$="{white}Name:"+RN$:GOSUB150
+424 TX$="{cyan}Password:"+PS$:GOSUB150
+430 TX$="{light blue}Is all this correct?":GOSUB150
 440 GOSUB20:IFIN$=""THENGETIN$:IFIN$=""THEN440
 450 IFIN$="n"THEN330
 460 IFIN$<>"y"THEN440
 470 AC$="0":LC$=STR$(MN)+"/"+STR$(DA):TM$="11]00":CA$="0"
 475 FORJ=0TO9:P$(J)="0":NEXTJ
-480 TX$=NA$:GOSUB150:TX$="your id number is:"+STR$(ID):GOSUB150:
-490 TX$="and your password is:"+PS$:GOSUB150:TX$="Saving info...":GOSUB150
+480 TX$=NA$:GOSUB150:TX$="Your ID number is:"+STR$(ID):GOSUB150:
+490 TX$="And your PASSWORD is:"+PS$:GOSUB150:TX$="Saving info...":GOSUB150
 500 GOSUB 560
 510 GOSUB560:GOSUB1000:TX$="Press RETURN to go on:":GOSUB150:GOSUB90
 520 FI$="{pound}newuser":GOSUB190

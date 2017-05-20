@@ -38,10 +38,14 @@
     <BuildList>
         <FileName>cursor.asm</FileName>
         <FileName>main-ml.asm</FileName>
+        <FileName>ascii table.asm</FileName>
+        <FileName>interrupts.asm</FileName>
+        <FileName>p.protocol.asm</FileName>
         <FileName>@1.bas</FileName>
-        <FileName>zelch.bas</FileName>
         <FileName>b1.bas</FileName>
         <FileName>base.bas</FileName>
+        <FileName>config.bas</FileName>
+        <FileName>d1.bas</FileName>
         <FileName>e.fpreps.bas</FileName>
         <FileName>e.menu.bas</FileName>
         <FileName>e.mpreps.bas</FileName>
@@ -53,7 +57,8 @@
         <FileName>n1.bas</FileName>
         <FileName>q1.bas</FileName>
         <FileName>v1.bas</FileName>
-        <FileName>ascii table.asm</FileName>
+        <FileName>window.ml.asm</FileName>
+        <FileName>zelch.bas</FileName>
     </BuildList>
     <DetermineBuildOrder>0</DetermineBuildOrder>
     <PaddingByte>234</PaddingByte>
@@ -67,7 +72,7 @@
             <Breakpoints />
             <Bookmarks />
             <Topmost>False</Topmost>
-            <FileOpen>True</FileOpen>
+            <FileOpen>False</FileOpen>
         </SourceFile>
         <SourceFile>
             <Name>ascii table.asm</Name>
@@ -89,7 +94,7 @@
             <Breakpoints />
             <Bookmarks />
             <Topmost>False</Topmost>
-            <FileOpen>True</FileOpen>
+            <FileOpen>False</FileOpen>
         </SourceFile>
         <SourceFile>
             <Name>base.bas</Name>
@@ -100,7 +105,18 @@
             <Breakpoints />
             <Bookmarks />
             <Topmost>False</Topmost>
-            <FileOpen>True</FileOpen>
+            <FileOpen>False</FileOpen>
+        </SourceFile>
+        <SourceFile>
+            <Name>config.bas</Name>
+            <PrgName />
+            <FileType>1</FileType>
+            <IncludeInBuild>True</IncludeInBuild>
+            <Regions />
+            <Breakpoints />
+            <Bookmarks />
+            <Topmost>False</Topmost>
+            <FileOpen>False</FileOpen>
         </SourceFile>
         <SourceFile>
             <Name>cursor.asm</Name>
@@ -110,8 +126,19 @@
             <Regions />
             <Breakpoints />
             <Bookmarks />
-            <Topmost>True</Topmost>
+            <Topmost>False</Topmost>
             <FileOpen>True</FileOpen>
+        </SourceFile>
+        <SourceFile>
+            <Name>d1.bas</Name>
+            <PrgName />
+            <FileType>1</FileType>
+            <IncludeInBuild>True</IncludeInBuild>
+            <Regions />
+            <Breakpoints />
+            <Bookmarks />
+            <Topmost>False</Topmost>
+            <FileOpen>False</FileOpen>
         </SourceFile>
         <SourceFile>
             <Name>e.fpreps.bas</Name>
@@ -180,6 +207,17 @@
             <FileOpen>True</FileOpen>
         </SourceFile>
         <SourceFile>
+            <Name>interrupts.asm</Name>
+            <PrgName />
+            <FileType>2</FileType>
+            <IncludeInBuild>True</IncludeInBuild>
+            <Regions />
+            <Breakpoints />
+            <Bookmarks />
+            <Topmost>False</Topmost>
+            <FileOpen>True</FileOpen>
+        </SourceFile>
+        <SourceFile>
             <Name>j1.bas</Name>
             <PrgName />
             <FileType>1</FileType>
@@ -224,6 +262,17 @@
             <FileOpen>True</FileOpen>
         </SourceFile>
         <SourceFile>
+            <Name>p.protocol.asm</Name>
+            <PrgName />
+            <FileType>2</FileType>
+            <IncludeInBuild>True</IncludeInBuild>
+            <Regions />
+            <Breakpoints />
+            <Bookmarks />
+            <Topmost>False</Topmost>
+            <FileOpen>True</FileOpen>
+        </SourceFile>
+        <SourceFile>
             <Name>q1.bas</Name>
             <PrgName />
             <FileType>1</FileType>
@@ -246,6 +295,17 @@
             <FileOpen>True</FileOpen>
         </SourceFile>
         <SourceFile>
+            <Name>window.ml.asm</Name>
+            <PrgName />
+            <FileType>2</FileType>
+            <IncludeInBuild>True</IncludeInBuild>
+            <Regions />
+            <Breakpoints />
+            <Bookmarks />
+            <Topmost>False</Topmost>
+            <FileOpen>True</FileOpen>
+        </SourceFile>
+        <SourceFile>
             <Name>zelch.bas</Name>
             <PrgName />
             <FileType>1</FileType>
@@ -253,7 +313,7 @@
             <Regions />
             <Breakpoints />
             <Bookmarks />
-            <Topmost>False</Topmost>
+            <Topmost>True</Topmost>
             <FileOpen>True</FileOpen>
         </SourceFile>
     </SourceFiles>
