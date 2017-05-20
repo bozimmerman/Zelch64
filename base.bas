@@ -1,0 +1,27 @@
+!--------------------------------------------------
+!- Friday, May 19, 2017 9:53:11 PM
+!- Import of : 
+!- c:\src\zelch64\base.prg
+!- Commodore 64
+!--------------------------------------------------
+10 GOTO1000
+100 IN$="":SYS49152
+110 IFPEEK(830)=1THEN500
+120 RETURN
+200 IFOU$=""THENRETURN
+210 POKE254,ASC(OU$)
+220 SYS49155
+230 RETURN
+300 SYS49158
+310 IFPEEK(830)=1THEN500
+320 RETURN
+400 IFTX$=""THENRETURN
+420 SYS49161,TX$
+430 RETURN
+500 RL=2520:TX$="Standby...":GOSUB400
+510 LOAD"{pound}@1",8
+600 TX$="Standby...":GOSUB400
+610 LOAD"{pound}b1",8
+1000 REM BEGIN HERE. ANY Q)UIT FUNCTION
+1010 REM MUST GOTO LINE 600. LINE 500
+1020 REM WILL AUTO LOGOFF WHEN LOAD IS DONE
