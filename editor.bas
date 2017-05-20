@@ -1,389 +1,328 @@
 !--------------------------------------------------
-!- Saturday, May 20, 2017 4:36:39 PM
+!- Saturday, May 20, 2017 4:56:15 PM
 !- Import of : 
-!- c:\src\zelch64\editor.prg
+!- c:\src\zelch64\editor 3.5.prg
 !- Commodore 64
 !--------------------------------------------------
-10 CLR:DIMSG$(50),SG(50),SD(50),SF(50),UD$(20),UA(20),UV(20),FL(50),FL$(16)
-11 DIMSS$(50),SS(50)
-20 POKE53280,0:POKE53281,0:PRINTCHR$(14)+"{yellow}Put Data disk in drive 8 and"
-30 PRINT"hit RETURN":POKE198,0
-40 GETA$:IFA$<>CHR$(13)THEN40
-50 OPEN1,8,15:OPEN8,8,8,"{pound}variables,s,r":INPUT#8,BN$:INPUT#1,E1
-60 IFE1>0THENCLOSE8:CLOSE1:GOTO130
-70 INPUT#8,MD,CD$,CC$,CE$,CF$,CG$,SG:FORI=0TOSG:INPUT#8,SG$(I),SG(I),SD(I),SF(I)
-80 NEXTI:INPUT#8,UD:FORI=0TOUD:INPUT#8,UD$(I),UA(I),UV(I):NEXTI
-90 FORI=0TO9:INPUT#8,CA(I),TM(I):NEXTI
-100 INPUT#8,UL,CH$,CI$:IFST>0THEN120
-110 INPUT#8,SS:FORI=0TOSS:INPUT#8,SS$(I),SS(I):NEXT:FORI=1TO8:INPUT#8,FL$(I)
-111 NEXT:INPUT#8,M0
-120 CLOSE8:CLOSE1
-130 PRINT"{clear}{yellow}Menu:"
-140 PRINT"1) Main editor"
-150 PRINT"2) User editor"
-160 PRINT"3) Sig record creator"
-170 GETA$:IFA$="3"THEN230
-180 IFA$="2"THEN350
-190 IFA$="1"THEN1240
-200 GOTO170
-220 OPEN1,8,15:INPUT#1,E1,E2$,E3,E4:PRINTE1;E2$;E3;E4:CLOSE1:END
-230 POKE19,65:INPUT"Enter Sig to create:";I:POKE19,0:PRINT
-240 IFI-1<0ORI-1>SGTHEN130
-250 PRINT"Sig"+STR$(I)+", are you sure?":POKE198,0:D=I-1
-260 GETA$:IFA$="n"THEN130
-270 IFA$<>"y"THEN260
-280 OPEN1,8,15,"s0:{pound}Sig"+STR$(D+1):OPEN2,8,2,"{pound}Sig"+STR$(D+1)+",l,"+CHR$(15)
-290 PRINT"Working...":GOTO310
-300 PRINT#1,"p"CHR$(98)CHR$(I)CHR$(0)CHR$(J):RETURN
-310 I=1:J=1:GOSUB300:PRINT#2,"0":J=7:GOSUB300:PRINT#2,"0":
-320 FORX=0TOSF(D):I=X+2:J=1:GOSUB300:PRINT#2,"0":J=7:GOSUB300:PRINT#2,"0"
-330 NEXTX:CLOSE2:CLOSE1:GOTO130
-340 END
-350 REM
-360 CLOSE2:CLOSE1:IFFL=1THENFL=0:I2=1:I1=0:GOTO3700
-365 IFFL=2THENFL=1:GOTO3700
-370 PRINT"{clear}1) Create new user log"
-380 PRINT"2) Edit Main User Info"
-390 PRINT"3) Display  Users"
-400 PRINT"4) Add a user"
-405 PRINT"5) Edit User Variables"
-410 PRINT"6) Exit"
-420 GETA$:IFA$="1"THEN840
-430 IFA$="3"THEN480
-440 IFA$="6"THEN1070
-445 IFA$="5"THEN3500
-450 IFA$="4"THEN1080
-460 IFA$<>"2"THEN420
-470 GOTO600
-480 S1=1:INPUT"start at record";S1
-490 PRINT"space aborts..."
-500 OPEN1,8,15:OPEN2,8,2,"{pound}log1"
-510 I1=INT(S1/256):I3=I1*256:I2=S1-I3:
-520 PRINT#1,"p"CHR$(98)CHR$(I2)CHR$(I1)CHR$(0):GET#2,A$:INPUT#1,E1
-530 IFE1<>0ORA$<>"{pound}"THEN580
-550 INPUT#2,NA$:PRINT"#";S1;" ";NA$:GETA$:IFA$=" "THEN580
-560 S1=S1+1:GOTO510
-570 GOTO510
-580 CLOSE2:CLOSE1:PRINT"hit any key"
-590 POKE198,0:WAIT197,64,64:GOTO360
-600 INPUT"ENTER{sh space}THE{sh space}RECORD{sh space}TO{sh space}EDIT";S1:I1=INT(S1/256):I3=I1*256:I2=S1-I3
-610 OPEN1,8,15:OPEN2,8,2,"{pound}log1"
-620 PRINT#1,"p"CHR$(98)CHR$(I2)CHR$(I1)CHR$(0):INPUT#1,E1:GET#2,A$
-630 IFE1=0ANDA$="{pound}"THEN670
-640 PRINT"NO RECORD":CLOSE1:CLOSE2:FORI=0TO1000:NEXT:GOTO360
-670 INPUT#2,NA$,PH$,AC$,RN$,PA$:CLOSE2:CLOSE1
-710 PRINT"NAME:";NA$:PRINT"PHONE:";PH$:PRINT"ACCESS LVL:";AC$:
-720 PRINT"REAL NAME:";RN$
-730 PRINT"PASSWORD:";PA$:FORI=0TO9
-740 PRINT"Edit this record?"
-750 GETA$:IFA$="n"THENCLOSE2:CLOSE1:GOTO360
-760 IFA$<>"y"THEN750
-770 INPUT"NAME:";NA$:INPUT"PHONE:";PH$:INPUT"ACCESS LVL:";AC$:
-780 INPUT"REAL NAME:";RN$
-790 INPUT"PASSWORD:";PA$:FORI=0TO9
-800 PRINT"Save this record?"
-810 GETA$:IFA$="n"THEN710
-820 IFA$<>"y"THEN810
-830 OPEN1,8,15:OPEN2,8,2,"{pound}log1":GOTO1000
-840 PRINT"Delete old userlog and make new one"
-850 PRINT"ok? (y/n)"
-860 GETA$:IFA$="n"THEN360
-870 IFA$<>"y"THEN860
-880 INPUT"HANDLE (20 chars)";NA$
-890 INPUT"PHONE ";PH$
-900 AC$="9":INPUT"REAL NAME(20 chars)";RN$
-910 INPUT"PASSWORD (7 chars)";PA$
-930 PRINT"CORRECT (Y/N)"
-940 GETA$:IFA$="n"THEN880
-950 IFA$<>"y"THEN940
-960 OPEN1,8,15,"s0:{pound}log1,log2":I2=1:I1=0
-970 OPEN2,8,2,"{pound}log1,l,"+CHR$(100):FL=1
-1000 PRINT#1,"p"CHR$(98)CHR$(I2)CHR$(I1)CHR$(95):PRINT#2,"e"
-1001 PRINT#1,"p"CHR$(98)CHR$(I2)CHR$(I1)CHR$(0)
-1005 Q$=CHR$(13):A$="{pound}"+NA$+Q$+PH$+Q$+AC$+Q$+RN$+Q$+PA$
-1010 PRINT#1,"p"CHR$(98)CHR$(I2)CHR$(I1)CHR$(0):PRINT#2,A$
-1040 CLOSE2:CLOSE1
-1050 PRINT"Hit any key"
-1060 POKE198,0:WAIT197,64,64:GOTO360
-1070 GOTO130
-1080 PRINT"Finding a Record...":OPEN1,8,15:OPEN2,8,2,"{pound}log1":I2=1:I1=0
-1090 PRINT#1,"p"CHR$(98)CHR$(I2)CHR$(I1)CHR$(0):INPUT#1,E:GET#2,A$
-1100 IFE>0ORA$<>"{pound}"THEN1140
-1110 INPUT#2,A$:IFA$="EMPTY"THEN1140
-1120 I2=I2+1:IFI2=256THENI2=0:I1=I1+1
-1130 GOTO1090
-1140 CLOSE1:CLOSE2:INPUT"HANDLE";NA$:IFLEN(NA$)>17ORNA$=""THEN1140
-1150 INPUT"REAL NAME";RN$:IFLEN(RN$)>20ORRN$=""THEN1150
-1160 INPUT"PHONE";PH$:IFLEN(PH$)>20ORPH$=""THEN1160
-1170 INPUT"ACCESS";AC$:IFLEN(AC$)>2ORAC$=""THEN1170
-1190 INPUT"PASSWORD";PA$:IFLEN(PA$)>7ORPA$=""THEN1190
-1200 PRINT"S)ave or Q)uit"
-1210 GETA$:IFA$="q"THEN360
-1220 IFA$="s"THENOPEN1,8,15:OPEN2,8,2,"{pound}log1":FL=2:GOTO1000
-1230 GOTO1210
-1240 REM
-1250 PRINT"{clear}{yellow}Main editor:":PRINT"N)ame of BBS:"+BN$:PRINT"L)ibrary Device:{white}";UL;
-1251 PRINT"{yellow}Modem:";:IFM0=0THENPRINT"{white}1670 compat"
-1252 IFM0=1THENPRINT"{white}1650 compat"
-1253 IFM0=2THENPRINT"{white}1660 compat"
-1260 PRINT"{yellow}M)ail Device:{white}";MD:PRINT"{pink}{down*2}        Options/Access levels"
-1265 PRINT"{pink}{left}         {cm t*21}"
-1270 PRINT"   C) COMMAND        +)MSG{sh space}MAKER"
-1280 PRINT"   {pound}) Msg base       -)U/D"
-1300 PRINT"{down*2}               {cyan}Editors"
-1305 PRINT"{left}{right}               {cyan}{cm t*7}"
-1310 PRINT"   S)ig System       U)/D
-1320 PRINT"   P) Sub System     T)ime/Calls
-1330 PRINT"   ^) Colors         @) Modem"
-1370 PRINT"{down*2}      {green}         Q) Quit"
-1380 PRINT"           *) SAVE and Quit"
-1390 PRINT"{down*2}Choose:"
-1400 GETA$:IFA$="q"THEN130
-1410 IFA$="c"THEN1540
-1415 IFA$="^"THEN3300
-1420 IFA$="+"THEN2080
-1430 IFA$="{pound}"THEN1840
-1440 IFA$="n"THEN2250
-1450 IFA$="l"THEN2260
-1460 IFA$="s"THEN2290
-1470 IFA$="u"THEN2490
-1480 IFA$="t"THEN2750
-1490 IFA$="m"THEN2260
-1500 IFA$="-"THEN2870
-1510 IFA$="*"THEN2680
-1520 IFA$="p"THEN3100
-1525 IFA$="@"THEN3400
-1530 GOTO1400
-1540 PRINT"{clear}Q)uit Editing"
-1550 IFLEN(CD$)<16THENCD$=CD$+"l":GOTO1550
-1560 IFLEN(CC$)<16THENCC$=CC$+"0":GOTO1560
-1570 PRINT"{white}#{light green}/Function{dark gray}/Letter{light blue}/Access"
-1580 PRINT"{white}1{light green}/Feedback{dark gray}/"+MID$(CD$,1,1)+"{light blue}/"+MID$(CC$,1,1)
-1590 PRINT"{white}2{light green}/Off{dark gray}/"+MID$(CD$,2,1)+"{light blue}/"+MID$(CC$,2,1)
-1600 PRINT"{white}3{light green}/Info{dark gray}/"+MID$(CD$,3,1)+"{light blue}/"+MID$(CC$,3,1)
-1610 PRINT"{white}4{light green}/Chat{dark gray}/"+MID$(CD$,4,1)+"{light blue}/"+MID$(CC$,4,1)
-1620 PRINT"{white}5{light green}/Userlist{dark gray}/"+MID$(CD$,5,1)+"{light blue}/"+MID$(CC$,5,1)
-1630 PRINT"{white}6{light green}/Status{dark gray}/"+MID$(CD$,6,1)+"{light blue}/"+MID$(CC$,6,1)
-1640 PRINT"{white}7{light green}/Email{dark gray}/"+MID$(CD$,7,1)+"{light blue}/"+MID$(CC$,7,1)
-1650 PRINT"{white}8{light green}/SysOp{dark gray}/"+MID$(CD$,8,1)+"{light blue}/"+MID$(CC$,8,1)
-1660 PRINT"{white}9{light green}/Msg Base{dark gray}/"+MID$(CD$,9,1)+"{light blue}/"+MID$(CC$,9,1)
-1670 PRINT"{white}10{light green}/Transfer{dark gray}/"+MID$(CD$,10,1)+"{light blue}/"+MID$(CC$,10,1)
-1680 PRINT"{white}11{light green}/Vote{dark gray}/"+MID$(CD$,11,1)+"{light blue}/"+MID$(CC$,11,1)
-1690 PRINT"{white}12{light green}/Baud Change{dark gray}/"+MID$(CD$,12,1)+"{light blue}/"+MID$(CC$,12,1)
-1700 PRINT"{white}13{light green}/Library{dark gray}/"+MID$(CD$,13,1)+"{light blue}/"+MID$(CC$,13,1)
-1710 PRINT"{white}14{light green}/Editor{dark gray}/"+MID$(CD$,14,1)+"{light blue}/"+MID$(CC$,14,1)
-1720 PRINT"{white}15{light green}/Sub-Section{dark gray}/"+MID$(CD$,15,1)+"{light blue}/"+MID$(CC$,15,1)
-1725 PRINT"{white}16{light green}/Toggle GFX/ASCII{dark gray}/"+MID$(CD$,16,1)+"{light blue}/"+MID$(CC$,16,1)
-1730 INPUT"Choice";A$:IFA$="q"THEN1250
-1740 IFVAL(A$)>16ORVAL(A$)<=0THEN1540
-1750 A=VAL(A$):I1$=LEFT$(CD$,A-1):I2$=RIGHT$(CD$,16-A):I3$=LEFT$(CC$,A-1)
-1760 I4$=RIGHT$(CC$,16-A):PRINT"{cyan}New Letter:":POKE198,0
-1770 GETA$:IFA$=""THEN1770
-1780 CD$=I1$+A$+I2$:PRINT"New Access:":POKE198,0
-1790 GETA$:IFA$=""THEN1790
-1800 IFA$="0"THEN1820
-1810 IFVAL(A$)=0THEN1790
-1820 CC$=I3$+A$+I4$:GOTO1540
-1830 END
-1840 PRINT"{clear}{white}Q)uit Editing":PRINT"{white}#{light green}/Function{cyan}/Letter{pink}/Access"
-1850 IFLEN(CF$)<8THENCF$=CF$+"l":GOTO1850
-1860 IFLEN(CG$)<8THENCG$=CG$+"0":GOTO1860
-1870 PRINT"{white}1{light green}/List Sigs{cyan}/"+MID$(CF$,1,1)+"{pink}/"+MID$(CG$,1,1)
-1890 PRINT"{white}2{light green}/Read{cyan}/"+MID$(CF$,2,1)+"{pink}/"+MID$(CG$,2,1)
-1900 PRINT"{white}3{light green}/Scan{cyan}/"+MID$(CF$,3,1)+"{pink}/"+MID$(CG$,3,1)
-1910 PRINT"{white}4{light green}/New{cyan}/"+MID$(CF$,4,1)+"{pink}/"+MID$(CG$,4,1)
-1920 PRINT"{white}5{light green}/Quit{cyan}/"+MID$(CF$,5,1)+"{pink}/"+MID$(CG$,5,1)
-1930 PRINT"{white}6{light green}/Post-Reply{cyan}/"+MID$(CF$,6,1)+"{pink}/"+MID$(CG$,6,1)
-1940 PRINT"{white}7{light green}/SubOp Cmds.{cyan}/"+MID$(CF$,7,1)+"{pink}/"+MID$(CG$,7,1)
-1960 PRINT"{white}8{light green}/All new{cyan}/"+MID$(CF$,8,1)+"{pink}/"+MID$(CG$,8,1)
-1970 INPUT"{purple}Choose:";A$
-1980 IFA$="q"THEN1250
-1990 IFVAL(A$)=0ORVAL(A$)>8THEN1840
-2000 A=VAL(A$):I1$=LEFT$(CF$,A-1):I2$=RIGHT$(CF$,8-A):I3$=LEFT$(CG$,A-1)
-2010 I4$=RIGHT$(CG$,8-A):PRINT"New Letter:":POKE198,0
-2020 GETA$:IFA$=""THEN2020
-2030 CF$=I1$+A$+I2$:PRINT"New Access:":POKE198,0
-2040 GETA$:IFA$=""THEN2040
-2050 IFA$="0"THEN2070
-2060 IFVAL(A$)=0THEN2040
-2070 CG$=I3$+A$+I4$:GOTO1840
-2080 PRINT"{clear}Q)uit editing"
-2085 IFLEN(CE$)<13THENCE$=CE$+"l":GOTO2085
-2090 PRINT"{white}#{cyan}/Function{light green}/Letter"
-2100 PRINT"{white}1{cyan}/Save{light green}/"+MID$(CE$,2,1)
-2110 PRINT"{white}2{cyan}/Edit{light green}/"+MID$(CE$,3,1)
-2120 PRINT"{white}3{cyan}/Delete{light green}/"+MID$(CE$,4,1)
-2130 PRINT"{white}4{cyan}/List{light green}/"+MID$(CE$,5,1)
-2140 PRINT"{white}5{cyan}/Clear{light green}/"+MID$(CE$,6,1)
-2150 PRINT"{white}6{cyan}/View{light green}/"+MID$(CE$,7,1)
-2160 PRINT"{white}7{cyan}/Insert{light green}/"+MID$(CE$,8,1)
-2170 PRINT"{white}8{cyan}/Abort{light green}/"+MID$(CE$,9,1)
-2171 PRINT"{white}9{cyan}/GFX{light green}/"+MID$(CE$,10,1)
-2172 PRINT"{white}10{cyan}/Word Wrap{light green}/"+MID$(CE$,11,1)
-2173 PRINT"{white}11{cyan}/Center Text{light green}/"+MID$(CE$,12,1)
-2174 PRINT"{white}12{cyan}/Line Numbers{light green}/"+MID$(CE$,13,1)
-2180 PRINT"{purple}Choose:";:INPUTA$
-2190 IFA$="q"THEN1250
-2200 IFVAL(A$)=0ORVAL(A$)>12THEN2190
-2210 A=VAL(A$)+1:I1$=LEFT$(CE$,A-1):I2$=RIGHT$(CE$,13-A)
-2220 PRINT"New Letter:":POKE198,0
-2230 GETA$:IFA$=""THEN2230
-2240 CE$=I1$+A$+I2$:GOTO2080
-2250 INPUT"New Name";BN$:GOTO1250
-2260 INPUT"New Device";B$:IFB$=""ORVAL(B$)<8ORVAL(B$)>11THEN1250
-2270 IFA$="l"THENUL=VAL(B$):GOTO1250
-2280 MD=VAL(B$):GOTO1250
-2290 PRINT"{clear}{white}N)umber of Sigs:"+STR$(SG+1)
-2300 PRINT"{cyan}Q)uit
-2310 PRINT"{light blue}----------------------------------------"
-2320 PRINT"{pink}#{white}/{yellow}Name{white}/Access/{cyan}Device{white}/{light green}Max Msgs"
-2330 PRINT"{light blue}----------------------------------------"
-2340 FORI=0TOSG:PRINT"{pink}"+STR$(I+1)+"){white}/{yellow}"+SG$(I)+"{white}/"+STR$(SG(I))+"/{cyan}";
-2350 PRINTSTR$(SD(I))+"{white}/{light green}"+STR$(SF(I)):NEXTI:POKE198,0
-2360 A$="":INPUT"Choose";A$
-2370 IFA$="n"THEN2410
-2380 IFA$="q"THEN1240
-2390 IFVAL(A$)<=0THEN2290
-2400 GOTO2430
-2410 INPUT"New Number:";A:A=A-1:IFA>=0ANDA<50THENSG=A
-2420 GOTO2290
-2430 A=VAL(A$):IFA>SG+1THEN2290
-2440 A=A-1:INPUT"New Name:";SG$(A)
-2450 INPUT"New Access:";SG(A):IFSG(A)>9THEN2450
-2460 INPUT"New Device:";SD(A):IFSD(A)<8ORSD(A)>11THEN2460
-2470 INPUT"Max Msgs:";SF(A):IFSF(A)>50THEN2470
-2480 POKE19,0:GOTO2290
-2490 PRINT"{clear}{white}N)umber of Uds:"+STR$(UD+1)
-2500 PRINT"{cyan}Q)uit
-2510 PRINT"{light blue}----------------------------------------"
-2520 PRINT"{pink}#{white}/{yellow}Name{white}/Access/{cyan}Device"
-2530 PRINT"{light blue}----------------------------------------"
-2540 FORI=0TOUD:PRINT"{pink}"+STR$(I+1)+"){white}/{yellow}"+UD$(I)+"{white}/"+STR$(UA(I))+"/{cyan}";
-2550 PRINTSTR$(UV(I)):NEXTI:POKE198,0
-2560 INPUT"Choose";A$
-2570 IFA$="n"THEN2610
-2580 IFA$="q"THEN1240
-2590 IFVAL(A$)<=0THEN2490
-2600 GOTO2630
-2610 INPUT"New Number:";A:A=A-1:IFA>=0ANDA<20THENUD=A
-2620 GOTO2490
-2630 A=VAL(A$):IFA>UD+1THEN2490
-2640 A=A-1:INPUT"New Name:";UD$(A)
-2650 INPUT"New Access:";UA(A):IFUA(A)>9THEN2650
-2660 INPUT"New Device:";UV(A):IFUV(A)<8ORUV(A)>11THEN2660
-2670 GOTO2490
-2680 OPEN1,8,15,"s0:{pound}variables":CLOSE1:OPEN8,8,8,"{pound}variables,s,w"
-2690 PRINT#8,BN$:PRINT#8,MD:PRINT#8,CD$:PRINT#8,CC$:PRINT#8,CE$:PRINT#8,CF$
-2700 PRINT#8,CG$:PRINT#8,SG:FORI=0TOSG:PRINT#8,SG$(I):PRINT#8,SG(I)
-2710 PRINT#8,SD(I):PRINT#8,SF(I):NEXTI:PRINT#8,UD:FORI=0TOUD:PRINT#8,UD$(I)
-2720 PRINT#8,UA(I):PRINT#8,UV(I):NEXTI:
-2730 FORI=0TO9:PRINT#8,CA(I):PRINT#8,TM(I):NEXTI:PRINT#8,UL:PRINT#8,CH$
-2740 PRINT#8,CI$:PRINT#8,SS:FORI=0TOSS:PRINT#8,SS$(I):PRINT#8,SS(I):NEXT
-2741 FORI=1TO8:PRINT#8,FL$(I):NEXT:PRINT#8,M0
-2749 CLOSE8:GOTO130
-2750 PRINT"{clear}Q)uit{down*4}"
-2760 PRINT"{pink}LVL{white}/{yellow}Calls{white}/{light green}Minutes"
-2770 FORI=0TO9:PRINT"{pink}"+STR$(I)+"{white}/{yellow}"+STR$(CA(I))+"{white}/   {light green}"+STR$(TM(I)):NEXTI
-2790 PRINT"{white}Choose:";:
-2800 GETA$:IFA$=""THEN2800
-2810 IFA$="q"THEN1240
-2820 IFVAL(A$)=0ANDA$<>"0"THEN2800
-2830 PRINT:A=VAL(A$):INPUT"# of calls";CA(A)
-2850 INPUT"Number Of Minutes (1-255)";G:IFG<1ORG>255THEN2850
-2860 TM(A)=G:GOTO2750
-2870 REM
-2880 PRINT"{clear}Q)uit Editing"
-2890 IFLEN(CH$)<8THENCH$=CH$+"l":GOTO2890
-2900 IFLEN(CI$)<8THENCI$=CI$+"0":GOTO2900
-2910 PRINT"{white}#{light green}/Function{dark gray}/Letter{light blue}/Access"
-2920 PRINT"{white}1{light green}/Directory{dark gray}/"+MID$(CH$,1,1)+"{light blue}/"+MID$(CI$,1,1)
-2930 PRINT"{white}2{light green}/Quit{dark gray}/"+MID$(CH$,2,1)+"{light blue}/"+MID$(CI$,2,1)
-2940 PRINT"{white}3{light green}/Upload{dark gray}/"+MID$(CH$,3,1)+"{light blue}/"+MID$(CI$,3,1)
-2950 PRINT"{white}4{light green}/Download{dark gray}/"+MID$(CH$,4,1)+"{light blue}/"+MID$(CI$,4,1)
-2960 PRINT"{white}5{light green}/List UDs{dark gray}/"+MID$(CH$,5,1)+"{light blue}/"+MID$(CI$,5,1)
-2970 PRINT"{white}6{light green}/Change UDs{dark gray}/"+MID$(CH$,6,1)+"{light blue}/"+MID$(CI$,6,1)
-2980 PRINT"{white}7{light green}/About File{dark gray}/"+MID$(CH$,7,1)+"{light blue}/"+MID$(CI$,7,1)
-2985 PRINT"{white}8{light green}/Multi {dark gray}/"+MID$(CH$,8,1)+"{light blue}/"+MID$(CI$,8,1)
-2990 A$="":INPUT"Choice";A$:IFA$="q"THEN1250
-3000 IFVAL(A$)>8ORVAL(A$)<=0THEN2880
-3010 A=VAL(A$):I1$=LEFT$(CH$,A-1):I2$=RIGHT$(CH$,8-A):I3$=LEFT$(CI$,A-1)
-3020 I4$=RIGHT$(CI$,8-A):PRINT"{cyan}New Letter:":POKE198,0
-3030 GETA$:IFA$=""THEN3030
-3040 CH$=I1$+A$+I2$:PRINT"New Access:":POKE198,0
-3050 GETA$:IFA$=""THEN3050
-3060 IFA$="0"THEN3080
-3070 IFVAL(A$)=0THEN3050
-3080 CI$=I3$+A$+I4$:GOTO2880
-3090 END
-3100 PRINT"{clear}{down}{pink}N)umber of sections:"+STR$(ABS(SS+1))
-3110 PRINT"{yellow}Q)uit"
-3120 PRINT"{down*2}{white}#  {white}/{cyan}Name{white}/{light blue}Access":PRINT"{white}-----------------------"
-3130 FORI=0TOSS:A$=STR$(I+1):PRINT"{white}#"+A$+"{white}/{cyan}"+SS$(I)+"{white}/{light blue}"+STR$(SS(I))
-3140 NEXTI
-3150 PRINT"{white}-----------------------"
-3160 PRINT"{down}Option";:INPUTI$:IFI$="q"THEN1250
-3170 IFI$="n"THENPRINT:INPUT"New #:";SS:SS=SS-1:GOTO3100
-3180 N=VAL(I$):IFN=0ORN>SS+1THEN3100
-3190 PRINT:INPUT"Name:";SS$(N-1):
-3191 PRINT:INPUT"Access:";A:IFA>=0ANDA<10THENSS(N-1)=A
-3195 GOTO3100
-3300 PRINT"{clear}         Color Cycle"
-3310 FORI=1TO8
-3320 PRINT"{white}#"+STR$(I);:A$=FL$(I):GOSUB3350:PRINTI$:NEXT
-3321 FORI=1TO8
-3322 PRINT"{white}#"+STR$(I);:A$=FL$(I):GOSUB3350:PRINTI$:NEXT
-3323 INPUT"{white}Edit (Q=Quit)";N$:IFN$="q"THEN1250
-3330 N=VAL(N$):IFN=0ORN>8THEN3300
-3331 PRINT"Color:"
-3332 GETA$:IFA$=""ORA$=CHR$(13)THEN3332
-3333 FL$(N)=A$:GOTO3300
-3350 I$="":IFA$="{white}"THENI$=A$+"White"
-3351 IFA$="{red}"THENI$=A$+"Red"
-3352 IFA$="{cyan}"THENI$=A$+"Cyan"
-3353 IFA$="{purple}"THENI$=A$+"Purple"
-3354 IFA$="{green}"THENI$=A$+"Green"
-3355 IFA$="{blue}"THENI$=A$+"Blue"
-3356 IFA$="{yellow}"THENI$=A$+"Yellow"
-3357 IFA$="{orange}"THENI$=A$+"Orange"
-3358 IFA$="{brown}"THENI$=A$+"Brown"
-3359 IFA$="{pink}"THENI$=A$+"Pink"
-3360 IFA$="{dark gray}"THENI$=A$+"Dark Grey"
-3361 IFA$="{gray}"THENI$=A$+"Med Grey"
-3362 IFA$="{light green}"THENI$=A$+"Lt Green"
-3363 IFA$="{light blue}"THENI$=A$+"Lt Blue"
-3364 IFA$="{light gray}"THENI$=A$+"Lt Grey"
-3365 IFI$=""THENI$="Unknown"
-3366 RETURN
-3400 PRINT"{clear}{down*2}1)- 1670 and compatables"
-3410 PRINT"2)- 1650 and compatables"
-3420 PRINT"3)- 1660 and compatables"
-3430 PRINT"{down*2}Choose"
-3440 GETA:IFA>3ORA=0THEN3440
-3450 M0=A-1:GOTO1250
-3500 INPUT"ENTER{sh space}THE{sh space}RECORD{sh space}TO{sh space}EDIT";S1:I1=INT(S1/256):I3=I1*256:I2=S1-I3
-3505 OPEN1,8,15:OPEN2,8,2,"{pound}log1"
-3510 PRINT#1,"p"CHR$(98)CHR$(I2)CHR$(I1)CHR$(0):GET#2,A$:INPUT#1,E1
-3515 IFE1=0ANDA$="{pound}"THENINPUT#2,A$:PRINTA$:CLOSE1:CLOSE2:GOTO3523
-3520 PRINT"NO RECORD":CLOSE1:CLOSE2:FORI=0TO1000:NEXT:GOTO360
-3523 CLOSE2:CLOSE1:OPEN1,8,15:OPEN2,8,2,"{pound}log2"
-3525 PRINT#1,"p"CHR$(98)CHR$(I2)CHR$(I1)CHR$(0)
-3530 INPUT#2,CA$,DA$:FORI=0TO9:INPUT#2,P$(I):NEXT:CLOSE1:CLOSE2
-3535 PRINT"CALLS{sh space}TODAY:";CA$:PRINT"LAST{sh space}DAY{sh space}CALLED:";DA$
-3540 FORI=0TO9:PRINT"VARIABLE ("+STR$(I)+"):";P$(I):NEXT
-3550 PRINT"EDIT?(Y/N):
-3551 GETA$:IFA$="n"THEN360
-3552 IFA$<>"y"THEN3551
-3560 INPUT"CALLS{sh space}TODAY";CA$:INPUT"LAST{sh space}DAY{sh space}CALLED{sh space}(0-365)";DA$
-3565 FORI=0TO9:PRINT"VARIABLE ("+STR$(I)+")";:INPUTP$(I):NEXT
-3570 PRINT"CORRECT(Y?N)"
-3580 GETA$:IFA$="n"THEN3560
-3590 IFA$<>"y"THEN3580
-3600 OPEN1,8,15:OPEN2,8,2,"{pound}log2"
-3610 PRINT#1,"p"CHR$(98)CHR$(I2)CHR$(I1)CHR$(0)
-3620 A$="":Q$=CHR$(13):A$=CA$+Q$+DA$+Q$:FORI=0TO9:A$=A$+P$(I)+Q$:NEXT
-3630 PRINT#2,A$:CLOSE2:CLOSE1:GOTO360
-3670 PRINT"CORRECT?"
-3700 OPEN1,8,15:OPEN2,8,2,"{pound}log2,l,"+CHR$(100)
-3710 PRINT#1,"p"CHR$(98)CHR$(I2)CHR$(I1)CHR$(0):
-3720 A$="":Q$=CHR$(13):FORI=0TO11:A$=A$+"0"+Q$:NEXT:PRINT#2,A$:CLOSE2:CLOSE1
-3730 GOTO360
+1 GOTO10
+2 G=0:PRINT"{reverse on} {reverse off}{left}";:GETA$:IFA$=""THEN2
+3 FORI4=1TOLEN(C$):IFMID$(C$,I4,1)=A$THENG=I4
+4 NEXTI4:IFG=0THEN2
+5 PRINTA$:RETURN
+6 NN=FRE(0):I$="":LN=0:PRINT"{reverse on} {reverse off}{left}";:GOTO30
+7 PRINT#1,"p"CHR$(99)CHR$(X)CHR$(Y)CHR$(0):RETURN
+10 PRINTCHR$(14):POKE53280,0:POKE53281,0:PRINT"{yellow}PUT{sh space}YOUR MAIN{sh space}DATA{sh space}DISK IN
+20 PRINT"DRIVE 8 AND{sh space}HIT {reverse on}RETURN{reverse off}":WAIT203,1:PRINT"{down*2}OK.. READING..":GOSUB7700
+21 GOTO100
+30 GETIN$:IFIN$=""THEN30
+31 IFIN$=CR$THENPRINT" ":RETURN
+32 IFIN$="{delete}"ANDLN>0THENLN=LN-1:I$=LEFT$(I$,LEN(I$)-1):PRINTIN$;"{reverse on} {reverse off}{left}";
+33 IFIN$="{delete}"THEN30
+39 PRINTIN$;"{reverse on} {reverse off}{left}";:LN=LN+1:I$=I$+IN$:GOTO30
+100 PRINT"{clear}{yellow}"TAB(15)"MAIN{sh space}MENU:":PRINTTAB(15)"{white}{cm t*9}"
+110 PRINTTAB(12)"1) {yellow}MAIN{sh space}EDITOR":PRINTTAB(12)"{white}2) {yellow}USER{sh space}EDITOR"
+120 PRINTTAB(12)"{white}3) {yellow}SIG{sh space}RECORD{sh space}MAKER":PRINTTAB(12)"{white}4) {yellow}SIG{sh space}RECORD{sh space}EDITOR"
+130 PRINTTAB(12)"{white}5) {yellow}EXIT{sh space}TO{sh space}BASIC":PRINT"{down*6}"TAB(12)"{white}ENTER{sh space}YOUR{sh space}CHOICE:";
+140 C$="12345":GOSUB2:ONGGOTO1000,500,8000,8500:PRINT"{clear}";:END
+500 IFFL=1THENFL=0:GOTO721
+505 PRINT"{clear}{yellow}"TAB(12)"USER{sh space}EDIT{sh space}MENU":PRINTTAB(12)"{white}{cm t*14}"
+510 PRINTTAB(9)"1) {yellow}RESET{sh space}THE{sh space}USER{sh space}LOG":PRINTTAB(9)"{white}2) {yellow}EDIT{sh space}A{sh space}MAIN{sh space}USERFILE"
+520 PRINTTAB(9)"{white}3) {yellow}EDIT A{sh space}VAR{sh space}USERFILE":PRINTTAB(9)"{white}4) {yellow}ADD{sh space}A{sh space}USERFILE"
+530 PRINTTAB(9)"{white}5) {yellow}LIST{sh space}USERS":PRINTTAB(9)"{white}6) {yellow}EXIT TO{sh space}MAIN{sh space}MENU{down*6}"
+540 PRINTTAB(14)"{white}CHOOSE:";:C$="123456":GOSUB2:ONGGOTO550,600,700,800,850,100
+550 PRINT"{clear}{down*3}ARE{sh space}YOU SURE{sh space}OF{sh space}THIS(Y/N)?";:C$="yn":GOSUB2:IFG=2THEN500
+551 PRINT"{down}{pink}SCRATCHING...":OPEN1,8,15,"s0:{pound}log1,{pound}log2,{pound}log3":CLOSE1
+552 PRINT"{clear}{white}ENTER{sh space}YOUR{sh space}HANDLE (ALL{sh space}CAPS)":PRINT"17 CHARS{sh space}MAX:";:GOSUB6:NA$=I$
+553 IFI$=""ORLEN(I$)>17THEN552
+554 PRINT"{home}{down*2}ENTER{sh space}YOUR{sh space}REAL{sh space}NAME (ALL{sh space}CAPS":PRINT"17 CHARS{sh space}MAX:";:GOSUB6
+555 RN$=I$:IFI$=""ORLEN(I$)>17THEN554
+556 PRINT"{home}{down*4}ENTER{sh space}YOUR{sh space}PHONE{sh space}NUMBER":PRINT"(XXX/XXX-XXXX):";:GOSUB6:PH$=I$
+557 IFI$=""ORLEN(I$)<12ORLEN(I$)>20THEN556
+558 PRINT"{home}{down*6}ENTER{sh space}A{sh space}PASSWORD":PRINT"7 CHARS MAX:";:GOSUB6:PA$=I$
+559 IFI$=""ORLEN(I$)>7THEN568
+560 NC=0:PRINT"{home}{down*8}CORRECT(Y/N)?";:C$="yn":GOSUB6:IFG=2THEN551
+565 PRINT"{clear}{down*7}{light blue}WRITING{sh space}FILES...";:OPEN1,8,15:FORT=1TO3:A$=RIGHT$(STR$(T),1)
+566 OPEN2,8,3,"{pound}log"+A$+",l,"+CHR$(100):FORI=1TO2:FORX=1TO5:Y=0:GOSUB7:CA=0
+567 PRINT#2,"EMPTY":PRINT".";:NEXTX:NEXTI:CLOSE2:NEXTT:OPEN2,8,3,"{pound}log3":X=1
+568 GOSUB7:PRINT#2,"NOBODY"+CR$+"TODAY"+CR$+STR$(1)+CR$+STR$(1):CLOSE2:CLOSE1
+569 AC$=STR$(9):FORI=0TO9:P(0)=0:NEXTI:P(5)=100:P(6)=6:P(4)=2:GOSUB900:GOTO500
+570 ER=0:PRINT"{clear}{down*4}EDIT{sh space}USER{sh space}#";:GOSUB6:IFI$=""THENER=1:RETURN
+571 IFVAL(I$)=0THENER=1:RETURN
+572 A=VAL(I$):Y=INT(A/256):X=A-(Y*256):OPEN1,8,15:OPEN2,8,3,"{pound}log1":GOSUB7
+573 GET#2,A$:INPUT#1,E:IFA$<>"{pound}"ORE>0THENCLOSE1:CLOSE2:ER=1:RETURN
+574 RETURN
+600 GOSUB570:IFER>0THEN500
+610 INPUT#2,NA$,PH$,AC$,RN$,PA$:CLOSE2:CLOSE1:
+620 PRINT"{home}{down*6}HANDLE:"+NA$+":";:GOSUB6:IFI$=""THENI$=NA$
+621 NA$=I$:IFLEN(I$)>17THENPRINT"TOO{sh space}LONG":GOTO620
+622 PRINT"{home}{down*7}REAL{sh space}NAME:"+RN$+":";:GOSUB6:IFI$=""THENI$=RN$
+623 RN$=I$:IFLEN(I$)>17THENPRINT"TOO{sh space}LONG":GOTO622
+624 PRINT"{home}{down*8}PHONE{sh space}NUMBER:"+PH$+":";:GOSUB6:IFI$=""THENI$=PH$:I$=PH$
+625 PH$=I$:IFLEN(I$)<12ORLEN(I$)>20THENPRINT"WRONG{sh space}FORMAT!":GOTO624
+626 PRINT"{home}{down*9}ACCESS:"+AC$+":";:GOSUB6:IFI$=""THENI$=AC$
+627 AC$=I$:IFVAL(I$)=0ANDI$<>"0"ANDI$<>" 0"THENPRINT"NUMBER":GOTO626
+628 PRINT"{home}{down*10}PASSWORD:"+PA$+":";:GOSUB6:IFI$=""THENI$=PA$
+629 PA$=I$:IFLEN(I$)>7THENPRINT"TOO{sh space}LONG!":GOTO628
+630 PRINT"{down*2}CORRECT(Y/N)?";:C$="yn":GOSUB2:IFG=2THEN620
+640 PRINT"{down*2}SAVING...":GOSUB910:GOTO500
+700 GOSUB570:IFER=1THEN500
+710 INPUT#2,A$:PRINT"{clear}{down*2}";A$:CLOSE2:OPEN2,8,3,"{pound}log2":GOSUB7:INPUT#2,CA,NC
+720 FORI=0TO9:INPUT#2,P(I):NEXT:CLOSE2:CLOSE1
+721 PRINT"CALLS{sh space}TODAY:"+STR$(CA)+":";:GOSUB6:IFI$=""THENI$=STR$(CA)
+722 CA=VAL(I$):PRINT"LAST{sh space}CALL:"+STR$(NC)+":";:GOSUB6:IFI$=""THENI$=STR$(NC)
+723 NC=VAL(I$):FORI=0TO9:PRINT"VARIABLE #"+STR$(I)+":"+STR$(P(I))+":";:
+724 GOSUB6:IFI$=""THEN726
+725 P(I)=VAL(I$)
+726 NEXTI:PRINT"CORRECT(Y/N)?";:C$="yn":GOSUB2:IFG=2THEN721
+727 PRINT"{down*2}SAVING...":GOSUB950:GOTO500
+800 PRINT"{clear}{down*3}SEARCHING{sh space}FOR{sh space}A{sh space}RECORD...";:OPEN1,8,15:OPEN2,8,3,"{pound}log1":X=1:Y=0
+810 GOSUB7:GET#2,A$:INPUT#1,E:IFA$<>"{pound}"ORE>0THEN830
+820 INPUT#2,I$:IFI$<>"EMPTY"THENX=X+1:PRINT".";:IFX=256THENX=0:Y=Y+1
+825 IFI$<>"EMPTY"THEN810
+830 CLOSE2:CLOSE1:FL=1:GOTO620
+850 S=1:PRINT"{clear}{down*3}START{sh space}AT{sh space}RECORD #";:GOSUB6:IFI$=""THEN860
+855 S=VAL(I$):IFS=0THENS=1
+860 OPEN1,8,15:OPEN2,8,3,"{pound}log1"
+870 Y=INT(S/256):X=S-(Y*256):GOSUB7:GET#2,A$:INPUT#1,E:IFA$<>"{pound}"ORE>0THEN890
+875 GETA$:IFA$=" "THEN890
+880 INPUT#2,I$:PRINTSTR$(S)+")"+I$:S=S+1:GOTO870
+890 CLOSE2:CLOSE1:PRINT"hit return":WAIT203,1:GOTO500
+900 GOSUB910:GOSUB950:RETURN
+910 OPEN1,8,15:OPEN2,8,3,"{pound}log1":A$="{pound}"+NA$+CR$+PH$+CR$+AC$+CR$+RN$+CR$+PA$
+920 GOSUB7:PRINT#2,A$:CLOSE2:CLOSE1:RETURN
+950 OPEN1,8,15:OPEN2,8,3,"{pound}log2":A$=STR$(CA)+CR$+STR$(NC)+CR$:FORI=0TO9
+960 A$=A$+STR$(P(I)):NEXTI:GOSUB7:PRINT#2,A$:CLOSE2:CLOSE1:RETURN
+1000 PRINT"{clear}{yellow}"TAB(15)"MAIN{sh space}EDITOR":PRINTTAB(15)"{white}{cm t*11}":A=6
+1010 PRINTTAB(A)"1) {yellow}NAME{sh space}OF{sh space}BBS: {pink}"+BN$:PRINTTAB(A)"{white}2){yellow} LIBRARY DEVICE:{pink}";UL
+1020 PRINTTAB(A)"{white}3) {yellow}MODEM TYPE: {pink}";:GOSUB1260
+1030 PRINTTAB(A)"{white}4) {yellow}MAIL{sh space}DEVICE:{pink}";MD:PRINTTAB(A)"{white}5) {yellow}U/D RATIO:{pink}";UC;"/";DC
+1040 PRINTTAB(A)"{white}6) {yellow}OF{sh space}DRIVES:{pink}";D0:PRINTTAB(A)"{white}7){yellow} COMMAND EDITOR"
+1050 PRINTTAB(A)"{white}8) {yellow}MSG{sh space}MAKER{sh space}EDITOR":PRINTTAB(A)"{white}9){yellow} MESSAGE{sh space}BASE{sh space}EDITOR"
+1060 PRINTTAB(A-1)"{white}10){yellow} SYSOP SEC.{sh space}EDITOR":PRINTTAB(A-1)"{white}11){yellow} EMAIL{sh space}EDITOR"
+1070 PRINTTAB(A-1)"{white}12){yellow} PROGRAM SEC. EDITOR":PRINTTAB(A-1)"{white}13){yellow} TIME/CALLS{sh space}EDITOR"
+1080 PRINTTAB(A-1)"{white}14){sh space}{yellow}COLORS EDITOR":PRINTTAB(A-1)"{white}15) {yellow}U/D SECTION{sh space}EDITOR"
+1089 PRINTTAB(A-1)"{white} *){yellow} SAVE{sh space}AND{sh space}QUIT"
+1090 PRINT"{home}{down*20}{white}"TAB(15)"CHOOSE:";
+1100 GOSUB6:IFI$=""THEN1000
+1110 IFVAL(I$)=0ANDI$<>"*"ORVAL(I$)>15THEN1000
+1120 IFI$="*"THEN7900
+1130 I=VAL(I$):ONIGOTO1200,1220,1230,1270,1280,1290,1300,1400,1600,1700,1800
+1140 I=I-11:ONIGOTO1900,2100,2200,2300
+1200 PRINT"{home}{down*2}{pink}"TAB(22);:GOSUB6:IFI$=""THENI$=BN$
+1210 BN$=I$:GOTO1090
+1220 PRINT"{home}{down*3}{pink}"TAB(25);:GOSUB6:IFI$=""THENI$=STR$(UL)
+1225 IFVAL(I$)>12ORVAL(I$)<8THENI$=STR$(8)
+1226 UL=VAL(I$):GOTO1000
+1230 PRINT"{down*2}{white}SPACE TO{sh space}CYCLE/RETURN{sh space}TO{sh space}CHOOSE":PRINT"{home}{down*4}{pink}"TAB(21);
+1235 GETA$:IFA$<>" "ANDA$<>CR$THEN1235
+1240 IFA$=" "THENM0=M0+1:IFM0=3THENM0=0
+1245 IFA$=CR$THEN1000
+1250 GOSUB1260:PRINT"{home}{down*4}{pink}"TAB(21);:GOTO1235
+1260 IFM0=0THENPRINT"1670/HAYES "
+1261 IFM0=1THENPRINT"1650 COMPAT"
+1262 IFM0=2THENPRINT"1660 COMPAT"
+1263 RETURN
+1270 PRINT"{home}{down*5}{pink}"TAB(22);:GOSUB6:IFI$=""THENI$=STR$(MD)
+1271 IFVAL(I$)>12ORVAL(I$)<8THENI$=STR$(8)
+1272 MD=VAL(I$):GOTO1000
+1280 PRINT"{down}CREDITS{sh space}RECIEVED{sh space}PER{sh space}UPLOAD:";:GOSUB6:IFI$=""THENI$=STR$(UC)
+1281 UC=VAL(I$):PRINT"CREDITS TAKEN{sh space}PER{sh space}DOWNLOAD :";:GOSUB6:IFI$=""THENI$=STR$(DC)
+1282 DC=VAL(I$):GOTO1000
+1290 PRINT"{home}{down*7}{pink}"TAB(20);:GOSUB6:IFI$=""THENI$=STR$(D0)
+1291 IFVAL(I$)>4ORVAL(I$)<1THENI$=STR$(1)
+1292 D0=VAL(I$):GOTO1000
+1300 L=16:A=0:PRINT"{clear}{light green}Q)UIT{sh space}EDITING":IFLEN(C$(A))<LTHENC$(A)=C$(A)+"l":GOTO1300
+1310 IFLEN(A$(A))<LTHENA$(A)=A$(A)+"0":GOTO1310
+1315 RESTORE
+1320 PRINT"{light blue}#/{white}FUNCTION/{yellow}LETTER/{pink}ACCESS":FORI=1TOL:READI$
+1330 PRINT"{light blue}"+STR$(I)+"/{white}"+I$+"/{yellow}"+MID$(C$(A),I,1)+"/{pink}"+MID$(A$(A),I,1)
+1340 NEXTI:PRINT"{down*2}CHOICE:";:GOSUB6:IFI$=""THEN1300
+1350 IFI$="q"THEN1000
+1360 IFVAL(I$)=0THEN1300
+1390 I=VAL(I$):I1$=LEFT$(C$(A),I-1):I2$=RIGHT$(C$(A),L-I):I3$=LEFT$(A$(A),I-1)
+1391 I4$=RIGHT$(A$(A),L-I):PRINT"{white}{down}NEW LETTER:";:GOSUB6:IFLEN(I$)<>1THENI$="l"
+1392 C$(A)=I1$+I$+I2$:PRINT"NEW ACCESS:";:GOSUB6:IFLEN(I$)<>1THENI$="0"
+1393 B$=STR$(VAL(I$)):A$(A)=I3$+RIGHT$(B$,1)+I4$:GOTO1300
+1400 L=13:A=1:PRINT"{clear}{light green}Q)UIT{sh space}EDITING":IFLEN(C$(A))<LTHENC$(A)=C$(A)+"l":GOTO1400
+1410 RESTORE:FORI=1TO16:READI$:NEXT
+1420 PRINT"{light blue}#/{white}FUNCTION/{yellow}LETTER":FORI=1TOL:READI$
+1430 PRINT"{light blue}"+STR$(I)+"/{white}"+I$+"/{yellow}"+MID$(C$(A),I,1)
+1440 NEXTI:PRINT"{down*2}CHOICE:";:GOSUB6:IFI$=""THEN1400
+1450 IFI$="q"THEN1000
+1460 IFVAL(I$)=0THEN1400
+1490 I=VAL(I$):I1$=LEFT$(C$(A),I-1):I2$=RIGHT$(C$(A),L-I)
+1491 PRINT"{white}{down}NEW LETTER:";:GOSUB6:IFLEN(I$)<>1THENI$="l"
+1492 C$(A)=I1$+I$+I2$:GOTO1400
+1500 L=8:A=2:PRINT"{clear}{light green}Q)UIT{sh space}EDITING":IFLEN(C$(A))<LTHENC$(A)=C$(A)+"l":GOTO1500
+1510 IFLEN(A$(A))<LTHENA$(A)=A$(A)+"0":GOTO1510
+1515 RESTORE:FORI=1TO29:READI$:NEXT
+1520 PRINT"{light blue}#/{white}FUNCTION/{yellow}LETTER/{pink}ACCESS":FORI=1TOL:READI$
+1530 PRINT"{light blue}"+STR$(I)+"/{white}"+I$+"/{yellow}"+MID$(C$(A),I,1)+"/{pink}"+MID$(A$(A),I,1)
+1540 NEXTI:PRINT"{down*2}CHOICE:";:GOSUB6:IFI$=""THEN1500
+1550 IFI$="q"THENI=N(0):GOTO7800
+1560 IFVAL(I$)=0THEN1500
+1590 I=VAL(I$):I1$=LEFT$(C$(A),I-1):I2$=RIGHT$(C$(A),L-I):I3$=LEFT$(A$(A),I-1)
+1591 I4$=RIGHT$(A$(A),L-I):PRINT"{white}{down}NEW LETTER:";:GOSUB6:IFLEN(I$)<>1THENI$="l"
+1592 C$(A)=I1$+I$+I2$:PRINT"NEW ACCESS:";:GOSUB6:IFLEN(I$)<>1THENI$="0"
+1593 B$=STR$(VAL(I$)):A$(A)=I3$+RIGHT$(B$,1)+I4$:GOTO1500
+1600 PRINT"{clear}{down}{white}N){yellow}UMBER{sh space}OF{sh space}SIGS:{pink}"+STR$(N(0)+1):PRINT"{white}C){yellow}ONTINUE"
+1610 PRINT"{white}#/{light blue}NAME/{cyan}ACCESS/{blue}DEVICE/{light green}MAX MSGS":FORI=0TON(0):PRINT"{white}"+STR$(I+1);
+1620 PRINT"/{light blue}"+NA$(0,I)+"/{cyan}"+STR$(AC(0,I))+"/{blue}"+STR$(DV(0,I))+"/{light green}"+STR$(MM(0,I))
+1630 NEXTI:PRINT"{down*2}CHOICE:";:GOSUB6:IFI$="c"THEN1500
+1635 IFI$="n"THENPRINT"NEW{sh space}NUMBER:";:GOSUB6:N(0)=VAL(I$)-1:GOTO1600
+1640 IFI$=""THEN1600
+1650 IFVAL(I$)<1ORVAL(I$)-1>N(0)THEN1600
+1660 I=VAL(I$)-1:PRINT"NEW NAME:";:GOSUB6:IFI$=""THEN1670
+1665 NA$(0,I)=I$
+1670 PRINT"NEW{sh space}ACCESS:";:GOSUB6:IFI$=""THEN1680
+1675 IFVAL(I$)<10THENAC(0,I)=VAL(I$)
+1680 PRINT"NEW{sh space}DEVICE:";:GOSUB6:IFI$=""THEN1690
+1685 II=VAL(I$):IFII>7ANDII<12THENDV(0,I)=II
+1690 PRINT"MAX{sh space}MSGS:";:GOSUB6:IFI$=""THEN1600
+1692 MM(0,I)=VAL(I$):GOTO1600
+1700 L=9:A=3:PRINT"{clear}{light green}Q)UIT{sh space}EDITING":IFLEN(C$(A))<LTHENC$(A)=C$(A)+"l":GOTO1700
+1710 IFLEN(A$(A))<LTHENA$(A)=A$(A)+"0":GOTO1710
+1715 RESTORE:FORI=1TO37:READI$:NEXT
+1720 PRINT"{light blue}#/{white}FUNCTION/{yellow}LETTER/{pink}ACCESS":FORI=1TOL:READI$
+1730 PRINT"{light blue}"+STR$(I)+"/{white}"+I$+"/{yellow}"+MID$(C$(A),I,1)+"/{pink}"+MID$(A$(A),I,1)
+1740 NEXTI:PRINT"{down*2}CHOICE:";:GOSUB6:IFI$=""THEN1700
+1750 IFI$="q"THEN1000
+1760 IFVAL(I$)=0THEN1700
+1790 I=VAL(I$):I1$=LEFT$(C$(A),I-1):I2$=RIGHT$(C$(A),L-I):I3$=LEFT$(A$(A),I-1)
+1791 I4$=RIGHT$(A$(A),L-I):PRINT"{white}{down}NEW LETTER:";:GOSUB6:IFLEN(I$)<>1THENI$="l"
+1792 C$(A)=I1$+I$+I2$:PRINT"NEW ACCESS:";:GOSUB6:IFLEN(I$)<>1THENI$="0"
+1793 B$=STR$(VAL(I$)):A$(A)=I3$+RIGHT$(B$,1)+I4$:GOTO1700
+1800 L=4:A=4:PRINT"{clear}{light green}Q)UIT{sh space}EDITING":IFLEN(C$(A))<LTHENC$(A)=C$(A)+"l":GOTO1800
+1810 IFLEN(A$(A))<LTHENA$(A)=A$(A)+"0":GOTO1810
+1815 RESTORE:FORI=1TO46:READI$:NEXT
+1820 PRINT"{light blue}#/{white}FUNCTION/{yellow}LETTER/{pink}ACCESS":FORI=1TOL:READI$
+1830 PRINT"{light blue}"+STR$(I)+"/{white}"+I$+"/{yellow}"+MID$(C$(A),I,1)+"/{pink}"+MID$(A$(A),I,1)
+1840 NEXTI:PRINT"{down*2}CHOICE:";:GOSUB6:IFI$=""THEN1800
+1850 IFI$="q"THEN1000
+1860 IFVAL(I$)=0THEN1800
+1890 I=VAL(I$):I1$=LEFT$(C$(A),I-1):I2$=RIGHT$(C$(A),L-I):I3$=LEFT$(A$(A),I-1)
+1891 I4$=RIGHT$(A$(A),L-I):PRINT"{white}{down}NEW LETTER:";:GOSUB6:IFLEN(I$)<>1THENI$="l"
+1892 C$(A)=I1$+I$+I2$:PRINT"NEW ACCESS:";:GOSUB6:IFLEN(I$)<>1THENI$="0"
+1893 B$=STR$(VAL(I$)):A$(A)=I3$+RIGHT$(B$,1)+I4$:GOTO1800
+1900 PRINT"{clear}{down}{white}N){yellow}UMBER{sh space}OF{sh space}SECTIONS:{pink}"+STR$(N(1)+1):PRINT"{white}C){yellow}ONTINUE"
+1910 PRINT"{white}#/{light blue}NAME/{cyan}ACCESS/{blue}DEVICE/{light green}NOT{sh space}USED":FORI=0TON(1):PRINT"{white}"+STR$(I+1);
+1920 PRINT"/{light blue}"+NA$(1,I)+"/{cyan}"+STR$(AC(1,I))+"/{blue}"+STR$(DV(1,I))+"/{light green}"+STR$(MM(1,I))
+1930 NEXTI:PRINT"{down*2}CHOICE:";:GOSUB6:IFI$="c"THEN2000
+1935 IFI$="n"THENPRINT"NEW{sh space}NUMBER:";:GOSUB6:N(1)=VAL(I$)-1:GOTO1900
+1940 IFI$=""THEN1900
+1950 IFVAL(I$)<1ORVAL(I$)-1>N(1)THEN1900
+1960 I=VAL(I$)-1:PRINT"NEW NAME:";:GOSUB6:IFI$=""THEN1970
+1965 NA$(1,I)=I$
+1970 PRINT"NEW{sh space}ACCESS:";:GOSUB6:IFI$=""THEN1980
+1975 IFVAL(I$)<10THENAC(1,I)=VAL(I$)
+1980 PRINT"NEW{sh space}DEVICE:";:GOSUB6:IFI$=""THEN1900
+1985 II=VAL(I$):IFII>7ANDII<12THENDV(1,I)=II
+1987 GOTO1900
+2000 L=4:A=5:PRINT"{clear}{light green}Q)UIT{sh space}EDITING":IFLEN(C$(A))<LTHENC$(A)=C$(A)+"l":GOTO2000
+2010 IFLEN(A$(A))<LTHENA$(A)=A$(A)+"0":GOTO2010
+2015 RESTORE:FORI=1TO50:READI$:NEXT
+2020 PRINT"{light blue}#/{white}FUNCTION/{yellow}LETTER/{pink}ACCESS":FORI=1TOL:READI$
+2030 PRINT"{light blue}"+STR$(I)+"/{white}"+I$+"/{yellow}"+MID$(C$(A),I,1)+"/{pink}"+MID$(A$(A),I,1)
+2040 NEXTI:PRINT"{down*2}CHOICE:";:GOSUB6:IFI$=""THEN2000
+2050 IFI$="q"THENI=N(1):GOTO7800
+2060 IFVAL(I$)=0THEN2000
+2090 I=VAL(I$):I1$=LEFT$(C$(A),I-1):I2$=RIGHT$(C$(A),L-I):I3$=LEFT$(A$(A),I-1)
+2091 I4$=RIGHT$(A$(A),L-I):PRINT"{white}{down}NEW LETTER:";:GOSUB6:IFLEN(I$)<>1THENI$="l"
+2092 C$(A)=I1$+I$+I2$:PRINT"NEW ACCESS:";:GOSUB6:IFLEN(I$)<>1THENI$="0"
+2093 B$=STR$(VAL(I$)):A$(A)=I3$+RIGHT$(B$,1)+I4$:GOTO2000
+2100 PRINT"{clear}{pink}Q)UIT{down*4}"+CR$+"{light blue}LVL/{blue}CALLS/{light green}TIME (MIN.)":FORI=0TO9
+2110 PRINT"{light blue}"+STR$(I)+"/{blue}"+STR$(CA(I))+"{light green}/    "+STR$(TM(I)):NEXTI
+2120 PRINT"{down*2}CHOOSE:";:GOSUB6:IFI$="q"THEN1000
+2130 IFI$=""THEN2100
+2140 IFVAL(I$)=0ANDI$<>"0"ANDI$<>" 0"THEN2100
+2150 I=VAL(I$):PRINT"{down}CALLS{sh space}PER{sh space}DAY:";:GOSUB6:IFI$<>""THENCA(I)=VAL(I$)
+2160 PRINT"TIME{sh space}PER{sh space}CALL:";:GOSUB6:IFI$<>""THENTM(I)=VAL(I$):IFTM(I)<256THEN2100
+2170 PRINT"MUST{sh space}BE{sh space}255 OR{sh space}LESS!{up*2}":GOTO2160
+2200 V$(0)="{red}RED":V$(1)="{cyan}CYAN":V$(2)="{purple}PURPLE":V$(3)="{brown}BROWN":V$(4)="{green}GREEN"
+2210 V$(5)="{blue}BLUE":V$(6)="{yellow}YELLOW":V$(7)="{orange}ORANGE":V$(8)="{pink}PINK":V$(9)="{dark gray}DK GREY
+2220 V$(10)="{gray}MED{sh space}GREY":V$(11)="{light green}LT{sh space}GREEN":V$(12)="{light blue}LT BLUE"
+2225 V$(14)="{white}WHITE":V$(13)="{light gray}LT GREY"
+2230 PRINT"{clear}{red}Q)UIT":PRINT"{down}{light blue}COLOR{sh space}CYCLE!":FORT=1TO2:FORI=1TO8:PRINT"{white}#";STR$(I);
+2240 GOSUB2290:NEXTI:NEXTT:PRINT"{white}{down*2}CHOOSE:";:GOSUB6:IFI$=""THEN2230
+2245 IFI$="q"THEN1000
+2250 I=VAL(I$):IFI<1ORI>8THEN2230
+2270 PRINT"COLOR:";:C$="{white}{red}{cyan}{purple}{green}{blue}{yellow}{orange}{brown}{pink}{dark gray}{gray}{light green}{light blue}{light gray}":GOSUB2:FL$(I)=A$:GOTO2200
+2290 WW=0:FORW=0TO14:IFFL$(I)=LEFT$(V$(W),1)THENPRINTV$(W)+"{white}":WW=1
+2291 NEXTW:IFWW=0THENPRINT"UNKNOWN!":
+2292 RETURN
+2300 PRINT"{clear}{down}{white}N){yellow}UMBER{sh space}OF{sh space}U/DS:{pink}"+STR$(N(2)+1):PRINT"{white}C){yellow}ONTINUE"
+2310 PRINT"{white}#/{light blue}NAME/{cyan}ACCESS/{blue}DEVICE/{light green}BLK SPACE":FORI=0TON(2):PRINT"{white}"+STR$(I+1);
+2320 PRINT"/{light blue}"+NA$(2,I)+"/{cyan}"+STR$(AC(2,I))+"/{blue}"+STR$(DV(2,I))+"/{light green}"+STR$(MM(2,I))
+2330 NEXTI:PRINT"{down*2}CHOICE:";:GOSUB6:IFI$="c"THEN2400
+2335 IFI$="n"THENPRINT"NEW{sh space}NUMBER:";:GOSUB6:N(2)=VAL(I$)-1:GOTO2300
+2340 IFI$=""THEN2300
+2350 IFVAL(I$)<1ORVAL(I$)-1>N(2)THEN2300
+2360 I=VAL(I$)-1:PRINT"NEW NAME:";:GOSUB6:IFI$=""THEN2370
+2365 NA$(2,I)=I$
+2370 PRINT"NEW{sh space}ACCESS:";:GOSUB6:IFI$=""THEN2380
+2375 IFVAL(I$)<10THENAC(2,I)=VAL(I$)
+2380 PRINT"NEW{sh space}DEVICE:";:GOSUB6:IFI$=""THEN2390
+2385 II=VAL(I$):IFII>7ANDII<12THENDV(2,I)=II
+2390 PRINT"BLK{sh space}SPACE #";:GOSUB6:IFI$=""THEN2300
+2395 IFVAL(I$)>200THENPRINT"TOO{sh space}MUCH{up*2}":GOTO2390
+2396 MM(2,I)=VAL(I$):GOTO2300
+2400 L=5:A=6:PRINT"{clear}{light green}Q)UIT{sh space}EDITING":IFLEN(C$(A))<LTHENC$(A)=C$(A)+"l":GOTO2400
+2410 IFLEN(A$(A))<LTHENA$(A)=A$(A)+"0":GOTO2410
+2415 RESTORE:FORI=1TO54:READI$:NEXT
+2420 PRINT"{light blue}#/{white}FUNCTION/{yellow}LETTER/{pink}ACCESS":FORI=1TOL:READI$
+2430 PRINT"{light blue}"+STR$(I)+"/{white}"+I$+"/{yellow}"+MID$(C$(A),I,1)+"/{pink}"+MID$(A$(A),I,1)
+2440 NEXTI:PRINT"{down*2}CHOICE:";:GOSUB6:IFI$=""THEN2400
+2450 IFI$="q"THENI=N(2):GOTO7800
+2460 IFVAL(I$)=0THEN2400
+2490 I=VAL(I$):I1$=LEFT$(C$(A),I-1):I2$=RIGHT$(C$(A),L-I):I3$=LEFT$(A$(A),I-1)
+2491 I4$=RIGHT$(A$(A),L-I):PRINT"{white}{down}NEW LETTER:";:GOSUB6:IFLEN(I$)<>1THENI$="l"
+2492 C$(A)=I1$+I$+I2$:PRINT"NEW ACCESS:";:GOSUB6:IFLEN(I$)<>1THENI$="0"
+2493 B$=STR$(VAL(I$)):A$(A)=I3$+RIGHT$(B$,1)+I4$:GOTO2400
+7700 DIMC$(6),A$(6),N(2),NA$(2,50),AC(2,50),DV(2,50),MM(2,50),CA(9),TM(9)
+7710 DIMFL$(8),V$(20):OPEN8,8,8,"{pound}vars,s,r":CR$=CHR$(13)
+7720 INPUT#8,BN$,MD,UL,UC,DC,M0,D0:FORI=0TO6:INPUT#8,C$(I),A$(I):NEXT:FORI=0TO2
+7730 INPUT#8,N(I):FORX=0TON(I):INPUT#8,NA$(I,X),AC(I,X),DV(I,X),MM(I,X):NEXTX
+7740 NEXTI:FORI=0TO9:INPUT#8,CA(I),TM(I):NEXT:FORI=1TO8:INPUT#8,FL$(I):NEXT
+7750 CLOSE8:RETURN
+7800 C$(A)=LEFT$(C$(A),L)
+7805 FORX=0TOI:C$(A)=C$(A)+CHR$(97+X):NEXTX:FORX=0TOI:C$(A)=C$(A)+CHR$(193+X)
+7810 NEXTX:GOTO1000
+7900 PRINT"{down}SAVING...":OPEN1,8,15,"s0:{pound}vars":CLOSE1:OPEN8,8,8,"0:{pound}vars,s,w"
+7910 PRINT#8,BN$:PRINT#8,MD:PRINT#8,UL:PRINT#8,UC:PRINT#8,DC:PRINT#8,M0:
+7920 PRINT#8,D0:FORI=0TO6:PRINT#8,C$(I):PRINT#8,A$(I):NEXTI:FORI=0TO2:
+7930 PRINT#8,N(I):FORX=0TON(I):PRINT#8,NA$(I,X):PRINT#8,AC(I,X):PRINT#8,DV(I,X)
+7940 PRINT#8,MM(I,X):NEXTX:NEXTI:FORI=0TO9:PRINT#8,CA(I):PRINT#8,TM(I):NEXT
+7950 FORI=1TO8:PRINT#8,FL$(I):NEXT:CLOSE8:GOTO100
+8000 PRINT"{clear}{down*2}CREATE{sh space}A)LL,O)NE,OR Q)UIT?";:C$="aoq":GOSUB2:IFG=3THEN100
+8010 IFG=1THENFORI=0TON(0):PRINT"WORKING...";:GOTO8100
+8020 PRINT"{down*2}WHICH{sh space}ONE ( 1-"+STR$(N(0)+1)+"):";:GOSUB6:IFI$=""THEN100
+8030 IFVAL(I$)>N(0)+1ORVAL(I$)<1THEN100
+8040 I=VAL(I$):PRINT"WORKING...":GOTO8110
+8100 FORI=1TON(0)+1:PRINT".";
+8110 OPEN1,8,15,"s0:{pound}Sig "+CHR$(96+I):OPEN2,8,3,"{pound}Sig "+CHR$(96+I)+",l,"+CHR$(15)
+8120 Y=0:X=1:GOSUB7:A$=STR$(0)+CR$+STR$(0):PRINT#2,A$:FORX=2TOMM(0,I-1)
+8130 GOSUB7:PRINT#2,A$:NEXTX:CLOSE2:CLOSE1:IFG<>1THEN100
+8140 NEXTI:GOTO100
+8500 PRINT"{clear}{down*2}WHICH{sh space}ONE ( 1-"+STR$(N(0)+1)+"):";:GOSUB6:IFI$=""THEN100
+8510 I5=VAL(I$):IFI5<1ORI5>N(0)+1THEN100
+8520 OPEN1,8,15:OPEN2,8,3,"{pound}Sig "+CHR$(96+I5):X=1:Y=0:GOSUB7:INPUT#2,I1,I2
+8530 PRINT"MESSAGES:"+STR$(I1)+":";:GOSUB6:IFI$<>""THENI1=VAL(I$)
+8540 PRINT"NEXT SLOT:"+STR$(I2)+":";:GOSUB6:IFI$<>""THENI2=VAL(I$)
+8545 IFI1>MM(0,I5-1)ORI2>MM(0,I5-1)THENPRINT"ILLEGAL!":CLOSE2:CLOSE1:GOTO100
+8550 GOSUB7:PRINT#2,STR$(I1)+CR$+STR$(I2):FORX=2TOI2+1:GOSUB7:INPUT#2,A,B
+8555 PRINT"MESSAGE #"+STR$(X-1)
+8560 PRINT"REPLYS:"+STR$(A)+":";:GOSUB6:IFI$<>""THENA=VAL(I$)
+8570 PRINT"MSG{sh space}NUMBER:"+STR$(B)+":";:GOSUB6LIFI$<>""THENB=VAL(I$)
+8580 GOSUB7:PRINT#2,STR$(A)+CR$+STR$(B):NEXTX:CLOSE2:CLOSE1:GOTO100
+10000 DATA "FEEDBACK","LOGOFF","INFO{sh space}FILE","CHAT","USERLIST","STATUS","EMAIL"
+10010 DATA "SYSOP","MSG{sh space}BASE","TRANSFER","VOTE","BAUD{sh space}CHANGE"
+10020 DATA "LIBRARY","VAR. EDITOR","PROGRAMS","TOGGLE GFX/ASCII"
+10030 DATA "HELP","SAVE","EDIT","DELETE{sh space}LINES","LIST","CLEAR","VIEW"
+10040 DATA "INSERT","ABORT","TOGGLE GFX","WORD{sh space}WRAP","CENTER","LINE{sh space}NUMBERS"
+10050 DATA "LIST{sh space}SIGS","READ","SCAN","NEW","QUIT","POST/REPLY","SUBOP"
+10060 DATA "ALL{sh space}NEW"
+10070 DATA "DISK{sh space}CHANNEL","USERLIST","EDIT{sh space}USER","VAR. EDIT","RELOAD"
+10080 DATA "MEMBERS","TIME{sh space}EDIT","VOTE{sh space}EDIT","QUIT"
+10090 DATA "READ{sh space}MAIL","USERLIST","SEND{sh space}MAIL","QUIT"
+10100 DATA "LOAD","DIRECTORY","LIST SUBS","QUIT"
+10110 DATA "DIRECTORY","QUIT","UPLOAD","DOWNLOAD","LIST{sh space}UDS"
