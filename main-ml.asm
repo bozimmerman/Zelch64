@@ -2,23 +2,23 @@
         
 * = $9538
         ; .O
-        ; .D V2.4 ML1
-        JMP GETIT; REM 49152;38200
-        JMP SEND; REM 49155;38203
-        JMP INPT; REM 49158;38206
-        JMP SENDBIG; REM 49161;38209
-        JMP FILESEND; REM 49164;38212
-        JMP TIME; REM 49167;38215
-        JMP FILEGET; REM 49170;38218
-        JMP CHAP; REM 49173;38221
-        JMP DIREC; REM 49176;38224
-        JMP HEADER; REM 49179;38227
-        JMP GETLINE; REM 49182;38230
-        JMP GETINFO; REM 49185;38233
-        JMP TERM; REM 49188;38236
-        JMP ESTLOG; REM 49191;38239
-        JMP COUNTFILE; REM 49194;38242
-        JMP BLKSFRE; REM 49197;38245
+        ; .D V2.5 ML1
+        JMP GETIT; REM 38200
+        JMP SEND; REM 38203
+        JMP INPT; REM 38206
+        JMP SENDBIG; REM 38209
+        JMP FILESEND; REM 38212
+        JMP TIME; REM 38215
+        JMP FILEGET; REM 38218
+        JMP CHAP; REM 38221
+        JMP DIREC; REM 38224
+        JMP HEADER; REM 38227
+        JMP GETLINE; REM 38230
+        JMP GETINFO; REM 38233
+        JMP TERM; REM 38236
+        JMP CLOPLEZ; REM 38239
+        JMP COUNTFILE; REM 38242
+        JMP BLKSFRE; REM 38245
 REST
         LDA $7A; *********
         STA $02A7
@@ -81,6 +81,9 @@ JERK
         JSR SOUND
         LDA $FE
 NOSOUND
+        CMP #$26
+        BEQ NNSSOO
+NNNSSO
         CMP #$90
         BEQ TWO
         CMP #$03
@@ -93,6 +96,12 @@ STSEN
         BNE STSEN1
         JMP CLRGON
 STSEN1
+        CMP #$85
+        BNE STSEN3
+        JSR COLOR
+STSEN3
+        NOP
+STSEN0
         JSR $FFD2
         LDA $02D0
         BNE HALF
@@ -118,6 +127,8 @@ HALF
         JSR LOAD
         RTS
 THREE
+        LDA $03FF
+        BEQ HALF
         LDA #$0A
         JSR $FFD2
         JMP HALF
@@ -135,6 +146,21 @@ STAR
         RTS
 GOSTAR
         LDA $FE
+        RTS
+NNSSOO
+        LDA #$22
+        STA $FE
+        JMP NNNSSO
+COLOR
+        LDX $02AC
+        INX
+        CPX #$08
+        BNE NXCOL
+        LDX #$00
+NXCOL
+        STX $02AC
+        LDA $02AD,X
+        STA $FE
         RTS
 RTINE
         JSR SAVE
@@ -171,10 +197,16 @@ USERSTORE
         LDA $02A9
         BEQ ALEND
 EXOUT
+        LDA $033D
+        BEQ EXOUTR
+        RTS
+EXOUTR
         LDA $FE
+        JSR UPCASE
+        STA $FE
         CMP #$22
         BNE OUTHERE
-        LDA #$27
+        LDA #$26
         STA $FE
 OUTHERE
         JSR LOAD
@@ -188,6 +220,31 @@ ALEND
         LDA $CE00,X
         STA $FE
         JMP EXOUT
+UPCASE
+        LDX $02DB
+        CPX #$00
+        BEQ RTCASE
+        CMP #$0D
+        BEQ RTCASE
+        CMP #$08
+        BEQ RTCASE
+        CMP #$14
+        BEQ RTCASE
+        CMP #$20
+        BCC RTYT
+        CMP #$40
+        BCC RTCASE
+RTYT
+        CMP #$41
+        BCC RTTCASE
+        CMP #$60
+        BCS RTTCASE
+        ORA #$80
+RTCASE
+        RTS
+RTTCASE
+        LDA #$00
+        RTS
 INPT
         JSR REST
         JSR CLEAR
@@ -406,19 +463,6 @@ FILESEND
         STA $FD
         STA $FC
 FILES
-        LDX #$00
-        JSR $FFC6
-        JSR RTINE
-        LDA $FE
-        CMP #$20
-        BNE COWQ
-        JSR FILEGET
-        JMP COW
-COWQ
-        CMP #$13
-        BNE PISS
-        JMP PAUSE
-PISS
         LDX #$08
         JSR $FFC6
         LDX #$00
@@ -455,6 +499,17 @@ CSENT
         LDA $CD00,X
         STA $FE
         JSR SEND
+        JSR RTINE
+        LDA $FE
+        CMP #$20
+        BNE COWQ
+        JSR FILEGET
+        JMP COW
+COWQ
+        CMP #$13
+        BNE PISS
+        JSR PAUSE
+PISS
         CPX $CDFF
         BEQ FILES
         INX
@@ -481,12 +536,21 @@ UPPER
         LDY #$01
         STY $FC
         RTS
-ESTLOG
-        LDA $0380
-        STA $FD
-        LDA $0381
-        STA $FE
-        JMP TIMU
+CLOPLEZ
+        LDY #$00
+        INC $7A
+        BNE CLOP1
+        INC $7B
+CLOP1
+        LDA ($7A),Y
+        SEC
+        SBC #$30
+        JSR $F291
+        INC $7A
+        BNE CLOP2
+        INC $7B
+CLOP2
+        RTS
 FILEGET
         LDA #$00
         STA $FD
@@ -520,15 +584,20 @@ CNCHP
         LDA #$00
         STA $D020
         STA $02D0
+        LDA #$12
+        STA $FE
+        JSR SEND
+        LDA #$12
+        STA $FE
+        JSR SEND
 CHAT
         JSR RTINE
         LDA $FE
         BEQ CHAT
         CMP #$88
         BEQ GOTT
-        JSR SEND
-        LDA #$12
-        STA $FE
+        CMP #$92
+        BEQ CHAT
         JSR SEND
         JMP CHAT
 GOTT
@@ -566,8 +635,10 @@ CLEAR
         BNE CLEAR
         RTS
 PAUSE
+        JSR SAVEE
         LDA $033E
         BEQ CPN
+        JSR LOAD
         RTS
 CPN
         JSR RTINE
@@ -575,7 +646,8 @@ CPN
         BEQ PAUSE
         CMP #$13
         BEQ PAUSE
-        JMP PISS
+        JSR LOAD
+        RTS
 DIREC
         LDX #$08
         JSR $FFC6
@@ -843,6 +915,9 @@ NXTERM
         LDA $CE00,X
         STA $FE
 CONTERM
+        LDA #$00
+        STA $D4
+        STA $D8
         LDA $FE
         JSR $FFD2
         JMP TERM

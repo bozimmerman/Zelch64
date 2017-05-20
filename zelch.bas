@@ -1,10 +1,10 @@
 !--------------------------------------------------
-!- Saturday, May 20, 2017 2:18:32 PM
+!- Saturday, May 20, 2017 2:46:15 PM
 !- Import of : 
 !- c:\src\zelch64\zelch.prg
 !- Commodore 64
 !--------------------------------------------------
-5 POKE53280,0:POKE53281,0:PRINT"{clear}"
+5 POKE53280,0:POKE53281,0:PRINT"{clear}":POKE701,169
 10 CLR
 15 IFPEEK(716)<>16THENPOKE716,16:LOAD"window.ml",8,1
 17 IFPEEK(715)<>16THENPOKE715,16:SYS49152:POKE59639,2:POKE59671,3:POKE57722,96
@@ -22,7 +22,7 @@
 130 POKE703,MN
 140 DA=PEEK(704)
 150 INPUT"{reverse on}{yellow}Enter the DAY";DA
-160 IFDA>30THENPRINT"{home}":GOTO130
+160 IFDA>31THENPRINT"{home}":GOTO130
 170 POKE704,DA
 250 PRINT
 260 PRINT"{reverse on}{light blue}Correct?"
@@ -71,24 +71,24 @@
 687 GOSUB740:GOTO683
 690 PRINT"{clear}               {light blue}Z{cyan}e{white}l{yellow}c{pink}h"
 691 PRINT"{down}                {light green}BBS"
-700 PRINT"{down*3}            {yellow}Version 2.4"
-710 PRINT"{down}{white}    Copyright (C)1987 Bo Zimmerman"
+700 PRINT"{down*3}            {yellow}Version 2.5"
+710 PRINT"{down}{white}    Copyright (C)1988 Bo Zimmerman"
 715 GOSUB1100
 720 PRINT"{down*6}{green}            RETURN{sh space}for BBS"
 730 PRINT"{light green}            (E) for Editor{black}":GOTO680
 740 GETB$
 750 IFB$=CHR$(13)THEN100
 760 IFB$<>"e"THENRETURN
-770 LOAD"editor 2.4",8
+770 LOAD"editor 2.5",8
 780 END
 1000 PRINTCHR$(14)+"{clear}{pink}Window installed"
 1001 LOAD"cursor",8,1
 1005 PRINT"{yellow}Cursor loaded"
 1010 LOAD"ascii table",8,1
 1015 PRINT"{white}Ascii tables loaded"
-1020 LOAD"v2.4 ml1",8,1
+1020 LOAD"v2.5 ml1",8,1
 1025 PRINT"{cyan}System ML loaded"
-1030 LOAD"v2.4 ml2",8,1
+1030 LOAD"v2.5 ml2",8,1
 1035 PRINT"{light blue}Interupts loaded"
 1040 LOAD"p.protocol",8,1
 1050 POKE1,55:POKE57722,165:POKE644,149:POKE56,149:POKE643,56:POKE55,56:CLR
@@ -98,7 +98,7 @@
 1120 S=54272:FORI=STOS+24:POKEI,0:NEXT
 1130 POKES+24,15:POKES+5,AD:POKES+6,SR
 1140 READN:IFN=0THENRETURN
-1150 IFN=9THENFORI=1TO75:NEXT:GOTO1140
+1150 IFN=9THENFORI=1TO45:NEXT:GOTO1140
 1160 POKES+1,FH(N):POKES,FL(N):IFWF=64THENPOKES+3,7:POKES+2,150
 1170 POKES+4,WF+1:FORT=1TO50:NEXT:POKES+4,WF:GOTO1140
 1180 DATA28,49,31,165,33,135,37,162

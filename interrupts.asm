@@ -2,7 +2,7 @@
         
 * = $CB00
         ; .O
-        ; .D V2.4 ML2
+        ; .D V2.5 ML2
         JMP CLOC1
         JMP WHERE
 CLOC1
@@ -51,18 +51,19 @@ NXT5
         RTS
 CLOCK
         LDA $02CA
-        BNE LEAVE
+        BNE KEEPIT
         LDA $DD01
         AND #$10
         BNE TOOMUCH
+KEEPIT
         LDA $0380
         BEQ OUTA
-        LDA $0380
-        CMP $DD0B
-        BNE OUTA
+INRR
         LDA $0381
-        CMP $DD0A
         BEQ TOOMUCH
+        LDA $0382
+        CMP $DD0A
+        BNE INRC
         JMP OUTA
 TOOMUCH
         LDA #$01
@@ -70,14 +71,15 @@ TOOMUCH
 OUTA
         LDA $DD08
         RTS
-LEAVE
-        LDA #$00
-        STA $033E
-        JMP OUTA
+INRC
+        LDA $DD0A
+        STA $0382
+        DEC $0381
+        JMP INRR
 WHERE
-        LDA #$00
+        LDA #$20
         STA $FB
-        LDA #$50
+        LDA #$4E
         STA $FC
 LOOPP
         LDX #$00
