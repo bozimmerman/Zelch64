@@ -2,9 +2,9 @@
         
 * = $CB00
         ; .O
-        ; .D V2.3 ML2
+        ; .D V2.4 ML2
         JMP CLOC1
-        JMP RELOAD
+        JMP WHERE
 CLOC1
         JSR CLOCK
         JSR CRSR
@@ -74,29 +74,43 @@ LEAVE
         LDA #$00
         STA $033E
         JMP OUTA
-RELOAD
-        LDA #$07
-        LDX #$08
-        LDY #$01
-        JSR $FE00
-        INC $7A
-        BNE BELOD
-        INC $7B
-BELOD
-        JSR $B08B
-        LDY #$00
-LIP 
-        LDA ($47),Y
-        STA $00FB,Y
-        INY
-        CPY #$03
-        BCC LIP
-        LDA $FB
-        LDX $FC
-        LDY $FD
-        JSR $FDF9
+WHERE
+        LDA #$00
+        STA $FB
+        LDA #$50
+        STA $FC
+LOOPP
         LDX #$00
         LDY #$00
-        LDA #$00
-        JSR $F49E
+        LDA ($FB),Y
+        CMP #$1A
+        BNE NEXTXT
+        INY
+        LDA ($FB),Y
+        CMP #$18
+        BNE NEXTXT
+        INY
+        LDA ($FB),Y
+        CMP #$03
+        BNE NEXTXT
+        LDA $FB
+        CLC
+        ADC #$05
+        STA $FB
+        LDA $FC
+        ADC #$00
+        STA $FC
+        LDX $FB
+        LDY $FC
+        STX $2B
+        STY $2C
         RTS
+NEXTXT
+        LDA $FB
+        CLC
+        ADC #$01
+        STA $FB
+        LDA $FC
+        ADC #$00
+        STA $FC
+        JMP LOOPP

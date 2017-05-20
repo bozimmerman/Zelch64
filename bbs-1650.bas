@@ -1,30 +1,24 @@
 !--------------------------------------------------
-!- Saturday, May 20, 2017 2:16:49 PM
+!- Saturday, May 20, 2017 2:21:36 PM
 !- Import of : 
-!- c:\src\zelch64\bbs.prg
+!- c:\src\zelch64\bbs-1650.prg
 !- Commodore 64
 !--------------------------------------------------
 1 GOTO10
-2 PRINT#5,CHR$(13):GOSUB85:GOSUB85:PRINT#5,"at"+A$
-3 GET#5,C$:IFC$=""THEN3
-4 RETURN
 10 PRINTCHR$(14)
 11 GOTO25
 12 IFP0>100THENP0$(100)="log full":RETURN
 13 P0$(P0)=E$:P0=P0+1:RETURN
-25 CLOSE5:OPEN5,2,3,CHR$(6)+CHR$(0):GET#5,CC$:A$="v0x1":GOSUB2
-30 DIMTT$(55),Z1(50),Z2(50),P0$(100),DA(12):POKE53280,0
+25 CLOSE5:OPEN5,2,3,CHR$(6)
+30 DIMTT$(50),Z1(50),Z2(50),P0$(100),DA(12):POKE53280,0
 40 DA(1)=31:DA(2)=28:DA(3)=31:DA(4)=30:DA(5)=31:DA(6)=30:DA(7)=31:DA(8)=31
 45 DA(9)=30:DA(10)=31:DA(11)=30:DA(12)=31
 50 IFPEEK(702)<>16THENGOTO230
 60 POKE702,0:MN=PEEK(703):DA=PEEK(704)
 70 GOTO290
-80 GOSUB85:GOSUB85:PRINT#5,"+++";:GOSUB85:GOSUB85:PRINT#5,"ath0"
-82 POKE56579,32:POKE56577,0:RETURN
-85 T$=TI$
-86 IFT$=TI$THEN86
-87 RETURN
+80 POKE56579,32:POKE56577,0:RETURN
 88 FORI=0TO9:POKE721+I,PEEK(43+I):NEXT:SYS51971:LOADI$,8:
+90 POKE56579,6:POKE56577,2:RETURN
 100 IN$="":SYS38200:IFPEEK(830)=1THEN1230
 101 IFPEEK(197)=5ANDPEEK(653)=1THEN106
 102 IFPEEK(197)=6THEN107
@@ -60,7 +54,7 @@
 330 CLOSE8:CLOSE1
 380 OPEN8,8,8,"0:{pound}last caller,s,r":INPUT#8,L1$:SYS38230:L2$=I$:INPUT#8,LZ
 389 INPUT#8,HN:CLOSE8:CLOSE1
-390 PRINT"{clear}{down*11}{yellow}";BN$:C1=0:POKE682,0:POKE714,0:POKE705,0:GOSUB82
+390 PRINT"{clear}{down*11}{yellow}";BN$:C1=0:POKE682,0:POKE714,0:POKE705,0:GOSUB80
 400 POKE53280,0:POKE53281,0:PRINT"{pink}BBS mode: {yellow}{reverse on}F1{reverse off} for menu":POKE829,0
 410 PRINT"{cyan}{reverse on}F3{reverse off} to log-on":POKE896,0:POKE720,0:I=300:FH=1:GOSUB6230
 430 PRINT"{light blue}Last caller=";L1$:POKE720,0
@@ -73,10 +67,11 @@
 490 IFPEEK(712)=15ANDVAL(A$)<12ANDB$="am"THENPOKE712,0
 500 GETQ$:IFQ$="{f1}"THEN580
 520 IFQ$="{f3}"THENPOKE714,1:POKE830,0:POKE720,1:GOTO690
-530 GET#5,R$:IFR$=""THEN460
-540 IFR$="5"THENPOKE830,0:POKE714,0:GOSUB6800:GOTO690
-550 IFR$="1"THENPOKE830,0:POKE714,0:BA=300:GOTO690
-560 GOTO460
+530 IF(PEEK(56577)AND8)=8THEN460
+540 CT=0:GOSUB90:
+550 A=PEEK(56577):IF(AAND16)=0THENPOKE830,0:GOTO690
+560 CT=CT+1:IFCT<6THENFORI=0TO900:NEXT:GOTO550
+570 GOTO390
 580 PRINT"{yellow}{clear}menu"
 590 PRINT"1)Return to BBS
 600 PRINT"2)Monster mode
@@ -133,7 +128,7 @@
 1080 GOSUB210:TX$="{cyan}You are caller #"+STR$(LZ):GOSUB210:Q$=CHR$(13)
 1090 TX$="{blue}Last Call:"+LC$+Q$+"{light blue} Off at:"+TM$:GOSUB210
 1100 TX$="{green}Last Caller:"+L1$+Q$+"{light green} Off at:"+L2$:GOSUB210
-1105 TX$="{light gray}There are"+STR$(HN-PP)+" new messages":GOSUB210
+1105 TX$="{light gray}There are "+STR$(HN-PP)+" new messages":GOSUB210
 1110 TX$="{blue}Checking for mail!":GOSUB210:I3=0
 1120 OPEN8,MD,8,"0:{pound}mail"+STR$(NA)+",s,r":GET#8,A$:CLOSE8
 1130 IFST<>0THENTX$="{white}NO mail.. (SORRY)":GOSUB210:GOTO1150
@@ -159,7 +154,7 @@
 1280 IFPEEK(709)=1THENOPEN4,4,7:SYS38215:PRINT#4,"off at:";I$:PRINT#4:CLOSE4
 1290 CA$=STR$(VAL(CA$)+1)
 1300 SYS38215:TM$=I$:LC$=STR$(MN)+"/"+STR$(DA):C2=INT(NA/256):C3=C2*256
-1310 C1=NA-C3:GOSUB1350:TX$="{red}{reverse on}Bye...":GOSUB210:GOSUB80
+1310 C1=NA-C3:GOSUB1350:TX$="{red}{reverse on}Bye...":GOSUB210
 1311 PRINT"{white}{reverse on}Saving Log...":OPEN8,8,8,"0:{pound}Log!,s,r":CLOSE8:OPEN1,8,15
 1312 INPUT#1,E:CLOSE1:IFE=0THEN1317
 1313 OPEN8,8,8,"0:{pound}Log!,s,w":PRINT#8,"start":CLOSE8
@@ -169,9 +164,7 @@
 1320 OPEN1,8,15,"s0:{pound}last caller":CLOSE1:SYS38215
 1330 OPEN8,8,8,"0:{pound}last caller,s,w":PRINT#8,NA$+"  ":LC$=LC$+" "+I$:PRINT#8,LC$
 1340 PRINT#8,LZ+1:PRINT#8,HN:CLOSE8:OPEN1,8,15,"i0":CLOSE1:POKE702,16
-1345 I=300:FH=1:GOSUB6230
-1346 GOSUB80:A$="z":GOSUB2:A$="z":GOSUB2
-1347 CLOSE5:RUN
+1345 GOSUB80:CLOSE5:RUN
 1350 CLOSE1:CLOSE2:CLOSE8:OPEN1,8,15,"i0":OPEN2,8,2,"0:{pound}userlog":GOTO1370
 1360 PRINT#1,"p"CHR$(98)CHR$(C1)CHR$(C2)CHR$(I):RETURN
 1370 I=5:GOSUB1360:PRINT#2,NA$:I=25:GOSUB1360:PRINT#2,PH$:I=35:GOSUB1360
@@ -397,7 +390,7 @@
 3970 SYS38212:
 3980 CLOSE8:TX$=CHR$(14)+"R)eply A)gain N)ext:{ct c}":GOSUB210
 3990 GOSUB100:IFIN$="a"THENTX$="a":GOSUB210:OPEN8,MD,8,"0:{pound}mail"+STR$(NA)
-3995 IFIN$="a"THEN3960
+3995 GOTO3960
 4000 IFIN$="n"THENWH=WH+1:TX$="n":GOSUB210:GOTO3890
 4010 IFIN$<>"r"THEN3990
 4020 TX$="r":GOSUB210:MF=1:GOTO3830
@@ -508,7 +501,7 @@
 5310 FI$=I$:IFLEFT$(I$,1)<>"{pound}"THENFI$=CHR$(64+CU)+I$
 5320 GOSUB5640:IFER=1THEN5170
 5325 GOSUB6400
-5330 TX$="{clear}{down}O.K. Go To Send!!":GOSUB210:FI$=FI$+"w"
+5330 TX$="{clear}{down}O.K. Go To Send!!":GOSUB210
 5360 TI$="000000"
 5370 GETA$:IFA$="a"THEN5620
 5380 IFPEEK(830)=1THEN1230
@@ -613,13 +606,7 @@
 6745 CLOSE8:OPEN8,8,8,"0:{pound}newinfo,s,w":PRINT#8,"start"
 6750 CLOSE8:OPEN8,8,8,"0:{pound}newinfo,a":PRINT#8,CHR$(1):PRINT#8,"#"+STR$(ID)+" ";
 6760 PRINT#8,NN$:FORX=0TOI:PRINT#8,NQ$(X)+NA$(X):NEXTX:CLOSE8:RETURN
-6800 RESTORE:FORI=659TO666:READA:POKEI,A:NEXT:DATA8,0,70,1,0,9,55,3
-6801 BA=1200:RETURN
-6810 PRINT"3)00 or 1)200:";:
-6811 GETA$:IFA$="3"THEN6816
-6812 IFA$="1"THENGOSUB6800:GOTO6816
-6813 GOTO 6811
-6816 PRINT:POKE681,1
+6810 POKE681,1:GOSUB90
 6820 PRINT"{yellow}term active":SYS38236
 6830 PRINTCHR$(13)+"{white}CMD:";:
 6831 GETA$:IFA$="q"THENPRINT:POKE702,16:GOTO1345
@@ -667,10 +654,10 @@
 8010 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 8011 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 8012 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-8013 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-8014 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-8015 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-8016 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+8013 ::        :    : :::::  : ::: :::::::::::::::::: :: :::: :::: ::: ::: ::::
+8014 ::::::: ::: :::: ::: :::: ::: :::::::::::::::: ::::    : ::: ::::     ::::
+8015 ::::: :::::    : ::: ::::     :::::::::::::: :::::: :::: ::: :::: ::: ::::
+8016 ::: ::::::: :::: :::: ::: ::: ::::::::::::        :    :   :::  : ::: ::::
 8017 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 8018 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 8019 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::

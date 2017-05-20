@@ -1,24 +1,24 @@
         
         
-* = $C000
+* = $9538
         ; .O
-        ; .D \V2.3 ML1
-        JMP GETIT; REM 49152
-        JMP SEND; REM 49155
-        JMP INPT; REM 49158
-        JMP SENDBIG; REM 49161
-        JMP FILESEND; REM 49164
-        JMP TIME; REM 49167
-        JMP FILEGET; REM 49170
-        JMP CHAP; REM 49173
-        JMP DIREC; REM 49176
-        JMP HEADER; REM 49179
-        JMP GETLINE; REM 49182
-        JMP GETINFO; REM 49185
-        JMP TERM; REM 49188
-        JMP ESTLOG; REM 49191
-        JMP COUNTFILE; REM 49194
-        JMP BLKSFRE; REM 49197
+        ; .D V2.4 ML1
+        JMP GETIT; REM 49152;38200
+        JMP SEND; REM 49155;38203
+        JMP INPT; REM 49158;38206
+        JMP SENDBIG; REM 49161;38209
+        JMP FILESEND; REM 49164;38212
+        JMP TIME; REM 49167;38215
+        JMP FILEGET; REM 49170;38218
+        JMP CHAP; REM 49173;38221
+        JMP DIREC; REM 49176;38224
+        JMP HEADER; REM 49179;38227
+        JMP GETLINE; REM 49182;38230
+        JMP GETINFO; REM 49185;38233
+        JMP TERM; REM 49188;38236
+        JMP ESTLOG; REM 49191;38239
+        JMP COUNTFILE; REM 49194;38242
+        JMP BLKSFRE; REM 49197;38245
 REST
         LDA $7A; *********
         STA $02A7
@@ -145,6 +145,8 @@ RTINE
         BEQ NXT1
         JMP SYSTORE
 NXT1
+        LDA $02D0
+        BNE GONE
         LDX #$05
         JSR $FFC6
         JSR $FFE4
@@ -223,7 +225,7 @@ CARON
         CMP #$0D
         BEQ TEND
         LDA $FB
-        CMP #$64
+        CMP #$3C
         BEQ CREEPE
         LDA $FE
         CMP #$14
@@ -517,6 +519,7 @@ CNCHP
         JSR SEND
         LDA #$00
         STA $D020
+        STA $02D0
 CHAT
         JSR RTINE
         LDA $FE
@@ -947,6 +950,7 @@ FGLAA
         JSR $FFE4
         JSR $FFE4
 COUNTLP
+        JSR $FFE4
         LDX $90
         BNE GOCOUNT
         CMP #$00

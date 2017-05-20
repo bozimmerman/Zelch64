@@ -1,5 +1,5 @@
 !--------------------------------------------------
-!- Saturday, May 20, 2017 3:37:49 AM
+!- Saturday, May 20, 2017 2:18:32 PM
 !- Import of : 
 !- c:\src\zelch64\zelch.prg
 !- Commodore 64
@@ -63,7 +63,7 @@
 580 IFA$="n"THENPOKE709,0:GOTO600
 590 GOTO550
 600 PRINT"{clear}Loading program...{black}"
-610 PRINT"{home}{down*2}load"+CHR$(34)+"c/bbs"+CHR$(34)+",8"
+610 PRINT"{home}{down*2}load"+CHR$(34)+"bbs"+CHR$(34)+",8"
 615 PRINT"{home}{down*7}run":FORI=631TO633:POKEI,13:NEXTI:POKE198,2:PRINT"{home}";:END
 680 A$=" {pink}Z{yellow}e{white}l{cyan}c{light blue}h{black} ":X=1:Y=27
 683 PRINT"{home}";TAB(X);A$;"{home}";TAB(Y);A$
@@ -71,7 +71,7 @@
 687 GOSUB740:GOTO683
 690 PRINT"{clear}               {light blue}Z{cyan}e{white}l{yellow}c{pink}h"
 691 PRINT"{down}                {light green}BBS"
-700 PRINT"{down*3}            {yellow}Version 2.3"
+700 PRINT"{down*3}            {yellow}Version 2.4"
 710 PRINT"{down}{white}    Copyright (C)1987 Bo Zimmerman"
 715 GOSUB1100
 720 PRINT"{down*6}{green}            RETURN{sh space}for BBS"
@@ -79,18 +79,19 @@
 740 GETB$
 750 IFB$=CHR$(13)THEN100
 760 IFB$<>"e"THENRETURN
-770 LOAD"editor 2.2",8
+770 LOAD"editor 2.4",8
 780 END
-1000 PRINTCHR$(14)+"{clear}Window installed"
+1000 PRINTCHR$(14)+"{clear}{pink}Window installed"
 1001 LOAD"cursor",8,1
-1005 PRINT"{pink}Cursor loaded"
+1005 PRINT"{yellow}Cursor loaded"
 1010 LOAD"ascii table",8,1
-1015 PRINT"{yellow}Ascii tables loaded"
-1020 LOAD"{pound}v2.3 ml1",8,1
-1025 PRINT"{white}System ML loaded"
-1030 LOAD"v2.3 ml2",8,1
+1015 PRINT"{white}Ascii tables loaded"
+1020 LOAD"v2.4 ml1",8,1
+1025 PRINT"{cyan}System ML loaded"
+1030 LOAD"v2.4 ml2",8,1
 1035 PRINT"{light blue}Interupts loaded"
-1040 POKE1,55:POKE57722,165
+1040 LOAD"p.protocol",8,1
+1050 POKE1,55:POKE57722,165:POKE644,149:POKE56,149:POKE643,56:POKE55,56:CLR
 1060 GOTO50
 1100 FORX=1TO8:READFH(X),FL(X):NEXT
 1110 WF=64:A=3:D=0:SU=15:R=10:AD=A*16+D:SR=SU*16+R
@@ -99,7 +100,7 @@
 1140 READN:IFN=0THENRETURN
 1150 IFN=9THENFORI=1TO75:NEXT:GOTO1140
 1160 POKES+1,FH(N):POKES,FL(N):IFWF=64THENPOKES+3,7:POKES+2,150
-1170 POKES+4,WF+1:FORT=1TO200:NEXT:POKES+4,WF:GOTO1140
+1170 POKES+4,WF+1:FORT=1TO50:NEXT:POKES+4,WF:GOTO1140
 1180 DATA28,49,31,165,33,135,37,162
 1190 DATA42,62,44,193,50,60,25,30
 1200 DATA8,3,5,7,9,7,5,9,5,3,5,3,8,9,9,9

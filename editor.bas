@@ -1,10 +1,10 @@
 !--------------------------------------------------
-!- Saturday, May 20, 2017 3:37:45 AM
+!- Saturday, May 20, 2017 2:17:03 PM
 !- Import of : 
 !- c:\src\zelch64\editor.prg
 !- Commodore 64
 !--------------------------------------------------
-0 CLR:DIMSG$(50),SG(50),SD(50),SF(50),UD$(20),UA(20),UV(20)
+0 CLR:DIMSG$(50),SG(50),SD(50),SF(50),UD$(20),UA(20),UV(20),FL(50)
 1 POKE53280,0:POKE53281,0:PRINTCHR$(14)+"{yellow}Put Data disk in drive 8 and"
 2 PRINT"hit RETURN":POKE198,0
 3 GETA$:IFA$<>CHR$(13)THEN3
@@ -13,7 +13,9 @@
 6 INPUT#8,MD,CD$,CC$,CE$,CF$,CG$,SG:FORI=0TOSG:INPUT#8,SG$(I),SG(I),SD(I),SF(I)
 7 NEXTI:INPUT#8,UD:FORI=0TOUD:INPUT#8,UD$(I),UA(I),UV(I):NEXTI
 8 FORI=0TO9:INPUT#8,CA(I),TM(I):NEXTI
-19 INPUT#8,UL,CH$,CI$:CLOSE8:CLOSE1
+9 INPUT#8,UL,CH$,CI$:IFST>0THEN19
+10 INPUT#8,NP:FORI=0TONP:INPUT#8,FL(I):NEXT
+19 CLOSE8:CLOSE1
 20 PRINT"{clear}{yellow}Menu:"
 30 PRINT"1) Main editor"
 40 PRINT"2) User editor"
@@ -137,6 +139,7 @@
 2103 PRINT"7) Time/Calls editor"
 2104 PRINT"8) Library Device"
 2105 PRINT"9) Edit UD options"
+2106 PRINT"P) Edit on-line program info"
 2110 PRINT"Q) Quit"
 2120 PRINT"S) SAVE and Quit"
 2130 PRINT"{down*2}Choose:"
@@ -152,10 +155,11 @@
 2194 IFA$="8"THEN2840
 2195 IFA$="9"THEN5200
 2200 IFA$="s"THEN5000
+2205 IFA$="p"THEN6000
 2210 GOTO2140
 2220 PRINT"{clear}Q)uit Editing"
-2221 IFLEN(CD$)<14THENCD$=CD$+"l":GOTO2221
-2222 IFLEN(CC$)<14THENCC$=CC$+"0":GOTO2222
+2221 IFLEN(CD$)<15THENCD$=CD$+"l":GOTO2221
+2222 IFLEN(CC$)<15THENCC$=CC$+"0":GOTO2222
 2230 PRINT"{white}#{light green}/Function{dark gray}/Letter{light blue}/Access"
 2240 PRINT"{white}1{light green}/Feedback{dark gray}/"+MID$(CD$,1,1)+"{light blue}/"+MID$(CC$,1,1)
 2250 PRINT"{white}2{light green}/Off{dark gray}/"+MID$(CD$,2,1)+"{light blue}/"+MID$(CC$,2,1)
@@ -171,10 +175,11 @@
 2341 PRINT"{white}12{light green}/Baud Change{dark gray}/"+MID$(CD$,12,1)+"{light blue}/"+MID$(CC$,12,1)
 2342 PRINT"{white}13{light green}/Library{dark gray}/"+MID$(CD$,13,1)+"{light blue}/"+MID$(CC$,13,1)
 2343 PRINT"{white}14{light green}/Editor{dark gray}/"+MID$(CD$,14,1)+"{light blue}/"+MID$(CC$,14,1)
+2344 PRINT"{white}15{light green}/Sub-Section{dark gray}/"+MID$(CD$,15,1)+"{light blue}/"+MID$(CC$,15,1)
 2350 INPUT"Choice";A$:IFA$="q"THEN2050
-2360 IFVAL(A$)>14ORVAL(A$)<=0THEN2220
-2370 A=VAL(A$):I1$=LEFT$(CD$,A-1):I2$=RIGHT$(CD$,14-A):I3$=LEFT$(CC$,A-1)
-2380 I4$=RIGHT$(CC$,14-A):PRINT"{cyan}New Letter:":POKE198,0
+2360 IFVAL(A$)>15ORVAL(A$)<=0THEN2220
+2370 A=VAL(A$):I1$=LEFT$(CD$,A-1):I2$=RIGHT$(CD$,15-A):I3$=LEFT$(CC$,A-1)
+2380 I4$=RIGHT$(CC$,15-A):PRINT"{cyan}New Letter:":POKE198,0
 2390 GETA$:IFA$=""THEN2390
 2400 CD$=I1$+A$+I2$:PRINT"New Access:":POKE198,0
 2410 GETA$:IFA$=""THEN2410
@@ -272,7 +277,7 @@
 5030 PRINT#8,SD(I):PRINT#8,SF(I):NEXTI:PRINT#8,UD:FORI=0TOUD:PRINT#8,UD$(I)
 5040 PRINT#8,UA(I):PRINT#8,UV(I):NEXTI:
 5050 FORI=0TO9:PRINT#8,CA(I):PRINT#8,TM(I):NEXTI:PRINT#8,UL:PRINT#8,CH$
-5055 PRINT#8,CI$:CLOSE8:GOTO20
+5055 PRINT#8,CI$:PRINT#8,NP:FORI=0TONP:PRINT#8,FL(I):NEXT:CLOSE8:GOTO20
 5060 PRINT"{clear}Q)uit{down*4}"
 5070 PRINT"{pink}LVL{white}/{yellow}Calls{white}/{light green}Hours{white}/{light blue}MinX10"
 5080 FORI=0TO9:PRINT"{pink}"+STR$(I)+"{white}/{yellow}"+STR$(CA(I))+"{white}/   {light green}"+STR$(INT(TM(I)/10));
@@ -308,3 +313,14 @@
 5430 IFVAL(A$)=0THEN5410
 5440 CI$=I3$+A$+I4$:GOTO5220
 5450 END
+6000 PRINT"{clear}{down}{pink}N)umber of programs:"+STR$(ABS(NP+1))
+6010 PRINT"{yellow}Q)uit"
+6020 PRINT"{down*2}{white}#  {white}/{cyan}Filename{white}/{light blue}Access":PRINT"{white}-----------------------"
+6025 FORI=0TONP:A$=STR$(I+1):PRINT"{white}#"+A$+"/{cyan}{pound}pgm.#"+RIGHT$(A$,LEN(A$)-1);
+6030 PRINT"{white}/{light blue}"+STR$(FL(I)):NEXTI
+6040 PRINT"{white}-----------------------"
+6050 PRINT"{down}Option:";:POKE19,65:INPUTN$:POKE19,0:IFN$="q"THEN2050
+6060 IFN$="n"THENPOKE19,65:PRINT:INPUT"New #:";NP:NP=NP-1:POKE19,0:GOTO6000
+6070 N=VAL(N$):IFN=0ORN>NP+1THEN6000
+6080 PRINT:POKE19,65:INPUT"Access:";A:IFA>=0ANDA<10THENFL(N-1)=A
+6090 GOTO6000

@@ -110,19 +110,19 @@ is read. Chat mode is signaled by
 reverse typing and will not announce
 itself. F7 exits.
 
-     F3- From prompts which only require
-one key, you can hit this button and 
-raise the current users access
-temporarily. Answering "Y" to the
-BURST TIME prompt gives the current
-user two hours on-line starting
-at the current time
-                                        
      F2- Autologoff. Pressing this
-key will tell the BBS that the current
-user has ran out of time (even if
-he hasn't).
-                                        
+will tell the BBS that the current
+user has ran out of time.
+     F3- This alows the SysOp to
+temporarily raise the access of
+the user on-line.
+     F4- Hitting this key will give the 
+current user 6 hours on-line starting
+at the current time.
+     F5- this enters LOCAL mode.In
+this mode, a user cannot see anything
+you do or interfere by typing. Going
+into chat mode (f1) goes back to normal.
              LOGOFF
              ******
                                         
@@ -143,7 +143,7 @@ msg. In 1650 versions, the BBS
 hangs up here, but on other versions,
 the waiting for call screen hangs up.
 Lastly it saves the "LOG" and 
-"last caller" info and preforms a
+"\last caller" info and preforms a
 RESET. In moments, you are back at
 the waiting for call screen.
 
@@ -306,7 +306,9 @@ this record is always accurate.
   This is the SysOp section and
 is for preforming the various
 jobs of the sysop. The following
-commands are available.
+commands are available from this
+section. Some must be accessed
+thru the Sub Section.
 
 D)isk Channel.
    This is a direct link to your
@@ -382,13 +384,13 @@ the following way:
 5 - Sig this user is a SigOp of.
     (or 100 if a SysOp)
 
-R)eset Vote Box - this is for
-resetting the file "\vote box".
-After this file is reset, users
-can now vote again even if they have
-already voted and all results are
-reset back to 0.
-V)ote editor - this is for editing
+RESET VOTE BOX- this option
+and the next are available
+from the Sub Section. This option
+clears the current vote box "\vote 
+box" file and allows all users
+to vote again.
+VOTE EDITOR - this is for editing
 the file "\vote". The following
 information can be edited.
   Title- the simple title of the
@@ -624,14 +626,14 @@ baud rate to any rate between
   This is just an over simplified
 message base. Messages are read as
 text files. The menu is on disk
-as "\txt 0" and all other text files
-appear on disk as "\txt "+text file
+as "@txt 0" and all other text files
+appear on disk as "@txt "+text file
 number.
 
            VARIABLES?!?!?
            **************
 
-   A new feature, the user can
+   The user can
 now edit certain aspects of their
 status. The PASSWORD, their
 HIGHEST MESSAGE READ (lowering this
@@ -644,10 +646,29 @@ rate, then the system will prompt
 you to change to this rate after
 the news file is read.
 
-                                        
+           SUB SECTION
+           ***********                  
+   This is the on-line program
+section. A menu of the files
+is kept in the file "\pgmenu"
+. The on-line programs themselves
+are in the file "\pgm.#X". Where
+X is the file number. An access
+number can be set to each program
+but so as not to confuse the user,
+you should list all files in your
+menu. Sub Section files start at
+line 8000. See my programming
+dox for more information.
+
+
+
    I hope you enjoy the program.
 If you have ANY QUESTIONS or need
 ANY help, then you can reach me
 (untill I move) at 522-0916.
 4:30pm to 10:00pm. Or call
 The Alley BBS (690-0094 300 baud)
+and talk to TRACTION. He knows
+as much about the prg (just about)
+as I do.

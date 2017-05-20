@@ -36,9 +36,9 @@ program to set up some example files
 for your MAIN and data disks. These
 files can be edited as needed.
 
-LOAD "C/CONFIG 2.3" ,8
+LOAD "CONFIG 2.4" ,8
 
-SEARCHING FOR CONFIG 2.3
+SEARCHING FOR CONFIG 2.4
 LOADING
 READY.
 RUN
@@ -63,16 +63,16 @@ only and not given out.
 
   Now the program should begin creating
 the major BBS files. Lastly, it
-will ask you to swap between your
-system disk and MAIN data disk in
-drive 8 while it copys two of your
-system files.
+will ask you to copy all files
+beginning with "\prg." or "\pgm."
+from your system disk to data disk.
+I recommend Super Kit or Fast Hack'em.
 
           Off-line editor!
 
-LOAD "EDITOR 2.3" ,8
+LOAD "EDITOR 2.4" ,8
 
-SEARCHING FOR EDITOR 2.3
+SEARCHING FOR EDITOR 2.4
 LOADING
 READY.
 RUN
@@ -85,7 +85,7 @@ their proper drives!
 of the example values. Lets look
 around... hit 0 from the main menu.
 0) Edit main level options
-
+1) Main Command Options
     This option alows you to change the
 the letter typed to access a command 
 as well as the access level required
@@ -159,6 +159,17 @@ your TEXT or LIBRARY files.
    This section is for editing the      
 command letters and access levels for
 the UD section
+P) On-line PRG section.
+This is for editing the number
+and access level for your on-line
+prgs. (See below). Two are included
+with your system disk. A VOTE editor
+(See the SysOp section on part two
+of the dox for info on using this
+program) and a Time Gambler (Inst
+included in the file "\timeinst". This
+file should be copied to your data disk
+from your system as well (drive 8)).
 
 Q) Quit- USE THIS OPTION ONLY IF YOU
 DON'T WANT YOUR CHANGES STORED!!!
@@ -291,17 +302,40 @@ detailed explanation of the voting
 section question.DR8
    \vote box - this holds the accual
 votes, along with who has voted. DR8
-   \v2.3 ml1 - main system ml file.DR8
-   \p.protocol - punter ml.DR8
    \newqs - list of questions for the
 new user asked AFTER the newuser file
 is displayed.DR8
+   \prg.read - this is the read command
+for your message base and is loaded
+whenever you enter the msg base.DR8
+   \prg.new - this is the new user
+login prg.DR8
+   \prg.user - this is the user editor
+program which is loaded whenever you
+enter the SysOp's section.DR8
+   \prg.vote - this is the voting       
+section.DR8
+   \prg.menu - this is the Sub Section  
+(On-Line prg section).DR8
+   \prg.var - this is the personal
+variable editor.DR8
+   \pgm.#1 - this is the vote editor
+prg. It is already configured into
+the system.DR8
+   \pgm.#2 - this is the Time gambling
+program. This and the above are
+available from the Sub Section,
+this program is not configured into
+the system tho and must be set in
+with the (p) option from the Main Level
+editor.DR8
+  \pgmenu - this is the Sub Section
+menu.DR8
 
-
-  Files that will pop up later:
+Files that will pop up later:
    \feedback - mail left for the
 SysOp's reading.DR8.
-  @txt (0-X) text file. NOTE: Text
+   @txt (0-X) text file. NOTE: Text
 file 0 is accually the text file menu.  
 DR(text file drive)
    \msg (0-X) (0-X) - posted messages.
@@ -325,6 +359,12 @@ have the current UD code letter (see
 @filename above). The last part
 is the filename of the file it
 describes.DR(current u/d drive)
+   \pgm.#X - these are on-line
+programs (Sub Section files). Where
+X is the file number. These files
+are configured into the system from
+the Main Level Options and are
+available from the Sub Section.
 
 
   Now your ready to look at the BBS
