@@ -3,7 +3,7 @@
 * = $CB00
         ; .O
         ; .S
-        ; .D V1.7 ML2
+        ; .D V2.0 ML2
         JMP CLOC1
         JMP RELOAD
 CLOC1
@@ -57,34 +57,24 @@ CLOCK
 DIP 
         LDA $02CA
         BNE LEAVE
-        LDA $02C9
-        BNE OUTA
         LDA $DD01
         AND #$10
         BNE TOOMUCH
         LDA $0380
-        BEQ LEAVE
-        LDA $DC0B
-        CMP $0380
+        BEQ OUTA
+        LDA $0380
+        CMP $DD0B
         BNE OUTA
         LDA $0381
-        CMP #$57
-        BCS CHANGEIT
-        LDA $DC0A
-        CMP $0381
-        BCC OUTA
-        LDA #$01
-        STA $02C9
+        CMP $DD0A
+        BEQ TOOMUCH
+        JMP OUTA
 TOOMUCH
         LDA #$01
         STA $033E
 OUTA
-        LDA $DC08
+        LDA $DD08
         RTS
-CHANGEIT
-        LDA #$56
-        STA $0381
-        JMP DIP
 LEAVE
         LDA #$00
         STA $033E

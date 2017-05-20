@@ -1,7 +1,9 @@
+        
+        
 * = $C000
         ; .O
         ; .S
-        ; .D \V1.7 ML1
+        ; .D \V2.0 ML1
         JMP GETIT; REM 49152
         JMP SEND; REM 49155
         JMP INPT; REM 49158
@@ -72,6 +74,8 @@ SEND
         LDA $FE
 NOSOUND
         CMP #$90
+        BEQ TWO
+        CMP #$03
         BEQ TWO
         CMP #$93
         BNE STSEN
@@ -180,13 +184,9 @@ LOOP
         LDA $FE
         BEQ LOOP
         JSR CKGOOD
-        LDA $02DE
-        CMP #$27
-        BNE CARON
-        JSR SEND
-        LDA $FE
-        INC $FB
-        STA ($FB),Y
+        JMP CARON
+CREEP
+        JSR WRAP
         INC $FB
         LDA #$0D
         STA $FE
@@ -198,14 +198,17 @@ CARON
         CMP #$0D
         BEQ TEND
         LDA $FB
-        CMP #$F0
-        BEQ END
+        CMP #$A0
+        BEQ CREEP
         LDA $FE
         CMP #$14
         BEQ DELETE
         STA ($FB),Y
         JSR SEND
-        JMP LOOP
+        LDA $02DE
+        CMP #$27
+        BNE LOOP
+        JMP CREEP
 END 
         LDA #$22
         LDY #$00
@@ -269,13 +272,13 @@ DEL
         DEC $02DE
         JMP LOOP
 TIME
-        LDA $DC0B
+        LDA $DD0B
         STA $FD
-        LDA $DC0A
+        LDA $DD0A
         STA $FE
 TIMU
-        LDA $DC0B
-        LDA $DC08
+        LDA $DD0B
+        LDA $DD08
         JSR REST
         JSR CLEAR
         LDA #$49
@@ -354,7 +357,7 @@ LOOPUP
         BEQ AWOUT
         JMP LOOPUP
 AWOUT
-        CMP #$3A
+        CMP #$03
         BNE RTNPNT
         RTS
 RTNPNT
@@ -365,60 +368,73 @@ RTNPNT
 FILESEND
         LDA #$00
         STA $FD
+        STA $FC
 FILES 
+        LDX #$00
+        JSR $FFC6
         JSR RTINE
         LDA $FE
         CMP #$20
-        BEQ DATSALL
+        BEQ COW
         CMP #$13
         BNE PISS
         JMP PAUSE
 PISS
         LDX #$08
         JSR $FFC6
-        JSR $FFE4
-        STA $FE
-        LDA $90
-        BNE DAIT
-        JSR $FFE4
-        STA $FB
-        LDA $90
-        BEQ CSEND
-        JSR SEND
-        LDA $FB
-        STA $FE
-        JMP DAIT
-CSEND
         LDX #$00
-        JSR $FFC6
-        LDA $FE
+LOPISS 
+        STX $CDFF
+        JSR $FFE4
+        LDX $CDFF
+        STA $CD00,X
+        CMP #$8E
+        BNE CMPA
+        JSR UPPER
+CMPA 
+        CMP #$0D
+        BEQ CSEND
         CMP #$01
-        BEQ DATSALL
-        LDA $FB
-        CMP #$01
-        BNE CONSEND
-        JSR SEND
-        JMP DATSALL
-CONSEND
+        BEQ CSOUT
+        LDA $90
+        BNE CSOUT
+        INX
+        JMP LOPISS
+CSEND
         LDA #$01
         STA $FD
-        JSR SEND
-        LDA $FB
+        STX $CDFF
+        LDX #$00
+CSENT
+        LDA $CD00,X
         STA $FE
         JSR SEND
-        JMP FILES
-DATSALL
+        CPX $CDFF
+        BEQ FILES
+        INX
+        JMP CSENT
+CSOUT
+        CPX #$00
+        BEQ COW
+        STX $CDFF
         LDX #$00
-        JSR $FFC6
+CSEOU
+        LDA $CD00,X
+        STA $FE
+        JSR SEND
+        CPX $CDFF
+        BEQ COW
+        INX
+        JMP CSEOU
+COW 
         LDA #$0D
         STA $FE
         JSR SEND
         RTS
-DAIT
-        LDX #$00
-        JSR $FFC6
-        JSR SEND
-        JMP DATSALL
+UPPER
+        LDY #$01
+        STY $FC
+        RTS
 ESTLOG
         LDA $0380
         STA $FD
@@ -541,8 +557,9 @@ BEHE
         JSR $FFE4
         CMP #$00
         BEQ CONGO
-        CMP #$3C
-        BEQ BEHE
+        CMP #$22
+        BEQ QUOTE
+KOTE
         STA $FE
         LDX #$00
         JSR $FFC6
@@ -564,6 +581,16 @@ GOGONE
         LDX #$00
         JSR $FFC6
         RTS
+QUOTE
+        LDY $FD
+        BEQ KOTE
+        JSR $FFE4
+        CMP $FD
+        BEQ YEPP
+        JMP KOTE
+YEPP
+        LDA #$00
+        JMP KOTE
 HEADER
         LDX #$08
         JSR $FFC6
@@ -810,4 +837,51 @@ SOUND
         STA $D400
         LDA #$11
         STA $D404
+        RTS
+WRAP
+        LDA #$00
+        STA $02C2
+        LDA $02C1
+        BNE WRA1
+        RTS
+WRA1
+        LDA $FB
+        STA $FD
+        LDA $FC
+        STA $FE
+        LDY #$00
+        LDA ($FD),Y
+        CMP #$20
+        BNE WRA2
+        RTS
+WRA2 
+        DEC $FD
+        INC $02C2
+        LDA $02C2
+        CMP #$0A
+        BNE WRA3
+        RTS
+WRA3
+        LDA ($FD),Y
+        CMP #$20
+        BNE WRA2
+        INC $02C2
+WRA4 
+        INY
+        CPY $02C2
+        BEQ WRA5
+        LDA ($FD),Y
+        STA $0276,Y
+        JMP WRA4
+WRA5 
+        LDA $02C2
+        STA $C6
+        LDA $FD
+        STA $FB
+LIOP
+        LDA #$14
+        STA $FE
+        JSR SEND
+        DEY
+        BNE LIOP
         RTS

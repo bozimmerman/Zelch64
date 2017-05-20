@@ -1,0 +1,195 @@
+                                        
+             Loading Up!                
+                                        
+   Set up ALL equipment with data disks 
+in their proper places. The exception   
+to this is that you have your system    
+disk in drive 8.                        
+                                        
+LOAD "ZELCH" ,8                         
+                                        
+SEARCHING FOR ZELCH                     
+LOADING                                 
+READY                                   
+RUN                                     
+                                        
+   Press return from here and answer    
+the time and date questions.The time is 
+NOT in military time and single or      
+double digits are acceptable. If you    
+have a printer (device 4) and would     
+like a logon and logoff recorded,       
+answer "y" to this question, otherwise, 
+press return or "n".                    
+                                        
+   After the program is loaded, switch  
+your SYSTEM disk for your MAIN data     
+disk and press return. Make sure you    
+have your modem in ANSWER and DATA.     
+This is the "waiting for call" screen.  
+This is displayed untill a person calls 
+and is on-line. Notice the last caller  
+and the logoff time are recorded as     
+well as the # of calls since you last   
+turned on the computer.This number is   
+reset in MONSTER MODE (mentioned in     
+part 1). Press F1.                      
+1) Return to BBS - this returns to the  
+waiting for call screen.                
+2) Monster Mode - this resets the       
+number of calls for that day, the day,  
+month (if needed) , resets the calls    
+today and validates the MAIN data disk. 
+3) Zelch or Zap - term. This is a       
+simple  terminal without any form of    
+extras. Once in Term mode, F3 toggles   
+ascii/commodore, and F2 exits to BBS    
+mode.                                   
+4) Read feedback - views feedback file  
+5) Read Log - reads Log! file           
+                                        
+                Hit 1                   
+                                        
+               Hit F3!!                 
+                                        
+                                        
+   Go thru the logon process untill the 
+opening msg is displayed. The space bar 
+aborts a msg and the home key pauses    
+(any other resumes).                    
+   Enter your ID#: (probably 1)         
+   Enter your password: (All upper and  
+lowercases exactly the way you wrote it 
+before.)                                
+   You have 5 tries to logon before the 
+BBS throws you off. If you have no ID   
+#, then type "new" and go thru the      
+newuser process.                        
+                                        
+   Loading info                         
+   Welcome BACK!                        
+                                        
+   Notice the window at the top of the  
+screen. This is there to inform you of  
+some basic information about the user   
+on-line. It will be displayed always    
+and will not scroll off the screen      
+untill logoff is accomplished.          
+   Mail? No? Yes?                       
+                                        
+   COMMAND!!! Now What?                 
+                                        
+SysOp commands:                         
+F1- enters chat from any prompt. F7     
+exits. Be sure to note where you came   
+from as you will reenter exactly where  
+you left off. Chat mode is signified by 
+reverse typing and will not announce    
+itself.                                 
+F2- auto-throw off. This will set the   
+auto logoff flag. This flag is set only 
+when a person drops carrier, runs out   
+of time, or is F2'd.                    
+F3- from some one-letter prompts. This  
+allows you to make a simple access      
+change. Remember to set it back to its  
+original value before the person logs   
+off or it will be saved in the persons  
+user record.                            
+                                        
+  NOW!                                  
+                                        
+F)eedback - this allows users to write  
+you a private note.                     
+O)ff- Logoff request                    
+I)nfo- view info file                   
+C)hat- page the SysOp for a chat. At    
+this point the screen should turn white 
+to show that the SysOp has been paged.  
+U)serlist- view the current list of     
+users skipping all "EMPTY" files.       
+S)tatus- the current status of the      
+person on-line.                         
+B)aud change- allows a user to change   
+from 200-500 baud.                      
+                                        
+         The Major Sections!            
+                                        
+               E)mail                   
+   This mini-section is for the reading 
+and sending of electronic mail. Sending 
+mail requires the ID# of the user. The  
+filename of mail is "mail "+id#. Each   
+consecutive piece of mail for one user  
+is tagged to the end of the first.      
+               Q)SysOp                  
+List users                              
+edit user (very limited editor)         
+reset vote box                          
+edit vote- edits vote file              
+           title  ex: Cars!             
+           option ex: do you like cars  
+           result ex: liked cars        
+         -:*disk channel*:-             
+                                        
+All disk dos commands PLUS              
+(8-11)(RETURN) change device            
+(at sign):filename- seq file reader     
+$:option- directory                     
+(at sign)- disk status                  
+e:filename- seq file editor. This       
+should only be used on files with less  
+then 50 lines of text.                  
+w:filename- seq file writer             
+                                        
+              M)sg Base                 
+  Complete msg base with post / reply / 
+scan / new msgs / msg editors / and     
+individual Sigs.                        
+                                        
+Post- Write a msg. If you have          
+configured a sig for 20 msgs, when      
+someone tries to post the 21st, it will 
+be written over the first.              
+Reply- Adding to a posted msg. Do do    
+this, you must have post access.        
+Scan- limited info on posted msgs       
+New msgs- scan and read newly posted    
+msgs or msgs with new replys            
+Delete msg- completely delete a msg     
+Response delete- deletes responses of a 
+msg only.                               
+Sigs- up to 50!                         
+              T)ransfer                 
+                                        
+   Upload/Download.. up to 50 UD        
+sections! Filename is guarded against   
+error causing characters. Pound signs   
+are only allowed in filename if you     
+have access 7 or higher.                
+                                        
+                V)ote                   
+   This section is for anonymous        
+voting. The voting section keeps track  
+of those who voted and will not allow   
+anyone to vote twice. Resetting the     
+vote box also resets this feature.      
+                                        
+              L)ibrary                  
+   Seq file reader.. and little more.   
+"txt 0" is the menu and "txt X" is the  
+filename of all text files. All files   
+will be stored with the mail on the     
+mail device.                            
+                                        
+          The Message Maker             
+                                        
+   The built in msg maker is full of    
+helpful commands which are explained as 
+well in the default "msg mkr help" file 
+as I could ever do here.Remember, the   
+"*" must precede all commands. 50 lines 
+of 160 chars each is the limit of the   
+msg maker!                              
+                                        
+          Enjoy the board!              

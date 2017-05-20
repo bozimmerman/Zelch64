@@ -1,5 +1,5 @@
 !--------------------------------------------------
-!- Saturday, May 20, 2017 1:53:53 AM
+!- Saturday, May 20, 2017 2:39:30 AM
 !- Import of : 
 !- c:\src\zelch64\zelch.prg
 !- Commodore 64
@@ -33,23 +33,23 @@
 320 IFLEN(HR$)>1THENHR=16
 330 HH=VAL(RIGHT$(HR$,1))
 340 HR=(HR+HH)
-350 POKE56331,HR
+350 POKE56587,HR
 360 PRINT"{reverse on}{yellow}{cyan}Am or Pm?"
 370 GETA$
 371 IFA$="p"ANDHR$="12"THENA$="a":GOTO390
 372 IFA$="a"ANDHR$="12"THENA$="p"
-380 IFA$="p"THENPOKE56331,HROR128:GOTO400
+380 IFA$="p"THENPOKE56587,HROR128:GOTO400
 390 IFA$<>"a"THEN370
-395 POKE56331,HRAND127
+395 POKE56587,HRAND127
 400 INPUT"{reverse on}{white}What is the Minute";H$
-410 IFH$=""THEN530
+410 IFH$=""THEN490
 420 H=0
 430 IFLEN(H$)>1THENH=16*VAL(LEFT$(H$,1))
 440 HH=VAL(RIGHT$(H$,1))
 450 H=H+HH
-460 POKE56330,H
-470 POKE56329,0
-480 POKE56328,0
+460 POKE56586,H
+470 POKE56585,0
+480 POKE56584,0
 490 PRINT"{reverse on}{light blue}Correct?"
 500 GETA$
 510 IFA$="n"THEN300
@@ -66,23 +66,22 @@
 615 PRINT"{home}{down*7}run":FORI=631TO633:POKEI,13:NEXTI:POKE198,2:PRINT"{home}";:END
 680 PRINT"{clear}{down*3}                {light blue}Z{cyan}e{white}l{yellow}c{pink}h"
 690 PRINT"{down}                 {light green}BBS"
-700 PRINT"{down*2}             {yellow}Version 1.7b"
-710 PRINT"        {white}Freeware by:{yellow}{reverse on}The Zacman"
+700 PRINT"{down*2}             {yellow}Version 2.0"
 720 PRINT"{down*8}{green}            RETURN{sh space}for BBS"
 730 PRINT"{light green}            (E) for Editor{black}"
 740 GETA$
 750 IFA$=CHR$(13)THEN100
 760 IFA$<>"e"THEN740
-770 LOAD"editor 1.7",8
+770 LOAD"editor 2.0",8
 780 END
 1000 PRINTCHR$(14)+"Window installed"
 1001 LOAD"cursor",8,1
 1005 PRINT"Cursor loaded"
 1010 LOAD"ascii table",8,1
 1015 PRINT"Ascii tables loaded"
-1020 LOAD"{pound}v1.7 ml1",8,1
+1020 LOAD"{pound}v2.0 ml1",8,1
 1025 PRINT"System ML loaded"
-1030 LOAD"v1.7 ml2",8,1
+1030 LOAD"v2.0 ml2",8,1
 1035 PRINT"Interupts loaded"
 1040 POKE1,55:POKE57722,165
 1050 OPEN15,8,15:CMD15,;:PRINT#15,"m-w{ct g}{red}{ct a}{ct o}

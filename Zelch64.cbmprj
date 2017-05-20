@@ -41,10 +41,8 @@
         <FileName>ascii table.asm</FileName>
         <FileName>interrupts.asm</FileName>
         <FileName>p.protocol.asm</FileName>
-        <FileName>@1.bas</FileName>
         <FileName>b1.bas</FileName>
         <FileName>base.bas</FileName>
-        <FileName>config.bas</FileName>
         <FileName>d1.bas</FileName>
         <FileName>e.fpreps.bas</FileName>
         <FileName>e.menu.bas</FileName>
@@ -58,9 +56,12 @@
         <FileName>q1.bas</FileName>
         <FileName>v1.bas</FileName>
         <FileName>window.ml.asm</FileName>
+        <FileName>@1.bas</FileName>
+        <FileName>config.bas</FileName>
         <FileName>zelch.bas</FileName>
         <FileName>@1.bas</FileName>
         <FileName>config.bas</FileName>
+        <FileName>editor.bas</FileName>
         <FileName>zelch.bas</FileName>
     </BuildList>
     <DetermineBuildOrder>0</DetermineBuildOrder>
@@ -111,6 +112,17 @@
             <FileOpen>True</FileOpen>
         </SourceFile>
         <SourceFile>
+            <Name>editor.bas</Name>
+            <PrgName />
+            <FileType>1</FileType>
+            <IncludeInBuild>True</IncludeInBuild>
+            <Regions />
+            <Breakpoints />
+            <Bookmarks />
+            <Topmost>False</Topmost>
+            <FileOpen>False</FileOpen>
+        </SourceFile>
+        <SourceFile>
             <Name>interrupts.asm</Name>
             <PrgName />
             <FileType>2</FileType>
@@ -118,7 +130,7 @@
             <Regions />
             <Breakpoints />
             <Bookmarks />
-            <Topmost>True</Topmost>
+            <Topmost>False</Topmost>
             <FileOpen>True</FileOpen>
         </SourceFile>
         <SourceFile>
@@ -151,7 +163,7 @@
             <Regions />
             <Breakpoints />
             <Bookmarks />
-            <Topmost>False</Topmost>
+            <Topmost>True</Topmost>
             <FileOpen>True</FileOpen>
         </SourceFile>
         <SourceFile>

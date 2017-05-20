@@ -1,0 +1,324 @@
+                                        
+            The Equipment               
+                                        
+   The only equipment REQUIRED are      
+one disk drive, and a auto answer modem 
+(that the BBS program has been modified 
+to support). Optional are: Printer      
+(device 4), and extra drives (devices   
+8 - 11).                                
+                                        
+               Disks??                  
+                                        
+   Your complete BBS system will have   
+one SYSTEM disk (containing the BBS,    
+boot file, editors, configurer, and all 
+ML files. This disk should not be in    
+any drives while the BBS is on-line and 
+should be set aside when the BBS is     
+on-line.                                
+                                        
+   When you set up your BBS, you can    
+have up to 3 drives with anything you   
+like to be stored on them. The          
+exception is your MAIN data disk.       
+This disk will be in device 8 and will  
+hold all main files. Other file types   
+(UD section, Msg base, Mail, Text       
+files) can also be set to device 8 but  
+are optional.                           
+                                        
+   The disks you have set in any other  
+drives act as data disks and can have   
+other functions of the BBS rerouted to  
+them (individual sigs, mail, etc.).     
+                                        
+          GETTING STARTED!              
+                                        
+   Included on your system disk is a    
+program to set up some example files    
+for your MAIN and data disks. These     
+files can be edited as needed.          
+                                        
+LOAD "CONFIG 2.0" ,8                    
+                                        
+SEARCHING FOR CONFIG 2.0                
+LOADING                                 
+READY.                                  
+RUN                                     
+                                        
+  You will now see an opening screen    
+and a prompt to press RETURN. Because   
+this does not configure to your personal
+desires and only sets some example      
+values, it will only set up for 1 or 2  
+drives. Turn on drive 8. If you have a  
+second drive, turn on drive 9. Make     
+sure drive 9 has a FORMATTED disk       
+inside. Drive 8 can either have a       
+formatted or unformatted disk inside.   
+                                        
+  When this is done, press return and   
+answer the questions very carefully.    
+Your handle is up to 17 characters,     
+name: 17 chars, fone: 8 chars, pass: 8  
+chars. The password will be any         
+combination of upper or lowercase       
+letters that should be known to YOU     
+only and not given out.                 
+                                        
+  Now the program should begin creating 
+the main files, menus, msg base, and    
+vote section respectively. Lastly, it   
+will ask you to swap between your       
+system disk and MAIN data disk in       
+drive 8 while it copys 2 of your main   
+system files.                           
+                                        
+          Off-line editor!              
+                                        
+LOAD "EDITOR 2.0" ,8                    
+                                        
+SEARCHING FOR EDITOR 2.0                
+LOADING                                 
+READY.                                  
+RUN                                     
+                                        
+NOTE: Any reference to the "DATA DISK"  
+refers to all data disks being put in   
+their proper drives!                    
+                                        
+  From this program you can change any  
+of the example values. Lets look        
+around... hit 1 from the main menu.     
+1) Edit main level options              
+                                        
+    This option alows you to change the 
+command letter (letter pressed) for the 
+functions available from the main menu  
+as well as the access level required    
+(or higher) to use the option. To edit  
+any option, press the number next to it 
+and answer the questions. REMEMBER: Any 
+time you change options, MAKE SURE you  
+change the coresponding menus. In this  
+case, "(pound)mainmenu x" (x = access   
+level 0 - 9) will hold the main level   
+options. Type "q" when done editing.    
+                                        
+2) Edit msg mkr options                 
+                                        
+    This alows you to edit the command  
+letters for the BBS message writer      
+options. These functions are typed as   
+*(letter) (RETURN)                      
+The functions not listed that are set   
+in permanently are:                     
+*w (word wrap toggle)                   
+*u (uppercase/lowercase toggle)         
+*h (help file)                          
+                                        
+   A list of these commands should be   
+included in the file "(pound)msg mkr    
+help"                                   
+                                        
+3) Edit msg base options                
+                                        
+    This section is devoted to the      
+command letters for your msg base and   
+the access level required to use them.  
+Msg delete and resp delete should be    
+reserved for those with a higher        
+access.                                 
+                                        
+4) NAME OF BBS                          
+5) Mail Device                          
+                                        
+   Here is the device number (8-11) for 
+all personal user-to-user mail. This is 
+also the device for your TEXT or        
+LIBRARY files.                          
+                                        
+6) Sig System                           
+                                        
+   This is a very important part of     
+your BBS system and should be edited    
+ONLY ONCE. The only changes that may    
+not affect the current status of your   
+msg base would be the adding of sigs.   
+Maximum Messages refers to the number   
+of individual subjects that will be     
+accepted in a sig at one time. Each msg 
+has its own file on the disk and all    
+responses are tagged to the end of the  
+subjects and should not be considered   
+in this option.                         
+                                        
+7) UD Editor                            
+8) Time/Calls editor                    
+                                        
+   This is where you edit the number of 
+calls per day, hours on-line allowed    
+per call, and tens of minutes allowed   
+on-line per call. All new users (first  
+time callers) are given level 0.        
+                                        
+Q) Quit- USE THIS OPTION ONLY IF YOU    
+DON'T WANT YOUR CHANGES STORED!!!       
+                                        
+S) Save and Quit- Save the file         
+"(pound)variables" with all of the      
+information in this section. This file  
+along with all menus are MAIN data disk 
+files.                                  
+                                        
+OPTION 2 from the main menu             
+                                        
+   This is the editor for the userlog   
+on your Main data disk.                 
+                                        
+1) Create new user log                  
+                                        
+    This completely erases and          
+re-writes the userlog as done in the    
+configurer.                             
+                                        
+2) Edit userlog                         
+                                        
+    This is the option to edit an       
+individual user. This off-line editor   
+allows you to edit EVERY aspect of a    
+users information. The varaibles        
+mentions (of which only 0 and 1 are     
+used now) are numbers up to 4 chars.    
+The Message base uses variables 0 and 1 
+to hold the last msg read. (each msg    
+posted in your message base is assigned 
+a consecutively higher number which     
+is compared with these variables).      
+                                        
+3) Display users                        
+                                        
+4) Add a User                           
+                                        
+   This is used to add a user wherever  
+there is an opening. Openings are       
+assigned as follows.                    
+                                        
+      1) Any record that has not been   
+written to already.                     
+      2) Any record which has a handle  
+of "EMPTY".                             
+                                        
+5) Exit                                 
+                                        
+MAIN OPTION 3                           
+                                        
+   EACH SIG YOU HAVE CREATED IN THE MSG 
+BASE EDITOR MUST HAVE A SIG FILE RECORD 
+CREATED FOR IT. ANY SIG FILE CREATED    
+WILL ERASE PREVIOUS RECORDS FOR THAT    
+SIG!                                    
+                                        
+             Whats What.                
+                                        
+    Put your MAIN data disk in drive 8  
+and load the directory. Here are the    
+names of files you should see with a    
+description of what they are. Depending 
+on how you've configured your system,   
+some files will or will not be present. 
+All files on your Main data disk should 
+be preceded with the english pound sign 
+as a reminder that they are BBS data    
+disk files and they should not be       
+allowed to be downloaded.               
+                                        
+    userlog - all user information.     
+This file will grow as your number of   
+users grows                             
+    calls - this holds the number of    
+calls made by each user for that day.   
+This file should be reset (by the BBS   
+monster mode) every 24 hours. The BBS   
+(when on-line) will go into monster     
+mode automatically any free time        
+between 11:00 pm and 12:59 am.          
+    opening msg - this file will be     
+displayed as soon as a caller has made  
+connection and has identified himself   
+as a STANDARD ASCII or COMMODORE ASCII  
+user.                                   
+    closing msg - this file is          
+displayed whenever a user logs off or   
+the BBS throws him off (because he has  
+dropped carrier ,ran out of time, or    
+the SysOp thrown him off.)              
+    variables - mentioned above         
+    last caller - A VERY IMPORTANT      
+FILE. This file holds information as    
+precious to the well being or your msg  
+base as the varaibles file is to the    
+BBS itself. If this file is erased and  
+not rewritten by the logoff sequence    
+before information is lost, your msg    
+base is done for and should be re-done. 
+This file is correctly erased and       
+re-written in the logoff sequence. If   
+this file is erased, reset your Sig     
+files and set variables 0 and 1 for all 
+users back to 0.                        
+    info - this file contains some      
+basic information about your BBS and is 
+available from the main command level.  
+    newuser - this file is shown to     
+those logging on to your BBS for the    
+first time, after they have given the   
+BBS their personal user information.    
+    mainmenu (0-9) these are the main   
+menus for each access level, they are   
+read fron the main command level.       
+    msg mkr help - mentioned above      
+    sysopmenu - this is the menu read   
+from the private sysop editing section  
+of the BBS                              
+    msgmenu - this is the menu for your 
+msg base, you should not include the    
+sysop functions on this menu.           
+    emailmenu - this is the menu for    
+the Electronic user-to-user mail        
+section.                                
+    udmenu - this is read from the      
+Upload/Download section                 
+    Sig (0-X) This hold the number of   
+msgs, message pointer, and for each     
+msg: number of replys and the msg       
+number.                                 
+    sigmsg (0-X) this is shown apon     
+entering a sig.                         
+    vote - this file holds the basic    
+information for the voting section.     
+    question - this holds a more        
+detailed explanation of the voting      
+section question.                       
+    vote box - this holds the accual    
+votes, along with the id# of the person 
+that voted for it.                      
+    v2.0 ml1 - main system ml file      
+    p.protocol - punter ml              
+                                        
+                                        
+  Files that will pop up later:         
+    feedback - mail left for the        
+SysOp's reading.                        
+    txt (0-X) text file. NOTE: Text     
+file 0 is accually the text file menu   
+    msg (0-X) (0-X) - posted messages   
+    Log! - a seq file holding the calls 
+of the day as well as a general look at 
+what they did. This file can fill up    
+your data disk and should be erased     
+periodically.                           
+                                        
+    Now your ready to look at the BBS   
+     program itself!                    
