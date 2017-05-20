@@ -37,7 +37,7 @@
     </BuildEvents>
     <BuildList>
         <FileName>cursor.asm</FileName>
-        <FileName>ml.asm</FileName>
+        <FileName>main-ml.asm</FileName>
         <FileName>@1.bas</FileName>
         <FileName>zelch.bas</FileName>
         <FileName>b1.bas</FileName>
@@ -202,7 +202,7 @@
             <FileOpen>True</FileOpen>
         </SourceFile>
         <SourceFile>
-            <Name>ml.asm</Name>
+            <Name>main-ml.asm</Name>
             <PrgName />
             <FileType>2</FileType>
             <IncludeInBuild>True</IncludeInBuild>
