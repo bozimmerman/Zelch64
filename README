@@ -12,46 +12,21 @@ The Zelch 64 v1.5 distribution package consists of a System disk and a Sample Da
 The System disk is a 1541 (.D64) disk consisting of the following files:
 
 zelch,p
-e.menu,p
-e.user,p
-e.Fpreps,p
-e.Mpreps,p
-e.info,s
-config 1.5,p
-base,p
-{pound}v1.5 ml1,p
-v1.5 ml2,p
+config 1.7,p
+{pound}v1.7 ml1,p
+v1.7 ml2,p
 window.ml,p
-{pound}cursor,p
-{pound}ascii table,p
+cursor,p
+ascii table,p
 {pound}p.protocol,p
-{pound}b1,p
-{pound}d1,p
 {pound}@1,p
-{pound}m1,p
-{pound}n1,p
-{pound}e1,p
-{pound}q1,p
-{pound}f1,p
-{pound}j1,p
-{pound}v1,p
 
 The Sample Data disk is a 1541 (.D64) disk consisting of the following files:
 
 {pound}Mpreps,s
 {pound}Fpreps,s
-{pound}v1.5 ml1,p
+{pound}v1.7 ml1,p
 {pound}p.protocol,p
-{pound}b1,p
-{pound}d1,p
-{pound}@1,p
-{pound}m1,p
-{pound}n1,p
-{pound}e1,p
-{pound}q1,p
-{pound}f1,p
-{pound}j1,p
-{pound}v1,p
 {pound}opening msg,s
 {pound}closing msg,s
 {pound}info,s
@@ -78,8 +53,10 @@ To build the files for these disks, you'll need three programs.  One, obviously,
 
 The first step is to setup the System disk.  To do this, load CBM prg studio.  Starting with the BASIC files, open up each file so you can see the code.  Then Click the little PRG button to "Generate .prg (current file)"  or select Build->Program->To File from the menu.  After all the BASIC files are built, and the prg files saved, then do the Assembly files the same way.  If the Assembly files give you an extra window "Assembly Dump", but you can just hit the X to close this and ignore it.
 
-The next step is to copy the files for the System disk into a .D64 image, in the order shown above.  Please note that MOST of the files will need to be renamed after they are copied into the image.  Many of the files are prefixed with the PETSCII character for the english Pound sign, represented above by "{pound}".  You will need to add this character to those files when creating the .D64 disk image. It can be typed in DirMaster using Show PETSCII Tool menu option.  The file "main-ml" should be renamed to "{pound}v1.5 ml", for example. Also, the SEQ (,s) file mentioned above can be found in the project "data" directory.  Also note that "e.Fpreps" and "e.Mpreps" should have uppercase letters in their name which you'll need to correct.
+The next step is to copy the files for the System disk into a .D64 image, in the order shown above.  Please note that MOST of the files will need to be renamed after they are copied into the image.  Many of the files are prefixed with the PETSCII character for the english Pound sign, represented above by "{pound}".  You will need to add this character to those files when creating the .D64 disk image. It can be typed in DirMaster using Show PETSCII Tool menu option.  The file "main-ml" should be renamed to "{pound}v1.7 ml1", and "interrupts.ml" should be renamed to "v1.7 ml2", for example. Also, the SEQ (,s) file mentioned above can be found in the project "data" directory.
 
-The third step is to copy the files for the Sample Data disk into a .D64 image, in the order shown above.  Some you built for the System disk in step 1, but most are in the data directory.  Please note that ALL of the files will need to be renamed after they are copied into the image.  The data files are prefixed with the PETSCII character for the english Pound sign, represented above by "{pound}".  You will need to add this character to those files when creating the .D64 disk image.  Also note that "{pound}Fpreps" and "{pound}Mpreps" should have uppercase letters in their names which you might need to correct.
+Optionally, you might want to compile "@1" and "config 1.7", using the BLITZ! compiler, after you've copied those files to the system.  They were designed to be blitzed, and will certainly run faster.
+
+The next step is to copy the files for the Sample Data disk into a .D64 image, in the order shown above.  Some you built for the System disk in step 1, but most are in the data directory.  Please note that ALL of the files will need to be renamed after they are copied into the image.  The data files are prefixed with the PETSCII character for the english Pound sign, represented above by "{pound}".  You will need to add this character to those files when creating the .D64 disk image.  Also note that "{pound}Fpreps" and "{pound}Mpreps" should have uppercase letters in their names which you might need to correct.
 
 The last step is to either load up your emulator, or copy the images to real floppies, and get to work.  Load the "ZELCH" program from the program files disk and begin going through the editors to fill out your Sample Data disk to become something more useable.  Once your data disk is fully prepared, you can boot the BBS.

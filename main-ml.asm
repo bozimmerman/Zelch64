@@ -1,9 +1,7 @@
-        
-        
 * = $C000
         ; .O
         ; .S
-        ; .D \V1.5 ML1
+        ; .D \V1.7 ML1
         JMP GETIT; REM 49152
         JMP SEND; REM 49155
         JMP INPT; REM 49158
@@ -68,6 +66,11 @@ FINI
 SEND
         JSR SAVE
         LDA $FE
+        CMP #$07
+        BNE NOSOUND
+        JSR SOUND
+        LDA $FE
+NOSOUND
         CMP #$90
         BEQ TWO
         CMP #$93
@@ -362,7 +365,6 @@ RTNPNT
 FILESEND
         LDA #$00
         STA $FD
-        STA $02CC
 FILES 
         JSR RTINE
         LDA $FE
@@ -426,7 +428,6 @@ ESTLOG
 FILEGET
         LDA #$00
         STA $FD
-        STA $02CC
         LDX #$08
         JSR $FFC6
 FILET
@@ -794,18 +795,19 @@ CLRGON
         LDA #$0D
         JSR $FFD2
         JMP STSEN2
-RELOAD
-        LDX #$08
-        LDY #$00
-        LDA #$07
-        JSR $FFDA
-        LDA #$03
-        LDX #$AA
-        LDY #$02
-        JSR $FFBD
+SOUND
         LDA #$00
-        STA $93
-        LDX $FB
-        LDY $FC
-        JSR $FFD5
+        STA $D404
+        LDA #$09
+        STA $D405
+        LDA #$00
+        STA $D406
+        LDA #$04
+        STA $D418
+        LDA #$64
+        STA $D401
+        LDA #$32
+        STA $D400
+        LDA #$11
+        STA $D404
         RTS

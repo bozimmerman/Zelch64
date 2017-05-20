@@ -1,16 +1,13 @@
 !--------------------------------------------------
-!- Saturday, May 20, 2017 12:31:09 AM
+!- Saturday, May 20, 2017 1:53:53 AM
 !- Import of : 
 !- c:\src\zelch64\zelch.prg
 !- Commodore 64
 !--------------------------------------------------
 10 CLR
 15 IFPEEK(716)<>16THENPOKE716,16:LOAD"window.ml",8,1
-17 IFPEEK(718)<>16THENPOKE718,16:SYS49152:POKE59639,2:POKE59671,3
-20 IFPEEK(700)<>16THENPOKE700,16:LOAD"{pound}cursor",8,1
-30 IFPEEK(706)<>16THENPOKE706,16:LOAD"{pound}ascii table",8,1
-40 IFPEEK(707)<>16THENPOKE707,16:LOAD"{pound}v1.5 ml1",8,1
-45 IFPEEK(708)<>16THENPOKE708,16:LOAD"v1.5 ml2",8,1
+17 IFPEEK(715)<>16THENPOKE715,16:SYS49152:POKE59639,2:POKE59671,3:POKE57722,96
+20 IFPEEK(700)<>16THENPOKE700,16:POKE1,53:GOTO1000
 50 PRINT"{clear}"+CHR$(14)+"{yellow}"
 51 POKE56334,PEEK(56334)AND254:POKE1,PEEK(1)AND251:POKE788,0:POKE789,203
 52 POKE1,PEEK(1)OR4:POKE56334,PEEK(56334)OR1
@@ -64,16 +61,29 @@
 570 IFA$=CHR$(13)THENPOKE709,0:GOTO600
 580 IFA$="n"THENPOKE709,0:GOTO600
 590 GOTO550
-600 PRINT"{clear}Loading program...{black}":POKE46,120:POKE48,120:POKE50,120
-610 LOAD"{pound}@1",8
+600 PRINT"{clear}Loading program...{black}"
+610 PRINT"{home}{down*2}load"+CHR$(34)+"{pound}@1"+CHR$(34)+",8"
+615 PRINT"{home}{down*7}run":FORI=631TO633:POKEI,13:NEXTI:POKE198,2:PRINT"{home}";:END
 680 PRINT"{clear}{down*3}                {light blue}Z{cyan}e{white}l{yellow}c{pink}h"
 690 PRINT"{down}                 {light green}BBS"
-700 PRINT"{down*2}             {yellow}Version 1.5d"
+700 PRINT"{down*2}             {yellow}Version 1.7b"
 710 PRINT"        {white}Freeware by:{yellow}{reverse on}The Zacman"
 720 PRINT"{down*8}{green}            RETURN{sh space}for BBS"
-730 PRINT"{light green}            (E) for Editor"
+730 PRINT"{light green}            (E) for Editor{black}"
 740 GETA$
 750 IFA$=CHR$(13)THEN100
 760 IFA$<>"e"THEN740
-770 LOAD"e.menu",8
+770 LOAD"editor 1.7",8
 780 END
+1000 PRINTCHR$(14)+"Window installed"
+1001 LOAD"cursor",8,1
+1005 PRINT"Cursor loaded"
+1010 LOAD"ascii table",8,1
+1015 PRINT"Ascii tables loaded"
+1020 LOAD"{pound}v1.7 ml1",8,1
+1025 PRINT"System ML loaded"
+1030 LOAD"v1.7 ml2",8,1
+1035 PRINT"Interupts loaded"
+1040 POKE1,55:POKE57722,165
+1050 OPEN15,8,15:CMD15,;:PRINT#15,"m-w{ct g}{red}{ct a}{ct o}
+1060 CLOSE15:GOTO50

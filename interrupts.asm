@@ -3,7 +3,9 @@
 * = $CB00
         ; .O
         ; .S
-        ; .D V1.5 ML2
+        ; .D V1.7 ML2
+        JMP CLOC1
+        JMP RELOAD
 CLOC1
         JSR CLOCK
         LDA #$00
@@ -87,3 +89,29 @@ LEAVE
         LDA #$00
         STA $033E
         JMP OUTA
+RELOAD
+        LDA #$07
+        LDX #$08
+        LDY #$01
+        JSR $FE00
+        INC $7A
+        BNE BELOD
+        INC $7B
+BELOD
+        JSR $B08B
+        LDY #$00
+LIP 
+        LDA ($47),Y
+        STA $00FB,Y
+        INY
+        CPY #$03
+        BCC LIP
+        LDA $FB
+        LDX $FC
+        LDY $FD
+        JSR $FDF9
+        LDX #$00
+        LDY #$00
+        LDA #$00
+        JSR $F49E
+        RTS
