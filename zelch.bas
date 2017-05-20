@@ -1,5 +1,5 @@
 !--------------------------------------------------
-!- Saturday, May 20, 2017 4:13:38 PM
+!- Saturday, May 20, 2017 4:38:46 PM
 !- Import of : 
 !- c:\src\zelch64\zelch.prg
 !- Commodore 64
@@ -38,12 +38,12 @@
 350 POKE56587,HR
 360 PRINT"{home}{down*4}{reverse on}{yellow}{cyan}Am or Pm?{reverse on} {reverse off}{left}";
 370 GETA$
-371 IFA$="p"ANDHR$="12"THENA$="a":GOTO390
-372 IFA$="a"ANDHR$="12"THENA$="p"
-380 IFA$="p"THENPOKE56587,HROR128:PRINT"p":GOTO400
+371 IFA$="p"ANDHR$="12"THENPOKE56587,HRAND127:GOTO396
+372 IFA$="a"ANDHR$="12"THENPOKE56587,HRAND128:GOTO396
+380 IFA$="p"THENPOKE56587,HROR128:GOTO396
 390 IFA$<>"a"THEN370
-391 PRINT"a"
 395 POKE56587,HRAND127
+396 PRINTA$+"m"
 400 INPUT"{home}{down*5}{reverse on}{white}What is the Minute";H$:H=VAL(H$):IFH=0ORH>59THEN400
 410 IFH$=""THEN490
 420 H=0
@@ -75,7 +75,7 @@
 688 GOTO 100
 690 PRINT"{clear}               {light blue}Z{cyan}e{white}l{yellow}c{pink}h"
 691 PRINT"{down}                {light green}BBS"
-700 PRINT"{down*3}            {yellow}Version 3.0"
+700 PRINT"{down*3}            {yellow}Version 3.1"
 710 PRINT"{down}{white}    Copyright (C)1988 Bo Zimmerman"
 712 PRINT"{down*2}{light green}   Another product of {reverse on}{blue}o{light blue}o{cyan}o{white}Planet>>"
 713 PRINT"{up}{down}{white}                      {white*2} {white} {white} {white} {reverse on}Inc.{black}
@@ -86,9 +86,9 @@
 1005 PRINT"{yellow}Cursor loaded"
 1010 LOAD"ascii table",8,1
 1015 PRINT"{white}Ascii tables loaded"
-1020 LOAD"v3.0 ml1",8,1
+1020 LOAD"v3.1 ml1",8,1
 1025 PRINT"{cyan}System ML loaded"
-1030 LOAD"v3.0 ml2",8,1
+1030 LOAD"v3.1 ml2",8,1
 1035 PRINT"{light blue}Interupts loaded"
 1040 LOAD"p.protocol",8,1
 1050 POKE1,55:POKE57722,165:POKE644,149:POKE56,149:POKE643,56:POKE55,56:CLR

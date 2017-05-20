@@ -1,7 +1,7 @@
 !--------------------------------------------------
-!- Saturday, May 20, 2017 4:11:26 PM
+!- Saturday, May 20, 2017 4:36:52 PM
 !- Import of : 
-!- c:\src\zelch64\pgm 2 1.prg
+!- c:\src\zelch64\pgm.bagels.prg
 !- Commodore 64
 !--------------------------------------------------
 8000 FORI=0TO9:POKE43+I,PEEK(721+I):NEXT

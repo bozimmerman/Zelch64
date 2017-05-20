@@ -65,6 +65,30 @@
         <FileName>prg.vedit.bas</FileName>
         <FileName>prg.vote.bas</FileName>
         <FileName>zelch.bas</FileName>
+        <FileName>bbs.bas</FileName>
+        <FileName>editor.bas</FileName>
+        <FileName>pgm.bagels.bas</FileName>
+        <FileName>pgm.filecopy.bas</FileName>
+        <FileName>pgm.timewheel.bas</FileName>
+        <FileName>pgm.userdel.bas</FileName>
+        <FileName>prg.email.bas</FileName>
+        <FileName>prg.medit.bas</FileName>
+        <FileName>prg.menu.bas</FileName>
+        <FileName>prg.monster.bas</FileName>
+        <FileName>prg.mtedit.bas</FileName>
+        <FileName>prg.multi.bas</FileName>
+        <FileName>prg.new1.bas</FileName>
+        <FileName>prg.open.bas</FileName>
+        <FileName>prg.read.bas</FileName>
+        <FileName>prg.term.bas</FileName>
+        <FileName>prg.udsec.bas</FileName>
+        <FileName>prg.user1.bas</FileName>
+        <FileName>prg.user2.bas</FileName>
+        <FileName>prg.var.bas</FileName>
+        <FileName>prg.vedit.bas</FileName>
+        <FileName>prg.vote.bas</FileName>
+        <FileName>zelch.bas</FileName>
+        <FileName>prg.new2.bas</FileName>
     </BuildList>
     <DetermineBuildOrder>0</DetermineBuildOrder>
     <PaddingByte>234</PaddingByte>
@@ -77,7 +101,7 @@
             <Regions />
             <Breakpoints />
             <Bookmarks />
-            <Topmost>True</Topmost>
+            <Topmost>False</Topmost>
             <FileOpen>True</FileOpen>
         </SourceFile>
         <SourceFile>
@@ -276,7 +300,7 @@
             <Breakpoints />
             <Bookmarks />
             <Topmost>False</Topmost>
-            <FileOpen>False</FileOpen>
+            <FileOpen>True</FileOpen>
         </SourceFile>
         <SourceFile>
             <Name>prg.open.bas</Name>
@@ -323,7 +347,18 @@
             <FileOpen>False</FileOpen>
         </SourceFile>
         <SourceFile>
-            <Name>prg.user.bas</Name>
+            <Name>prg.user1.bas</Name>
+            <PrgName />
+            <FileType>1</FileType>
+            <IncludeInBuild>True</IncludeInBuild>
+            <Regions />
+            <Breakpoints />
+            <Bookmarks />
+            <Topmost>False</Topmost>
+            <FileOpen>False</FileOpen>
+        </SourceFile>
+        <SourceFile>
+            <Name>prg.user2.bas</Name>
             <PrgName />
             <FileType>1</FileType>
             <IncludeInBuild>True</IncludeInBuild>
@@ -374,7 +409,7 @@
             <Regions />
             <Breakpoints />
             <Bookmarks />
-            <Topmost>False</Topmost>
+            <Topmost>True</Topmost>
             <FileOpen>True</FileOpen>
         </SourceFile>
         <SourceFile>

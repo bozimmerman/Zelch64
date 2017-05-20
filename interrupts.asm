@@ -2,49 +2,9 @@
         
 * = $CB00
         ; .O
-        ; .D V3.0 ML2
-        JMP CLOC1
-        JMP WHERE
-CLOC1
-        SEI
-        LDA #$01
-        STA $D015
-        LDA #$0D
-        STA $07F8
-        LDA $0286
-        STA $D027
-        LDA $D6
-        CLC
-        ASL
-        ASL
-        ASL
-        ADC #$32
-        STA $D001
-        LDA $D3
-        CMP #$28
-        BCC NXT4
-        SEC
-        SBC #$28
-NXT4
-        CMP #$1F
-        BCS NXT5
-        ASL
-        ASL
-        ASL
-        ADC #$08
-        STA $D000
-        LDA #$00
-        STA $D010
+        ; .D V3.1 ML2
         JMP CLOCK
-NXT5
-        SEC
-        SBC #$1F
-        ASL
-        ASL
-        ASL
-        STA $D000
-        LDA #$01
-        STA $D010
+        JMP WHERE
 CLOCK
         LDA $02CA
         BNE KEEPIT

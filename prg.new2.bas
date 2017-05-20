@@ -1,5 +1,5 @@
 !--------------------------------------------------
-!- Saturday, May 20, 2017 4:12:15 PM
+!- Saturday, May 20, 2017 4:39:39 PM
 !- Import of : 
 !- c:\src\zelch64\prg.new2.prg
 !- Commodore 64

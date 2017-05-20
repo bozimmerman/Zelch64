@@ -1,0 +1,132 @@
+
+               -------------------------------------------------
+               I       So, you want to be a Sysop, huh?        I
+               -------------------------------------------------
+                                        
+                    Written by Bo Zimmerman and Ken Thompson
+                                        
+          
+          INTRODUCTION
+          
+          As  easy as it may seem, being a System Operator (SysOp), is
+          a  tough,  thankless  job.    If  you are reading this, then
+          you're in luck!
+          
+          What  you're  about  to  do (whether you know it or not), is
+          turn  the  operation  of your computer system to the rest of
+          the free world!  Though it sounds a bit ominous, let me tell
+          you  that  the  information,  friendships,  partnerships and
+          rewards from doing this are great!
+          
+          You  probably  have  thought  about  the cost of doing this;
+          you've  just spent a large percentage on this; the software.
+          It  has  been created with you in mind, but, please keep US,
+          the  users,  in  mind  when you set your system up!  Getting
+          many  people  calling  your system on a daily basis requires
+          that  you  put alot of thought into what you're doing FIRST,
+          before beginning any kind of set-up.
+          
+          
+          TYPES OF BBS
+          
+          There  are  three major types of systems; the Zelch software
+          is  capable  of  being  all  three.  First type is transfer-
+          oriented.    Files,  files, and more files.  To tell you the
+          truth,  not a very exciting system, and usually are the ones
+          that get caught doing stuff they shouldn't be!  Second type,
+          is  the  type the Zelch BBS was designed for, conversations.
+          Usually  much  more popular than the transfer-based systems;
+          these are the ones people complain about busy signals!!  The
+          third  type  of system, is private, usually some combination
+          of  the previous two types.  This is a system that you allow
+          certain  people  on,  for  whatever  reasons  you have.  The
+          flexability  of  the Zelch software gives you the capability
+          of  keeping some sections public, others private.  Great for
+          computer  users  groups,  to  keep the general public in one
+          area, paid members in another.
+          
+          
+          COSTS OF BBS OPERATIONS
+          
+          This  is  an  approximation of monthly operations of a small
+          (two-drive)  BBS.    This  is  assuming  that  there  are no
+          difficulties,  and  that  the system is operational 24 hours
+          daily.
+          
+          Electricity consumption (based on $0.07/kWh):  approx. $6.50
+          
+          phone line (monthly fees):                    approx. $15.00
+          
+          
+          In  addition,  there are the one-time fees, such as the cost
+          of a BBS program, the cost of a dedicated phone line (highly
+          reccomended!),  and  other  things that can be factored into
+          the  cost  of  owning  a system.  With this in mind, you are
+          looking at an average outlay, on a monthly basis, of $20-$25
+
+
+          per  month.    Now, considering this is the cost of a decent
+          dinner for two, this is not a bad outlay!
+          
+          Unfortunately,  this  does not include the cost of your time
+          in  keeping  a system in operation.  For a full-time system,
+          you  are  looking  at  30 minutes to an hour, depending upon
+          your  involvement  with  your  system,  just  in the mundane
+          things like validating (verifying) users, programs uploaded,
+          messages left, and so forth.
+          
+          
+          HOW TO MAKE IT SUCCESSFUL!
+          
+          Now, if you're STILL undaunted in becoming a SysOp, the only
+          thing  I  can  say  is to try it on a part-time basis, using
+          your  current  phone line.  I would reccomend something like
+          9:00pm  to 7:00am for about two or three weeks, and note the
+          number  of  calls you get.  Dependent upon your area, if you
+          compare  notes  with  other established Commodore SysOp's in
+          your  area,  and find that you are getting close to the same
+          numbers  of  callers  they  do,  you're  well on your way to
+          having a successful system.
+          
+          If there are other systems that you call on a regular basis,
+          try to plan your system around things and topics that aren't
+          available  on  other  systems.    The  idea  here  is  to be
+          different, to have a reason for others to call YOUR system!
+          
+          Leaving  short, direct advertisements on other boards is the
+          primary means of getting your system known to other BBS'ers.
+          Long-winded,  and bragging ad's for systems will normally be
+          passed  over for those that have just enough information for
+          me  to  decide  that this is a BBS that I should call.  Most
+          others  users AND sysop's I know feel the same way.  Be sure
+          to  leave your BBS ad's in the proper place, and don't leave
+          one every day; put one good one up and leave it!
+          
+          
+          CONCLUSIONS
+          
+          This  should  give  you  enough  information  to  make  some
+          informed  decisions  on the type of system you want your BBS
+          to  be.    Feel  free  to contact any sysop in your area for
+          additional  information;  most  would be glad to answer your
+          questions on this aspect of our telecommunications hobby.
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

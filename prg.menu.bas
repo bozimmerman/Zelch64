@@ -1,5 +1,5 @@
 !--------------------------------------------------
-!- Saturday, May 20, 2017 4:11:50 PM
+!- Saturday, May 20, 2017 4:37:14 PM
 !- Import of : 
 !- c:\src\zelch64\prg.menu.prg
 !- Commodore 64
@@ -8,9 +8,9 @@
 8020 TX$="{clear}{f1}Sub Section{down*2}":GOSUB210:FI$="{pound}pgmenu":GOSUB1200
 8030 TX$=CHR$(13)+"{f1}Sub"+STR$(NP+1)+":{ct c}":GOSUB210
 8040 GOSUB100:IFIN$="q"THENTX$="q":GOSUB210:GOTO2120
-8050 IFIN$="p"THENTX$="p":GOSUB210:GOTO8100
+8050 IFIN$="l"THENTX$="l":GOSUB210:GOTO8100
 8060 IFIN$="c"THENTX$="c":GOSUB210:GOTO8200
-8070 IFIN$="l"THENTX$="l":GOSUB210:GOTO8300
+8070 IFIN$="s"THENTX$="s":GOSUB210:GOTO8300
 8071 IFIN$="$"THENTX$="$":GOSUB210:FI$="{pound}section"+STR$(NP+1):GOSUB1200:GOTO8030
 8072 IFIN$="?"THENTX$="?":GOSUB210:GOTO8090
 8080 GOTO8040

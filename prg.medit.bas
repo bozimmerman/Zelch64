@@ -1,5 +1,5 @@
 !--------------------------------------------------
-!- Saturday, May 20, 2017 4:11:42 PM
+!- Saturday, May 20, 2017 4:37:10 PM
 !- Import of : 
 !- c:\src\zelch64\prg.medit.prg
 !- Commodore 64

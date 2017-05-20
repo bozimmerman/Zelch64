@@ -1,16 +1,16 @@
 !--------------------------------------------------
-!- Saturday, May 20, 2017 4:11:59 PM
+!- Saturday, May 20, 2017 4:37:23 PM
 !- Import of : 
 !- c:\src\zelch64\prg.mtedit.prg
 !- Commodore 64
 !--------------------------------------------------
 8000 FORI=0TO9:POKE43+I,PEEK(721+I):NEXT:IFYY=1THEN8081
 8005 TX$="{f1}W{f1}o{f1}r{f1}k{f1}i{f1}n{f1}g{f1}.{f1}.{f1}.{ct c}":GOSUB210:OPEN1,8,15,"s0:{pound}members"
-8010 PRINT#1,"i0":OPEN8,8,8,"{pound}members,s,w":OPEN2,8,3,"0:{pound}userlog":C1=1:C2=0
-8020 PRINT#8,"{white}List as of "+STR$(MN)+"/"+STR$(DA)
-8030 I=5:GOSUB6:GET#2,A$:INPUT#1,E
-8040 IFA$=""ORE>0THEN8080
-8050 SYS38233:I$=A$+I$:IFI$="EMPTY"THENI$="DELETED!"
+8010 PRINT#1,"i0":OPEN8,8,8,"{pound}members,s,w":OPEN2,8,3,"0:{pound}log1":C1=1:C2=0
+8020 PRINT#8,"{white}VALIDATED{sh space}LIST ("+STR$(MN)+"/"+STR$(DA)+")"
+8030 I=0:GOSUB6:GET#2,A$:INPUT#1,E
+8040 IFA$<>"{pound}"ORE>0THEN8080
+8050 SYS38233:IFI$="EMPTY"THENI$="DELETED!"
 8060 PRINT#8,"{white}"+STR$(C1+(256*C2))+"):"+I$+"{white}"
 8070 TX$="{f1}.{ct c}":GOSUB210:C1=C1+1:IFC1=256THENC1=0:C2=C2+1
 8075 GOTO 8030

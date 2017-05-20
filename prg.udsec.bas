@@ -1,10 +1,10 @@
 !--------------------------------------------------
-!- Saturday, May 20, 2017 4:12:51 PM
+!- Saturday, May 20, 2017 4:38:10 PM
 !- Import of : 
 !- c:\src\zelch64\prg.udsec.prg
 !- Commodore 64
 !--------------------------------------------------
-8000 FORI=0TO9:POKE43+I,PEEK(721+I):NEXT:GOTO5166
+8000 FORI=0TO9:POKE43+I,PEEK(721+I):NEXT:GOTO5165
 8100 TX$="{clear}{down*2}{f1}BLKS {f1}FILENAME       {f1}FILETYPE":GOSUB210
 8110 POKE253,64+CU:OPEN8,UV(CU),0,"$0:"+CHR$(64+CU)+"*":SYS38224:SYSZ,8:GOTO5170
 8200 TX$="{f1}UD Sections:"

@@ -1,5 +1,5 @@
 !--------------------------------------------------
-!- Saturday, May 20, 2017 4:13:19 PM
+!- Saturday, May 20, 2017 4:38:33 PM
 !- Import of : 
 !- c:\src\zelch64\prg.vedit.prg
 !- Commodore 64

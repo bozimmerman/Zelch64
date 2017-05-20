@@ -2,7 +2,7 @@
         
 * = $9538
         ; .O
-        ; .D V3.0 ML1
+        ; .D V3.1 ML1
         JMP GETIT; REM 38200
         JMP SEND; REM 38203
         JMP INPT; REM 38206
@@ -86,6 +86,8 @@ NOSOUND
         CMP #$26
         BEQ NNSSOO
 NNNSSO
+        CMP #$2B
+        BEQ TWO
         CMP #$90
         BEQ TWO
         CMP #$03
@@ -124,6 +126,7 @@ TWO
         CMP #$0D
         BEQ THREE
 HALF
+        JSR CRSRD
         JSR LOAD
         RTS
 THREE
@@ -851,6 +854,7 @@ OUTIN
         JSR $FFCC
         JMP FIN1
 TERM
+        JSR CRSRD
         JSR $FFCC
         JSR $FFE4
         CMP #$00
@@ -1073,4 +1077,45 @@ COPYFI
         LDY $FD
         BEQ COPYFI
 ENDCOPY
+        RTS
+CRSRD
+        SEI
+        LDA #$01
+        STA $D015
+        LDA #$0D
+        STA $07F8
+        LDA $0286
+        STA $D027
+        LDA $D6
+        CLC
+        ASL
+        ASL
+        ASL
+        ADC #$32
+        STA $D001
+        LDA $D3
+        CMP #$28
+        BCC CSRD1
+        SEC
+        SBC #$28
+CSRD1
+        CMP #$1F
+        BCS CSRD2
+        ASL
+        ASL
+        ASL
+        ADC #$08
+        STA $D000
+        LDA #$00
+        STA $D010
+        RTS
+CSRD2
+        SEC
+        SBC #$1F
+        ASL
+        ASL
+        ASL
+        STA $D000
+        LDA #$01
+        STA $D010
         RTS
