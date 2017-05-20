@@ -1,230 +1,653 @@
+---------------------------------------
+--------------LOADING-UP---------------
+---------------------------------------
+
+LOAD"ZELCH",8
+
+SEARCHING FOR ZELCH
+LOADING
+READY.
+RUN
                                         
-             Loading Up!                
+This program is the loader program for
+the ML files and your BBS program. It
+should be loaded from your system disk
+every time you put up your BBS.
+
+   Answer all time/data questions 
+completely.(Answering "Y" to the
+printer on prompt forces a general
+log of people who have called to be
+sent to device 4, secondary device 7.)
+
+   Military time should not be used in
+the prompts and single digits where 
+possible should be used.
+
+---------------------------------------
+-----------WAITING-FOR-CALL------------
+---------------------------------------
+
+   When you see this screen, the BBS
+is waiting for a call. If you have
+a smartmodem, the board will wait
+for one ring before answering. 1650
+and 1660s will answer as soon as the
+faint glimmering of a ring is
+detected.
+
+            Monster Mode
+            ************
+
+   Between the time of 11:00pm and
+12:59am the BBS must go through 
+this mode. First this will count        
+he number of users and re-create
+the \calls file. This resets the
+number of calls each user has made
+that day. Next it will validate the
+most widly edited disk, drive 8.
+Lastly, it will increment the day
+and month is necessary.
+
+             F1 - MENU                  
+             *********
+
+1) Return to BBS - this is a sub-reset.
+It will return you to the waiting for
+call screen.
+
+2) Monster mode- same as above except 
+the date is not changed.
+
+3) Zelch (Zap) term- this is a simple
+term. The program default is GFX
+mode, Hit F3 to toggle GFX/ASCII.
+F2 brings you to the Zelch terminal
+menu. At the "CMD:" you can type:
+Q-This preforms a complete RESET.
+B-Change from 200-500 baud.
+T-Return to terminal mode.
+U-Upload seq or prg.
+D-Download seq or prg.
+4) Feedback. This is for viewing
+the \feedback file.
+5) Log. This views the \Log! file.
+
+---------------------------------------
+-------------F3--LOGON-----------------
+---------------------------------------
+ 
+     The first prompt to hit return
+decides if anyone is really on.
+Next it asks if you are using 
+standard ASCII or COMMODORE GFX.
+Now it shows the opening msg and
+asks you for your ID#. The BBS
+will ask this 5 times. If after 5 trys,
+you have not entered a correct ID and
+password, the BBS will assume you
+are a hacker and reset.
+     After you have entered your
+ID and PASSWORD, the board will load
+the rest of your info, set up the
+window and print your stats. The
+window at the top of the screen will
+not change after you have logged on,
+even if you change the access level
+or logoff time on-line.
+     After the stats are printed,
+it will search for the file "\newsfile"
+if found, that file will be viewed.
+
+
+         ONE-TOUCH-COMMANDS
+         ******************
+
+     F1- Enter chat mode. This
+is entered from anywhere the keyboard
+is read. Chat mode is signaled by
+reverse typing and will not announce
+itself. F7 exits.
+
+     F3- From prompts which only require
+one key, you can hit this button and 
+raise the current users access
+temporarily. Answering "Y" to the
+BURST TIME prompt gives the current
+user two hours on-line starting
+at the current time
                                         
-   Set up ALL equipment with data disks 
-in their proper places. The exception   
-to this is that you have your system    
-disk in drive 8.                        
+     F2- Autologoff. Pressing this
+key will tell the BBS that the current
+user has ran out of time (even if
+he hasn't).
                                         
-LOAD "ZELCH" ,8                         
+             LOGOFF
+             ******
                                         
-SEARCHING FOR ZELCH                     
-LOADING                                 
-READY                                   
-RUN                                     
+     There are two types of logoff:
+the RESET and the FULL logoff. The
+RESET is preformed only if a user
+has not fully logged on. All other
+times, the BBS will give a FULL logoff.
+The first things the BBS does in this
+logoff is send the Time Up msg (if they
+have run out of time or dropped carrier)
+. Next it sends the \closing msg
+file to the screen and sends the
+logoff info to the printer if
+necessary. Now it saves the users
+information and prints the Bye
+msg. In 1650 versions, the BBS
+hangs up here, but on other versions,
+the waiting for call screen hangs up.
+Lastly it saves the "LOG" and 
+"last caller" info and preforms a
+RESET. In moments, you are back at
+the waiting for call screen.
+
+               LOG
+               ***
                                         
-   Press return from here and answer    
-the time and date questions.The time is 
-NOT in military time and single or      
-double digits are acceptable. If you    
-have a printer (device 4) and would     
-like a logon and logoff recorded,       
-answer "y" to this question, otherwise, 
-press return or "n".                    
+   The Log starts when the BBS
+records, in memory, the logon
+time and the person logging on.
+After logged on, the following
+info can be read from this file:
+
+cmd:m
+
+  This means that the user has
+pressed "m" at the COMMAND prompt.
+Lets assume that's the character to
+go to your message base and see
+what couldbe typed next.
+
+msg:q
+
+  This means the user has typed
+"q" at the Sig prompt. Other
+possible entrys are:
+
+vote
+
+   The user has voted.
+
+ul:text,s,w
+
+   The user has uploaded the
+SEQ file "text"
+
+dl:game,p,r
+
+   The user has downloaded the
+PRG file "game". The log can be
+read in two ways. From the waiting
+for call menu and from the
+SysOp disk channel (explaned below)
+The log filename is "\Log!"
                                         
-   After the program is loaded, switch  
-your SYSTEM disk for your MAIN data     
-disk and press return. Make sure you    
-have your modem in ANSWER and DATA.     
-This is the "waiting for call" screen.  
-This is displayed untill a person calls 
-and is on-line. Notice the last caller  
-and the logoff time are recorded as     
-well as the # of calls since you last   
-turned on the computer.This number is   
-reset in MONSTER MODE (mentioned in     
-part 1). Press F1.                      
-1) Return to BBS - this returns to the  
-waiting for call screen.                
-2) Monster Mode - this resets the       
-number of calls for that day, the day,  
-month (if needed) , resets the calls    
-today and validates the MAIN data disk. 
-3) Zelch or Zap - term. This is a       
-simple  terminal without any form of    
-extras. Once in Term mode, F3 toggles   
-ascii/commodore, and F2 exits to BBS    
-mode.                                   
-4) Read feedback - views feedback file  
-5) Read Log - reads Log! file           
+           NEWUSER                      
+           *******                      
                                         
-                Hit 1                   
+   The user that types "new" at
+the ID prompt will go thru the new
+user process. The first thing the
+process does is find an empty user
+account to store the new info into.
+Next it asks some questions for 
+the users permanant records
+This information as well as more
+are available for editing in the
+SysOp section (explained below).
+After the user has entered the
+preliminary questions, they will
+have their record saved twice and
+the "\newuser" file will be shown.
+Now, the secondary questions will
+ba asked. These are SysOp definable.
+The questions are stored in the
+file "\newqs" and questions are
+retrieved one at a time. Up to 10
+can be used and written questions
+should not have lines skipped
+between them. Here is an example
+"\newqs" file:
+
+^What is your State    :
+^What is your City     :
+^What is your Area Code:
+^What is your hobby    :
                                         
-               Hit F3!!                 
+   The "^" or any nonsence character
+should be inserted before each
+question. The character will
+not be viewed by the new user.
+Answers to these questions are
+stored in the file "\newinfo".
+   Lastly, the user must go thru
+the logon process again. Except
+that this time, his record is on
+disk and he can log on as a level
+0 user.
+
+
+---------------------------------------
+---------------COMMAND-----------------
+---------------------------------------
                                         
+   The following commands are available
+from the COMMAND prompt. The prompt
+itself will have a box linked to it
+if the user is using color gfx, and
+will stop at the colon if they are not.
                                         
-   Go thru the logon process untill the 
-opening msg is displayed. The space bar 
-aborts a msg and the home key pauses    
-(any other resumes).                    
-   Enter your ID#: (probably 1)         
-   Enter your password: (All upper and  
-lowercases exactly the way you wrote it 
-before.)                                
-   You have 5 tries to logon before the 
-BBS throws you off. If you have no ID   
-#, then type "new" and go thru the      
-newuser process.                        
+               INFO                     
+               ****
+
+  Choosing this option simply
+alows the user to view the file
+"\info".
+
+             FEEDBACK                   
+             ********
+
+  This alows the user to leave 
+personal user-to-sysop feedback.
+All feedback is linked to the file
+"\feedback". The SysOp can also
+recieve mail. Feedback can be
+read in the same places the Log
+can.
+
+               OFF?                     
+               ****
+   Here is the logoff request. if
+the user types "y" at this prompt
+the BBS will log the user off. It
+will make a feedback request first
+though.
+
+               PAGE!                    
+               *****
+
+  If a user wants to chat with you,
+he will call this routine. This
+routine first turns the border
+to a blinding white and then 
+"Makes Noises" to alert the SysOp
+that a user wants to chat.
+
+             USERLIST
+             ********
+
+  This is to view the \members"
+file. This file will contain a list
+of all users but must be kept up to
+date by the SysOp. New users are
+not added to this list. See the
+SysOp section to find out how to
+keep this file updated.
+  At the prompt, a user can enter the
+first characters of a name for the
+userlist routine to match.
+
+              STATUS
+              ******
                                         
-   Loading info                         
-   Welcome BACK!                        
+   Here is the current status of
+the user on-line. Unlike the window,
+this record is always accurate.
+
+              SYSOP!                    
+              ******
+
+  This is the SysOp section and
+is for preforming the various
+jobs of the sysop. The following
+commands are available.
+
+D)isk Channel.
+   This is a direct link to your
+disk drive. The default device
+is 8 but can be changed by typing
+in the new device number and hitting
+return. Hitting return on a blank
+line exits this function. All DOS
+commands are available here including
+the following EXTRA commands.
+
+   w:filename
+ This is the seq file writer. It
+simply brings you to the msg maker.
+If you save the message you type 
+there, it will scratch this filename
+and re-write it as the filename
+you entered.
+
+   e:filename
+ A more complicated seq filewriter,
+this routine first reads the file
+into memory, then goes to the
+message maker.If you save your
+message maker file, it will scratch
+and re-write the filename given.
+
+   @
+ This will give you an instant
+look at the error channel of the
+current device. If your light
+starts blinking inside another
+part of the BBS, rush here and
+type "@"(return). The error
+will then be viewed.
+   $
+ This shows you a complete directory
+of the current disk drive.
+   $:\mail*
+ This shows you a directory of
+all mail. Where "\mail" is can be
+any argument.
+   %
+  This counts the number of files
+on the current device.
+   %:\mail*
+ This counts the number of pieces
+of mail on the current drive. Where
+"\mail" is can be any argument.
+
+L)ist users - list is the same as
+the userlist above.
+
+E)dit users - this allows the editing
+of certain aspects of any users record
+(except the user currently on-line).
+Remember, there are character limits
+to all pieces of information.
+Each user has 10 variables in their
+record numbered 0-9. Only 0-5 are
+used right now. They are used in
+the following way:
+0 - LSB of the highest msg
+    read by this user
+1 - MSB of the highest msg
+    read by this user
+2 - Default Baud rate
+
+3 - Uploads
+
+4 - Downloads
+
+5 - Sig this user is a SigOp of.
+    (or 100 if a SysOp)
+
+R)eset Vote Box - this is for
+resetting the file "\vote box".
+After this file is reset, users
+can now vote again even if they have
+already voted and all results are
+reset back to 0.
+V)ote editor - this is for editing
+the file "\vote". The following
+information can be edited.
+  Title- the simple title of the
+         vote subject
+  Response # - the number of
+               possible voting
+               choices.
+  Option - the accual choice that
+           the user is given.
+  Result - a look at the results
+           of this Option. Only
+           9 (1-9) options/results
+           can be entered.
+           ex:
+           Option: yes
+           Result: voted yes.
+  Q-quits S-Saves/Quits 
+
+
+M)embers file creater - this
+option is for the creation of
+the \members file from the accual
+userlist. Empty records will not
+be entered.
+T)ime/Date editor - this is similiar
+to the questionare in the loader
+program. All entrys are permanent 
+(until they are edited again).
                                         
-   Notice the window at the top of the  
-screen. This is there to inform you of  
-some basic information about the user   
-on-line. It will be displayed always    
-and will not scroll off the screen      
-untill logoff is accomplished.          
-   Mail? No? Yes?                       
+               EMAIL                    
+               *****
+
+  This section is for the sending and
+recieving of Electronic mail.
+The following commands are available.
+R)ead and delete mail - users can
+also reply to the mail recieved.
+U)serlist - same as COMMAND userlist.
+S)end mail - this option is for the
+sending of mail to another user.
+The entry may be empty (with
+a handle of "EMPTY") but not
+unrecorded. The user can also send
+mail to himself. All mail is linked
+to the file "\mail X". Where X is
+the ID number of the person with
+mail.
+
+
+            Message Base                
+            ************
                                         
-   COMMAND!!! Now What?                 
+    This is the most important
+part of your BBS where ideas,
+information, and fun is posted on
+easy to read bulletins and responses.
                                         
-SysOp commands:                         
-F1- enters chat from any prompt. F7     
-exits. Be sure to note where you came   
-from as you will reenter exactly where  
-you left off. Chat mode is signified by 
-reverse typing and will not announce    
-itself.                                 
-F2- auto-throw off. This will set the   
-auto logoff flag. This flag is set only 
-when a person drops carrier, runs out   
-of time, or is F2'd.                    
-F3- from some one-letter prompts. This  
-allows you to make a simple access      
-change. Remember to set it back to its  
-original value before the person logs   
-off or it will be saved in the persons  
-user record.                            
-    Answering YES to the BURST time     
-question adds 2 hours to the current    
-time to create a new logoff time for    
-the current user. This new time is not  
-updated on your window.                 
+    Apon entering a Sig, the BBS
+shows the file "\sigmsg X". X is the
+sig number minus 1. (ex "\sigmsg 0" =
+the opening file for Sig 1). Next
+it reads the information for each posted
+msg from the file "\Sig X". X works the
+same way here as in the sigmsg. 
                                         
-  NOW!                                  
+    Once in the msg base, the following
+commands are available:
+
+
+RETURN - hitting return lets you view
+the next msg. For more about reading
+msgs, see READ below.
+CHANGE SIGS - this lets you change
+to another sig. The user must have
+access to that sig to enter it.
+LIST SIGS - this views all sigs that
+the user has access to. Sigs with
+high accesses should be places near
+the end of the list.
+SCAN MSGS - this lists the number
+of replys as well as the header of
+all msgs posted in that sig. The
+Space bar aborts here as in all msgs.
+The home key pauses messages.
+READ MSGS - this function is for
+the viewing of msgs and replys in
+the current sig. The first thing
+this process does is to show the
+bulletin itself. If the bulletin
+has no responses, the routine skips
+to the reply prompt below. If the
+bulletin has replys, it will now
+show the reply prompt. Here, the
+user has a choice of reading the
+replys starting at the first
+one,quiting to the reply prompt,
+skip replys to begin reading
+further on, or press RETURN (same
+as pressing "r").REPLY PROMPT - if
+the user has post access, he will
+now be asked if he would like to
+reply to the msgs he has just read.
+Replys are tagged to the end of
+the message. A message replyed to
+will recieve a higher assigned
+number. When the reply is fixed,
+(signaled by the "Fixing" message)
+the routine stores the new information
+for that msg on the "\Sig" file for
+that sig.
+POSTING - When a message is posted,
+many things occur, first, the
+program checks to see if the post
+would go beyond the allowed number
+of msgs for that sig. If so, then
+the message, when fixed, will be
+posted over the first message and
+so the cycle begins again. The
+message is then allowed to be posted,
+and when Fixed, will have a higher
+number assigned to it (the number
+for the next posted msg is stored in
+the "\last caller" file) and a reply
+number of "0" is stored. Messages
+posted appear as "\msg X Y". X is
+the sig number minus one and Y
+is the message number.
+NEW MSGS - this views new messages
+to the user in that sig only.
+ALL NEW - starting with the
+current sig, the routine jumps
+to sig after sig, preforming
+the NEW MSGS routine above where
+necessary. This routine will stop
+when it trys to enter a Sig which
+has a higher access then the current
+user.
+DELETE MSGS - this is for the deleting
+of an entire message in that sig.
+All replys are deleted also. This
+and the next routine are available
+to SubOps and people who's
+variable number 5 is equal to
+100. Neither people can enter
+these routines tho if their access
+is too low.
+REPLY DELETE - this routine first
+restores the bulletin being dissected
+and then allows the SubOp to resave
+each reply (or not resave, thus
+deleting it).
+
+         Transfer Section
+         ****************
                                         
-F)eedback - this allows users to write  
-you a private note.                     
-O)ff- Logoff request                    
-I)nfo- view info file                   
-C)hat- page the SysOp for a chat. At    
-this point the screen should turn white 
-to show that the SysOp has been paged.  
-U)serlist- view the current list of     
-users skipping all "EMPTY" files.       
-S)tatus- the current status of the      
-person on-line.                         
-B)aud change- allows a user to change   
-from 200-500 baud.                      
+   Here is where users can send
+and recieve program or sequential
+files using the New 8-bit Punter
+protocol.
+   The following commands are
+available:
                                         
-         The Major Sections!            
+DIRECTORY - give a directory of
+the current UD section. Files can
+have up to 14 characters and are
+stored on disk with the filename
+given except the first letter
+in the filename is the current UD
+code. "@filename" means that
+"filename" has been uploaded to
+UD #1. "afilename" means that
+"filename" has been uploaded to
+UD #2 and etc.
+
+UPLOAD - Users choosing this option
+can upload a file to the current
+UD. Before the tramsfer, the user
+may enter a download description
+of the file for others to view (see
+below). After the transfer , the
+program check disk space on the
+current UD drive. If that drive
+now has less then 20 blocks, the
+system will scratch the uploaded
+file (not the description), and
+validate the disk. 
+
+DOWNLOAD - Users will download
+access can download any file in
+te current UD. As in the UPLOAD,
+the user has 40 seconds to go to
+RECIEVE or SEND mode in his terminal
+before the system aborts. They may
+also type "a" before the transfer
+begins to ABORT.
+
+LIST UDs - this views the UD
+section the current user has access
+to.
+
+CHANGE UDs - this lets the user change
+to any other UD section he has
+access to.
+
+ABOUT FILE - this lets the user
+view the download description of
+any file in the current UD.Descriptions
+will appear on your disk as 
+"^"+CURRENT UD CODE (see DIRECTORY)
++"filename".
+
+               VOTE!
+               *****
+
+  Here is where the current user can
+vote on the current voting subject.
+A user can only vote once untill
+the vote box is reset and the results
+are viewed in numeric as well
+as percentage.
+
+           BAUD CHANGE
+           ***********
+
+  This alows the current user that
+is not at 1200 baud to change his
+baud rate to any rate between
+200 and 500.
+
+          LIBRARY SECTION!
+          ****************
                                         
-               E)mail                   
-   This mini-section is for the reading 
-and sending of electronic mail. Sending 
-mail requires the ID# of the user. The  
-filename of mail is "mail "+id#. Each   
-consecutive piece of mail for one user  
-is tagged to the end of the first.      
-               Q)SysOp                  
-List users                              
-edit user (very limited editor)         
-reset vote box                          
-edit vote- edits vote file              
-           title  ex: Cars!             
-           option ex: do you like cars  
-           result ex: liked cars        
-         -:*disk channel*:-             
+  This is just an over simplified
+message base. Messages are read as
+text files. The menu is on disk
+as "\txt 0" and all other text files
+appear on disk as "\txt "+text file
+number.
+
+           VARIABLES?!?!?
+           **************
+
+   A new feature, the user can
+now edit certain aspects of their
+status. The PASSWORD, their
+HIGHEST MESSAGE READ (lowering this
+makes earlier messages new again),
+and their DEFAULT BAUD RATE. The
+default baud rate is any baud rate
+between 200 and 500. If this rate
+is greater then the current baud
+rate, then the system will prompt
+you to change to this rate after
+the news file is read.
+
                                         
-All disk dos commands PLUS              
-(8-11)(RETURN) change device            
-(at sign):filename- seq file reader     
-$:option- directory                     
-%:option- count files                   
-(at sign)- disk status                  
-e:filename- seq file editor. This       
-should only be used on files with less  
-then 50 lines of text.                  
-w:filename- seq file writer             
-                                        
-              M)sg Base                 
-  Complete msg base with post / reply / 
-scan / new msgs / msg editors / and     
-individual Sigs.                        
-                                        
-Post- Write a msg. If you have          
-configured a sig for 20 msgs, when      
-someone tries to post the 21st, it will 
-be written over the first.              
-Reply- Adding to a posted msg. Do do    
-this, you must have post access.        
-Scan- limited info on posted msgs       
-New msgs- scan and read newly posted    
-msgs or msgs with new replys            
-Delete msg- completely delete a msg     
-Response delete- deletes responses of a 
-msg only.                               
-Sigs- up to 50!                         
-A)ll new- read new msgs in all sigs     
-                                        
-              T)ransfer                 
-                                        
-   Upload/Download.. up to 50 UD        
-sections! Filename is guarded against   
-error causing characters. Pound signs   
-are only allowed in filename if you     
-have access 7 or higher.                
-   Download descriptions are also       
-available and are (up arrow)filename in 
-your directory.                         
-                V)ote                   
-   This section is for anonymous        
-voting. The voting section keeps track  
-of those who voted and will not allow   
-anyone to vote twice. Resetting the     
-vote box also resets this feature.      
-                                        
-              L)ibrary                  
-   Seq file reader.. and little more.   
-"txt 0" is the menu and "txt X" is the  
-filename of all text files.             
-                                        
-          The Message Maker             
-                                        
-   The built in msg maker is full of    
-helpful commands which are explained as 
-well in the default "msg mkr help" file 
-as I could ever do here.Remember, the   
-"*" must precede all commands. 50 lines 
-of 160 chars each is the limit of the   
-msg maker!                              
-           Q)Sysop Section              
-                                        
-   This section alows you to do various 
-chores of the sysop including edit      
-user, list users, reset and edit vote,  
-and the disk channel. In the edit user  
-function, you can edit most main        
-characteristics including most          
-variables (up to 10 can be used). They  
-are now used as follows:                
-0 - LSB of highest msg # read           
-1 - MSB of highest msg # read           
-2 - Default Baud Rate (below)           
-3 - uploads                             
-4 - downloads                           
-                                        
-         Personal Variables             
-High msg- this alows the user to lower  
-or raise their highest msg # read       
-pointer back so that they can read new  
-msgs from a few days ago.               
-Buad- (for 300 bauders only) This is    
-the baud rate that the computer will    
-prompt you when a user logs on.         
-Changing this pointer does not effect   
-the current baud rate.                  
-Password change- change password        
-                                        
-          Enjoy the board!              
+   I hope you enjoy the program.
+If you have ANY QUESTIONS or need
+ANY help, then you can reach me
+(untill I move) at 522-0916.
+4:30pm to 10:00pm. Or call
+The Alley BBS (690-0094 300 baud)

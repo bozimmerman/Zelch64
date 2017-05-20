@@ -2,8 +2,7 @@
         
 * = $C000
         ; .O
-        ; .S
-        ; .D \V2.2 ML1
+        ; .D \V2.3 ML1
         JMP GETIT; REM 49152
         JMP SEND; REM 49155
         JMP INPT; REM 49158
@@ -69,6 +68,13 @@ FINI
         JMP FIN1
 SEND
         JSR SAVE
+JERK
+        LDA $02A1
+        AND #$01
+        BNE JERK
+        LDA #$00
+        STA $D4
+        STA $D8
         LDA $FE
         CMP #$07
         BNE NOSOUND
@@ -88,6 +94,8 @@ STSEN
         JMP CLRGON
 STSEN1
         JSR $FFD2
+        LDA $02D0
+        BNE HALF
 STSEN2
         LDX #$05
         JSR $FFC9
@@ -115,6 +123,13 @@ THREE
         JMP HALF
 STAR
         LDA $02C6
+        BEQ GOSTAR
+        LDA $FE
+        CMP #$0D
+        BEQ GOSTAR
+        CMP #$08
+        BEQ GOSTAR
+        CMP #$14
         BEQ GOSTAR
         LDA #$2A
         RTS
@@ -208,8 +223,8 @@ CARON
         CMP #$0D
         BEQ TEND
         LDA $FB
-        CMP #$A0
-        BEQ CREEP
+        CMP #$64
+        BEQ CREEPE
         LDA $FE
         CMP #$14
         BEQ DELETE
@@ -230,6 +245,15 @@ END
 TEND
         LDA #$0D
         STA $FE
+        JSR SEND
+        JMP END
+CREEPE
+        LDA $FE
+        STA ($FB),Y
+        INC $FB
+        LDA #$03
+        STA ($FB),Y
+        INC $FB
         JSR SEND
         JMP END
 DELETE
@@ -385,7 +409,10 @@ FILES
         JSR RTINE
         LDA $FE
         CMP #$20
-        BEQ COW
+        BNE COWQ
+        JSR FILEGET
+        JMP COW
+COWQ
         CMP #$13
         BNE PISS
         JMP PAUSE
@@ -395,8 +422,15 @@ PISS
         LDX #$00
 LOPISS
         STX $CDFF
+UUUJ
         JSR $FFE4
         LDX $CDFF
+        CMP #$03
+        BNE UUJJ
+        JSR $FFE4
+        LDX $CDFF
+        JMP CSEND
+UUJJ
         STA $CD00,X
         CMP #$8E
         BNE CMPA
@@ -913,7 +947,6 @@ FGLAA
         JSR $FFE4
         JSR $FFE4
 COUNTLP
-        JSR $FFE4
         LDX $90
         BNE GOCOUNT
         CMP #$00

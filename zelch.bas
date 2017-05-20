@@ -1,5 +1,5 @@
 !--------------------------------------------------
-!- Saturday, May 20, 2017 3:11:43 AM
+!- Saturday, May 20, 2017 3:37:49 AM
 !- Import of : 
 !- c:\src\zelch64\zelch.prg
 !- Commodore 64
@@ -65,32 +65,31 @@
 600 PRINT"{clear}Loading program...{black}"
 610 PRINT"{home}{down*2}load"+CHR$(34)+"c/bbs"+CHR$(34)+",8"
 615 PRINT"{home}{down*7}run":FORI=631TO633:POKEI,13:NEXTI:POKE198,2:PRINT"{home}";:END
-680 A$="{black} h{pink}c{yellow}l{white}e{cyan}Z{light blue}    ":FORA=15TO3STEP-2:B$=B$+MID$(A$,A,1):NEXT:B$=B$+B$+B$+B$
-683 FORA=12TO1STEP-1:C$=C$+MID$(A$,A,1):NEXT
-685 PRINTCHR$(17)B$B$:GOSUB740:FORJ=1TO30:PRINTCHR$(19)TAB(J)C$;:GOSUB740:FORK=1TO4
-687 PRINTCHR$(20):NEXT:PRINTTAB(J-1)CHR$(145)" ":FORL=1TO100:NEXT:NEXT:GOSUB740
-689 GOTO685
+680 A$=" {pink}Z{yellow}e{white}l{cyan}c{light blue}h{black} ":X=1:Y=27
+683 PRINT"{home}";TAB(X);A$;"{home}";TAB(Y);A$
+685 X=X+1:Y=Y-1:IFX>YTHEN680
+687 GOSUB740:GOTO683
 690 PRINT"{clear}               {light blue}Z{cyan}e{white}l{yellow}c{pink}h"
-691 PRINT"{down*2}                {light green}BBS"
-700 PRINT"{down*2}            {yellow}Version 2.2"
+691 PRINT"{down}                {light green}BBS"
+700 PRINT"{down*3}            {yellow}Version 2.3"
 710 PRINT"{down}{white}    Copyright (C)1987 Bo Zimmerman"
 715 GOSUB1100
 720 PRINT"{down*6}{green}            RETURN{sh space}for BBS"
 730 PRINT"{light green}            (E) for Editor{black}":GOTO680
-740 GETA$
-750 IFA$=CHR$(13)THEN100
-760 IFA$<>"e"THENRETURN
+740 GETB$
+750 IFB$=CHR$(13)THEN100
+760 IFB$<>"e"THENRETURN
 770 LOAD"editor 2.2",8
 780 END
 1000 PRINTCHR$(14)+"{clear}Window installed"
 1001 LOAD"cursor",8,1
-1005 PRINT"{red}Cursor loaded"
+1005 PRINT"{pink}Cursor loaded"
 1010 LOAD"ascii table",8,1
-1015 PRINT"{purple}Ascii tables loaded"
-1020 LOAD"{pound}v2.2 ml1",8,1
-1025 PRINT"{green}System ML loaded"
-1030 LOAD"v2.2 ml2",8,1
-1035 PRINT"{pink}Interupts loaded"
+1015 PRINT"{yellow}Ascii tables loaded"
+1020 LOAD"{pound}v2.3 ml1",8,1
+1025 PRINT"{white}System ML loaded"
+1030 LOAD"v2.3 ml2",8,1
+1035 PRINT"{light blue}Interupts loaded"
 1040 POKE1,55:POKE57722,165
 1060 GOTO50
 1100 FORX=1TO8:READFH(X),FL(X):NEXT
@@ -98,7 +97,7 @@
 1120 S=54272:FORI=STOS+24:POKEI,0:NEXT
 1130 POKES+24,15:POKES+5,AD:POKES+6,SR
 1140 READN:IFN=0THENRETURN
-1150 IFN=9THENFORI=1TO125:NEXT:GOTO1140
+1150 IFN=9THENFORI=1TO75:NEXT:GOTO1140
 1160 POKES+1,FH(N):POKES,FL(N):IFWF=64THENPOKES+3,7:POKES+2,150
 1170 POKES+4,WF+1:FORT=1TO200:NEXT:POKES+4,WF:GOTO1140
 1180 DATA28,49,31,165,33,135,37,162

@@ -1,14 +1,13 @@
+        
+        
 * = $CB00
         ; .O
-        ; .S
-        ; .D V2.2 ML2
+        ; .D V2.3 ML2
         JMP CLOC1
         JMP RELOAD
 CLOC1
         JSR CLOCK
-        LDA #$00
-        STA $D4
-        STA $D8
+        JSR CRSR
         JMP $EA31
 CRSR
         LDA #$01
@@ -51,8 +50,6 @@ NXT5
         STA $D010
         RTS
 CLOCK
-        JSR CRSR
-DIP 
         LDA $02CA
         BNE LEAVE
         LDA $DD01

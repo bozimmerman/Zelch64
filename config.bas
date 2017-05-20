@@ -1,11 +1,11 @@
 !--------------------------------------------------
-!- Saturday, May 20, 2017 3:11:26 AM
+!- Saturday, May 20, 2017 3:37:40 AM
 !- Import of : 
 !- c:\src\zelch64\config.prg
 !- Commodore 64
 !--------------------------------------------------
 5 POKE55,0:POKE56,117:POKE51,0:POKE56,117
-10 POKE53280,0:POKE53281,0:PRINTCHR$(14)+"{pink}{clear}{down*2}{right*7}Zelch v2.2 Configurator"
+10 POKE53280,0:POKE53281,0:PRINTCHR$(14)+"{pink}{clear}{down*2}{right*7}Zelch v2.3 Configurator"
 20 PRINT"{down}{right*12}By:{yellow}The Zacman
 30 PRINT"{down*5}{white}{right*3}Insert a blank disk in drive 8."
 31 PRINT"{right*3}If you have more then one drive,"
@@ -22,10 +22,7 @@
 110 POKE19,65:INPUT"{home}{down*4}{yellow}Your name:";RN$:POKE19,0:IFRN$=""ORLEN(RN$)>17THEN110
 120 POKE19,65:INPUT"{home}{down*5}{white}Your fone:";PH$:POKE19,0:IFPH$=""ORLEN(PH$)>8THEN120
 130 POKE19,65:INPUT"{home}{down*6}{light green}Your pass:";PS$:POKE19,0:IFPS$=""ORLEN(PS$)>7THEN130
-135 PRINT"{home}{down*7}{green}More then one drive (y/n)?"
-136 GETA$:IFA$="n"THENN=8:GOTO140
-137 IFA$="y"THENN=9:GOTO140
-138 GOTO136
+135 N=8
 140 PRINT"{clear}{pink}Creating User log..."
 150 OPEN1,8,15:OPEN2,8,2,"{pound}userlog,l,"+CHR$(150):GOTO170
 160 PRINT#1,"p"CHR$(98)CHR$(1)CHR$(0)CHR$(I):RETURN
@@ -40,14 +37,14 @@
 231 OPEN8,8,8,"{pound}opening msg,s,w":PRINT#8,"Welcome to "+N$:CLOSE8
 232 OPEN8,8,8,"{pound}closing msg,s,w":PRINT#8,"Thanx for calling "+N$:CLOSE8
 240 OPEN8,8,8,"{pound}variables,s,w":PRINT#8,N$:PRINT#8,N:PRINT#8,"foicuseqmtvbl@"
-250 PRINT#8,"00000007554040":PRINT#8,"hsedlcvia"
-251 PRINT#8,"lcrsnqpxda":PRINT#8,"0000003770":PRINT#8,2:PRINT#8,"General"
-252 PRINT#8,0:PRINT#8,8:PRINT#8,20:PRINT#8,"BBS info":PRINT#8,2:PRINT#8,N
-253 PRINT#8,20:PRINT#8,"UD info":PRINT#8,5:PRINT#8,N:PRINT#8,20:PRINT#8,0
-254 PRINT#8,"UD section":PRINT#8,4:PRINT#8,N:FORI=1TO10:PRINT#8,I
-255 PRINT#8,4:NEXTI:CLOSE8:OPEN8,8,8,"{pound}last caller,s,w"
+250 PRINT#8,"00000007554040":PRINT#8,"hsedlcvia":PRINT#8,"lcrsnqpxda"
+251 PRINT#8,"0000003770":PRINT#8,2:PRINT#8,"General":PRINT#8,0:PRINT#8,8
+252 PRINT#8,20:PRINT#8,"BBS info":PRINT#8,2:PRINT#8,N:PRINT#8,20:PRINT#8,"UD ";
+253 PRINT#8,"info":PRINT#8,5:PRINT#8,N:PRINT#8,20:PRINT#8,0:PRINT#8,"UD section
+254 PRINT#8,4:PRINT#8,N:FORI=1TO10:PRINT#8,I:PRINT#8,4:NEXT:PRINT#8,N:
+255 PRINT#8,"$qudlca":PRINT#8,"0034003":CLOSE8:OPEN8,8,8,"{pound}last caller,s,w"
 256 PRINT#8,NA$:PRINT#8,"3:50":PRINT#8,0:PRINT#8,0:CLOSE8
-257 OPEN8,8,8,"{pound}info,s,w":PRINT#8,"This BBS runs on Zelch v2.2":CLOSE8
+257 OPEN8,8,8,"{pound}info,s,w":PRINT#8,"This BBS runs on Zelch v2.3":CLOSE8
 258 OPEN8,8,8,"{pound}newuser,s,w":PRINT#8,"Answer the following questions"
 259 CLOSE8:OPEN8,8,8,"{pound}newqs,s,w":PRINT#8,"{arrow left}Your City:":PRINT#8,"{arrow left}Your State:"
 260 PRINT#8,"{arrow left}Your Area Code:":PRINT#8,"{arrow left}Hobbys:"
@@ -61,8 +58,9 @@
 310 IFI>=9THENPRINT#8,"Q-Sysop area"
 320 PRINT#8,"F-Feedback":CLOSE8:NEXTI
 330 OPEN8,8,8,"{pound}sysopmenu,s,w":PRINT#8,"{clear}D-Disk Channel"+Q$+"L-List Users"
-340 PRINT#8,"E-Edit Users"+Q$+"Q-Quit"+Q$+"R-Reset vote"+Q$+"V-Edit vote":CLOSE8
-350 OPEN8,8,8,"{pound}msgmkr help,s,w":PRINT#8,"v1.3 commands:"
+340 PRINT#8,"E-Edit Users"+Q$+"Q-Quit"+Q$+"R-Reset vote"+Q$+"V-Edit vote"
+345 PRINT#8,"T-Edit Time/Date"+Q$+"M-Create membership list":CLOSE8
+350 OPEN8,8,8,"{pound}msgmkr help,s,w":PRINT#8,"v1.5 commands:"
 360 PRINT#8,"ex-edit line #x"+Q$+"c-clear"+Q$+"s-save"+Q$+"d-delete line(s)"
 370 PRINT#8,"ix-insert line"+Q$+"lx-list with line #'s"+Q$+"vx-view"
 380 PRINT#8,"a-abort"+Q$+"w-word wrap toggle"+Q$+"u-uppercase toggle":CLOSE8
@@ -88,8 +86,8 @@
 610 PRINT#8,"Will get their access erased":CLOSE8:OPEN8,8,8,"{pound}question,s,w"
 620 PRINT#8,"Do you like this program?":CLOSE8:OPEN8,8,8,"{pound}vote box,s,w"
 630 PRINT#8,"start":CLOSE8
-640 PRINT"{yellow}{clear}Zelch Copy-Some":PRINT"{white}01):{yellow}{pound}v2.2 ml1      :2"
-650 FI$="{pound}v2.2 ml1":GOSUB1000:
+640 PRINT"{yellow}{clear}Zelch Copy-Some":PRINT"{white}01):{yellow}{pound}v2.3 ml1      :2"
+650 FI$="{pound}v2.3 ml1":GOSUB1000:
 660 PRINT"{home}{down}{white}02):{yellow}{pound}p.protocol":FI$="{pound}p.protocol":GOSUB1000
 760 PRINT"{home}{down*5}{light green}Have Fun!":END
 1000 PRINT"{home}{down*2}Put in your SYSTEM disk (RETURN)        ":POKE198,0:FL=0:WH=0

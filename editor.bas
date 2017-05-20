@@ -1,11 +1,11 @@
 !--------------------------------------------------
-!- Saturday, May 20, 2017 3:11:36 AM
+!- Saturday, May 20, 2017 3:37:45 AM
 !- Import of : 
 !- c:\src\zelch64\editor.prg
 !- Commodore 64
 !--------------------------------------------------
-0 IFGG=0THENGG=1:DIMSG$(50),SG(50),SD(50),SF(50),UD$(20),UA(20),UV(20)
-1 POKE53280,0:POKE53281,0:PRINTCHR$(14)+"{yellow}Put Data disk in drive 8 and":CLR
+0 CLR:DIMSG$(50),SG(50),SD(50),SF(50),UD$(20),UA(20),UV(20)
+1 POKE53280,0:POKE53281,0:PRINTCHR$(14)+"{yellow}Put Data disk in drive 8 and"
 2 PRINT"hit RETURN":POKE198,0
 3 GETA$:IFA$<>CHR$(13)THEN3
 4 OPEN1,8,15:OPEN8,8,8,"{pound}variables,s,r":INPUT#8,BN$:INPUT#1,E1
@@ -13,7 +13,7 @@
 6 INPUT#8,MD,CD$,CC$,CE$,CF$,CG$,SG:FORI=0TOSG:INPUT#8,SG$(I),SG(I),SD(I),SF(I)
 7 NEXTI:INPUT#8,UD:FORI=0TOUD:INPUT#8,UD$(I),UA(I),UV(I):NEXTI
 8 FORI=0TO9:INPUT#8,CA(I),TM(I):NEXTI
-19 INPUT#8,UL:CLOSE8:CLOSE1
+19 INPUT#8,UL,CH$,CI$:CLOSE8:CLOSE1
 20 PRINT"{clear}{yellow}Menu:"
 30 PRINT"1) Main editor"
 40 PRINT"2) User editor"
@@ -127,28 +127,30 @@
 1970 GOTO1950
 1980 REM
 2050 PRINT"{clear}{yellow}Main editor:":PRINT"Name of BBS:"+BN$:PRINT"Library Device:";UL
-2060 PRINT"Mail Device:";MD:PRINT"1) Edit Main level options"
-2070 PRINT"2) Edit Msg Mkr options"
-2080 PRINT"3) Edit Msg base options"
-2090 PRINT"4) Name of BBS"
-2100 PRINT"5) Mail Device"
-2101 PRINT"6) Sig System"
-2102 PRINT"7) UD Editor"
-2103 PRINT"8) Time/Calls editor"
-2104 PRINT"9) Library Device"
+2060 PRINT"Mail Device:";MD:PRINT"0) Edit Main level options"
+2070 PRINT"1) Edit Msg Mkr options"
+2080 PRINT"2) Edit Msg base options"
+2090 PRINT"3) Name of BBS"
+2100 PRINT"4) Mail Device"
+2101 PRINT"5) Sig System"
+2102 PRINT"6) UD Editor"
+2103 PRINT"7) Time/Calls editor"
+2104 PRINT"8) Library Device"
+2105 PRINT"9) Edit UD options"
 2110 PRINT"Q) Quit"
 2120 PRINT"S) SAVE and Quit"
 2130 PRINT"{down*2}Choose:"
 2140 GETA$:IFA$="q"THEN20
-2150 IFA$="1"THEN2220
-2160 IFA$="2"THEN2660
-2170 IFA$="3"THEN2460
-2180 IFA$="4"THEN2830
-2190 IFA$="5"THEN2840
-2191 IFA$="6"THEN3000
-2192 IFA$="7"THEN4000
-2193 IFA$="8"THEN5060
-2194 IFA$="9"THEN2840
+2150 IFA$="0"THEN2220
+2160 IFA$="1"THEN2660
+2170 IFA$="2"THEN2460
+2180 IFA$="3"THEN2830
+2190 IFA$="4"THEN2840
+2191 IFA$="5"THEN3000
+2192 IFA$="6"THEN4000
+2193 IFA$="7"THEN5060
+2194 IFA$="8"THEN2840
+2195 IFA$="9"THEN5200
 2200 IFA$="s"THEN5000
 2210 GOTO2140
 2220 PRINT"{clear}Q)uit Editing"
@@ -269,7 +271,8 @@
 5020 PRINT#8,CG$:PRINT#8,SG:FORI=0TOSG:PRINT#8,SG$(I):PRINT#8,SG(I)
 5030 PRINT#8,SD(I):PRINT#8,SF(I):NEXTI:PRINT#8,UD:FORI=0TOUD:PRINT#8,UD$(I)
 5040 PRINT#8,UA(I):PRINT#8,UV(I):NEXTI:
-5050 FORI=0TO9:PRINT#8,CA(I):PRINT#8,TM(I):NEXTI:PRINT#8,UL:CLOSE8:GOTO20
+5050 FORI=0TO9:PRINT#8,CA(I):PRINT#8,TM(I):NEXTI:PRINT#8,UL:PRINT#8,CH$
+5055 PRINT#8,CI$:CLOSE8:GOTO20
 5060 PRINT"{clear}Q)uit{down*4}"
 5070 PRINT"{pink}LVL{white}/{yellow}Calls{white}/{light green}Hours{white}/{light blue}MinX10"
 5080 FORI=0TO9:PRINT"{pink}"+STR$(I)+"{white}/{yellow}"+STR$(CA(I))+"{white}/   {light green}"+STR$(INT(TM(I)/10));
@@ -282,3 +285,26 @@
 5140 INPUT"# of hours (0-12)";F:IFF>12THEN5140
 5150 INPUT"# of tens of minutes (0-5)";G:IFG>5THEN5150
 5160 TM(A)=F*10+G:GOTO5060
+5200 REM
+5220 PRINT"{clear}Q)uit Editing"
+5221 IFLEN(CH$)<7THENCH$=CH$+"l":GOTO5221
+5222 IFLEN(CI$)<7THENCI$=CI$+"0":GOTO5222
+5230 PRINT"{white}#{light green}/Function{dark gray}/Letter{light blue}/Access"
+5240 PRINT"{white}1{light green}/Directory{dark gray}/"+MID$(CH$,1,1)+"{light blue}/"+MID$(CI$,1,1)
+5250 PRINT"{white}2{light green}/Quit{dark gray}/"+MID$(CH$,2,1)+"{light blue}/"+MID$(CI$,2,1)
+5260 PRINT"{white}3{light green}/Upload{dark gray}/"+MID$(CH$,3,1)+"{light blue}/"+MID$(CI$,3,1)
+5270 PRINT"{white}4{light green}/Download{dark gray}/"+MID$(CH$,4,1)+"{light blue}/"+MID$(CI$,4,1)
+5280 PRINT"{white}5{light green}/List UDs{dark gray}/"+MID$(CH$,5,1)+"{light blue}/"+MID$(CI$,5,1)
+5290 PRINT"{white}6{light green}/Change UDs{dark gray}/"+MID$(CH$,6,1)+"{light blue}/"+MID$(CI$,6,1)
+5300 PRINT"{white}7{light green}/About File{dark gray}/"+MID$(CH$,7,1)+"{light blue}/"+MID$(CI$,7,1)
+5350 INPUT"Choice";A$:IFA$="q"THEN2050
+5360 IFVAL(A$)>14ORVAL(A$)<=0THEN5220
+5370 A=VAL(A$):I1$=LEFT$(CH$,A-1):I2$=RIGHT$(CH$,7-A):I3$=LEFT$(CI$,A-1)
+5380 I4$=RIGHT$(CI$,7-A):PRINT"{cyan}New Letter:":POKE198,0
+5390 GETA$:IFA$=""THEN5390
+5400 CH$=I1$+A$+I2$:PRINT"New Access:":POKE198,0
+5410 GETA$:IFA$=""THEN5410
+5420 IFA$="0"THEN5440
+5430 IFVAL(A$)=0THEN5410
+5440 CI$=I3$+A$+I4$:GOTO5220
+5450 END
